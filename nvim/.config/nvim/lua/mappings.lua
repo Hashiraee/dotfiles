@@ -15,6 +15,9 @@ map('n', 'x', '"_x', opt)
 -- Better Yank to end of line
 map('n', 'Y', 'y$', opt)
 
+-- Undo command with U
+map('n', 'U', '<C-r>', opt)
+
 -- Better window jumping
 map('n', '<C-h>', '<C-w><C-h>', opt)
 map('n', '<C-j>', '<C-w><C-j>', opt)
