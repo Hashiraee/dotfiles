@@ -11,7 +11,7 @@ opt.cursorline = true
 opt.mouse = "a"
 opt.signcolumn = "yes"
 opt.cmdheight = 1
-opt.updatetime = 250 -- update interval for gitsigns
+opt.updatetime = 250 -- Update interval for gitsigns
 opt.timeoutlen = 400
 
 -- File encoding and language
@@ -19,7 +19,7 @@ opt.fileencoding = 'utf-8'
 opt.spelllang = 'en_us'
 
 -- Disable startup screen
- opt.shortmess:append("sI")
+opt.shortmess:append("sI")
 
 -- Disable tilde on end of buffer
 vim.cmd("let &fcs='eob: '")
@@ -37,6 +37,9 @@ opt.smartindent = true
 opt.tabstop = 4
 opt.softtabstop = 4
 
+-- Complete options
+opt.completeopt = 'menuone,noinsert,noselect'
+
 -- Backup options
 opt.swapfile = false
 opt.backup = false
@@ -46,7 +49,7 @@ g.python3_host_prog="/usr/local/bin/python3"
 
 -- highlight yank
 vim.cmd[[
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300, on_visual=false}
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=250, on_visual=false}
 ]]
 
 -- Set undodir and directory
