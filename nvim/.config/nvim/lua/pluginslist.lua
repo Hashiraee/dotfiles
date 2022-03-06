@@ -30,16 +30,6 @@ return packer.startup(
         }
 
 
-        use
-        {
-            "norcalli/nvim-colorizer.lua",
-            event = "BufRead",
-            config = function()
-                require("plugins/others").colorizer()
-            end
-        }
-
-
         -- Treesitter
         use
         {
