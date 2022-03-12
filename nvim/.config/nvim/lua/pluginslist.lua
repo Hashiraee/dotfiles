@@ -47,11 +47,13 @@ return packer.startup(
         use
         {
             "nvim-telescope/telescope.nvim",
+            after = "plenary.nvim"
         }
 
         use
         {
-            "nvim-telescope/telescope-ui-select.nvim"
+            "nvim-telescope/telescope-ui-select.nvim",
+            after = "telescope.nvim",
         }
 
         use
@@ -199,6 +201,23 @@ return packer.startup(
                 require('spellsitter').setup()
             end
         }
+
+
+        -- Debugging stuff
+        --[[ use
+        {
+            "mfussenegger/nvim-dap",
+        }
+
+        use
+        {
+            "rcarriga/nvim-dap-ui",
+            requires = "mfussenegger/nvim-dap",
+            config = function()
+                require('dapui').setup()
+            end
+        } ]]
+
 
     end
 )

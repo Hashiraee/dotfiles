@@ -35,6 +35,16 @@ map('n', '<Leader>J', '<C-w>J', opt)
 map('n', '<Leader>K', '<C-w>K', opt)
 map('n', '<Leader>L', '<C-w>L', opt)
 
+-- Resize windows
+map('n', '<M-j>', ':resize -2<CR>', opt)
+map('n', '<M-k>', ':resize +2<CR>', opt)
+map('n', '<M-h>', ':vertical resize -2<CR>', opt)
+map('n', '<M-l>', ':vertical resize +2<CR>', opt)
+
+-- Switching between buffers with tab in normal mode
+map('n', '<TAB>', ':bnext<CR>', opt)
+map('n', '<S-TAB>', ':bprevious<CR>', opt)
+
 -- Better indenting
 map('v', '<', '<gv', opt)
 map('v', '>', '>gv', opt)
