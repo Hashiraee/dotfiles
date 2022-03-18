@@ -37,6 +37,11 @@ return packer.startup(
             run = ":TSUpdate",
         }
 
+        use
+        {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        }
+
 
         -- Telescope
         use
@@ -178,14 +183,6 @@ return packer.startup(
         }
 
 
-        -- Rust tools
-        use
-        {
-            "simrat39/rust-tools.nvim",
-            ft = 'rust',
-        }
-
-
         -- LaTeX (vimtex)
         use
         {
@@ -203,20 +200,14 @@ return packer.startup(
         }
 
 
-        -- Debugging stuff
-        --[[ use
-        {
-            "mfussenegger/nvim-dap",
-        }
-
+        -- Use indentlines
         use
         {
-            "rcarriga/nvim-dap-ui",
-            requires = "mfussenegger/nvim-dap",
+            "lukas-reineke/indent-blankline.nvim",
             config = function()
-                require('dapui').setup()
+                require('plugins/indent-blankline')
             end
-        } ]]
+        }
 
 
     end

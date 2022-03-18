@@ -18,6 +18,9 @@ map('n', 'Y', 'y$', opt)
 -- Undo command with U
 map('n', 'U', '<C-r>', opt)
 
+-- Unmap space in normal mode
+map('n', '<Space>', '', opt)
+
 -- Better window jumping
 map('n', '<C-h>', '<C-w><C-h>', opt)
 map('n', '<C-j>', '<C-w><C-j>', opt)
@@ -76,6 +79,7 @@ map('n', '<Leader>fb', ':Telescope buffers<CR>', opt)
 map('n', '<Leader>fh', ':Telescope help_tags<CR>', opt)
 map('n', '<Leader>fo', ':Telescope oldfiles<CR>', opt)
 map('n', '<Leader>fg', ':Telescope live_grep<CR>', opt)
+map('n', '<Leader>fc', ':Telescope current_buffer_fuzzy_find<CR>', opt)
 
 -- Bufferline tab options
 map('n', '<M-t>', ':tabnew<CR>', opt) -- new tab

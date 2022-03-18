@@ -3,10 +3,8 @@ if not present then
     return
 end
 
-ts_config.setup
-{
-    ensure_installed =
-    {
+ts_config.setup {
+    ensure_installed = {
         "bash",
         "lua",
         "python",
@@ -15,19 +13,29 @@ ts_config.setup
         "latex",
     },
 
-    highlight =
-    {
+    highlight = {
         enable = true,
         use_languagetree = true
     },
 
-    autopairs =
-    {
+    autopairs = {
         enable = true,
     },
 
-    context_commentstring =
-    {
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+            },
+        },
+    },
+
+    context_commentstring = {
         enable = true,
         enable_autocmd = false,
     },

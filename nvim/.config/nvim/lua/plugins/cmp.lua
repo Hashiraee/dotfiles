@@ -59,6 +59,7 @@ cmp.setup {
 
   formatting = {
     format = lspkind.cmp_format {
+      max_width = 50,
       mode = 'symbol_text',
       menu = {
         buffer = "(Buf)",

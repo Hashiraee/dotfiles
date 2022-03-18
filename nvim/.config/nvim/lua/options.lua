@@ -3,7 +3,10 @@ local g = vim.g
 
 opt.hidden = true
 opt.ruler = false
+
 opt.ignorecase = true
+opt.smartcase = true
+
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
@@ -63,6 +66,7 @@ opt.whichwrap:append("<>hl")
 
 -- Mapping leader key to space
 g.mapleader = " "
+g.maplocalleader = " "
 
 local M = {}
 function M.is_buffer_empty()

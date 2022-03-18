@@ -34,3 +34,6 @@ require('plugins/bufferline')
 
 -- Statusline
 require('plugins/statusline')
+
+-- BlankLine
+require('plugins/indent-blankline')

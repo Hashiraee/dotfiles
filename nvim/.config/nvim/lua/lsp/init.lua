@@ -6,6 +6,3 @@ end
 
 require("lsp/lsp-installer")
 require("lsp/handlers").setup()
-
--- Rust tools setup
--- require("rust-tools").setup()
