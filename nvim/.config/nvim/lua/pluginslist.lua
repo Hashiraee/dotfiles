@@ -19,14 +19,14 @@ return packer.startup(
         -- Impatient nvim, reduce start-up
         use
         {
-            'lewis6991/impatient.nvim'
+            "lewis6991/impatient.nvim",
         }
 
 
         -- Colorschemes
         use
         {
-            'catppuccin/nvim'
+            "catppuccin/nvim",
         }
 
 
@@ -35,11 +35,15 @@ return packer.startup(
         {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
+            config = function()
+                require("plugins/treesitter")
+            end
         }
 
         use
         {
             "nvim-treesitter/nvim-treesitter-textobjects",
+            after = "nvim-treesitter",
         }
 
 
@@ -52,7 +56,10 @@ return packer.startup(
         use
         {
             "nvim-telescope/telescope.nvim",
-            after = "plenary.nvim"
+            after = "plenary.nvim",
+            config = function()
+                require("plugins/telescope")
+            end
         }
 
         use
@@ -85,6 +92,9 @@ return packer.startup(
         use
         {
             "hrsh7th/nvim-cmp",
+            config = function()
+                require("plugins/cmp")
+            end
         }
 
         use
@@ -99,23 +109,43 @@ return packer.startup(
 
         use
         {
-            "saadparwaiz1/cmp_luasnip"
+            "saadparwaiz1/cmp_luasnip",
+            after = "nvim-cmp",
         }
 
         -- Luasnip
-        use "L3MON4D3/LuaSnip"
+        use
+        {
+            "L3MON4D3/LuaSnip",
+            after = "nvim-cmp",
+            config = function()
+                require("plugins/snippets")
+            end
+        }
 
         -- Lspkind
-        use "onsails/lspkind-nvim"
+        use
+        {
+            "onsails/lspkind-nvim",
+        }
 
         -- Autopairs
-        use "windwp/nvim-autopairs"
+        use
+        {
+            "windwp/nvim-autopairs",
+            config = function()
+                require("plugins/autopairs")
+            end
+        }
 
 
         -- Nvim File Tree
         use
         {
             "kyazdani42/nvim-tree.lua",
+            config = function()
+                require("plugins/nvimtree")
+            end,
         }
 
         use
@@ -149,6 +179,9 @@ return packer.startup(
         use
         {
             "akinsho/bufferline.nvim",
+            config = function()
+                require("plugins/bufferline")
+            end
         }
 
 
@@ -176,7 +209,7 @@ return packer.startup(
         -- Comment plugin
         use
         {
-            'numToStr/Comment.nvim',
+            "numToStr/Comment.nvim",
             config = function()
                 require("Comment").setup()
             end
@@ -186,16 +219,17 @@ return packer.startup(
         -- LaTeX (vimtex)
         use
         {
-            'lervag/vimtex', ft = 'tex'
+            "lervag/vimtex",
+            ft = "tex",
         }
 
 
         -- Spellsitter
         use
         {
-            'lewis6991/spellsitter.nvim',
+            "lewis6991/spellsitter.nvim",
             config = function()
-                require('spellsitter').setup()
+                require("spellsitter").setup()
             end
         }
 
@@ -205,7 +239,7 @@ return packer.startup(
         {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
-                require('plugins/indent-blankline')
+                require("plugins/indent-blankline")
             end
         }
 

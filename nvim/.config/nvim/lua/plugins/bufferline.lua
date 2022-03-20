@@ -7,7 +7,7 @@ bufferline.setup
 {
     options =
     {
-        offsets = {{filetype = "NvimTree", text = "File Explorer", padding = 1}},
+        offsets = {{filetype = "NvimTree", text = "File Explorer", padding = 0}},
         modified_icon = "",
         left_trunc_marker = "",
         right_trunc_marker = "",

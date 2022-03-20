@@ -15,25 +15,3 @@ require('colorscheme')
 
 -- Plugins
 require('pluginslist')
-
--- Treesitter
-require('plugins/treesitter')
-
--- Telescope
-require('plugins/telescope')
-
--- Completion
-require('plugins/cmp')
-require('plugins/autopairs')
-
--- Nvim File Tree
-require('plugins/nvimtree')
-
--- Buffers / Tabs
-require('plugins/bufferline')
-
--- Statusline
-require('plugins/statusline')
-
--- BlankLine
-require('plugins/indent-blankline')
