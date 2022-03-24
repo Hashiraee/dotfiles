@@ -223,6 +223,21 @@ return packer.startup(
             ft = "tex",
         }
 
+        use
+        {
+            "SirVer/ultisnips",
+            ft = "tex",
+        }
+
+        use
+        {
+            "quangnguyen30192/cmp-nvim-ultisnips",
+            ft = "tex",
+            config = function()
+                require("cmp_nvim_ultisnips").setup()
+            end
+        }
+
 
         -- Spellsitter
         use

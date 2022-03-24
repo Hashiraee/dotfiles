@@ -21,6 +21,9 @@ map('n', 'U', '<C-r>', opt)
 -- Unmap space in normal mode
 map('n', '<Space>', '', opt)
 
+-- Use leader w to write
+map('n', '<Leader>w', '<cmd>w<Cr>', opt)
+
 -- Better window jumping
 map('n', '<C-h>', '<C-w><C-h>', opt)
 map('n', '<C-j>', '<C-w><C-j>', opt)
@@ -39,10 +42,10 @@ map('n', '<Leader>K', '<C-w>K', opt)
 map('n', '<Leader>L', '<C-w>L', opt)
 
 -- Resize windows
-map('n', '<M-j>', ':resize -2<CR>', opt)
-map('n', '<M-k>', ':resize +2<CR>', opt)
-map('n', '<M-h>', ':vertical resize -2<CR>', opt)
-map('n', '<M-l>', ':vertical resize +2<CR>', opt)
+-- map('n', '', ':resize -2<CR>', opt)
+-- map('n', '', ':resize +2<CR>', opt)
+-- map('n', '', ':vertical resize -2<CR>', opt)
+-- map('n', '', ':vertical resize +2<CR>', opt)
 
 -- Switching between buffers with tab in normal mode
 map('n', '<TAB>', ':bnext<CR>', opt)

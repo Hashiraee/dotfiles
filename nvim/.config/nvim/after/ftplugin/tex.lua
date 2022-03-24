@@ -17,4 +17,10 @@ let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
 
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
+
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']
+
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 ]]
