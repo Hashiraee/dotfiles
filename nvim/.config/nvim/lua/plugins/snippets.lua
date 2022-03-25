@@ -128,9 +128,9 @@ ls.snippets = {
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-map("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-map("s", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-map("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
-map("s", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+map("i", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+map("s", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+map("i", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+map("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
 
 map("n", "<Leader>gl", "<cmd>source ~/.dotfiles/nvim/.config/nvim/lua/plugins/snippets.lua<CR>", opts)

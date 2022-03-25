@@ -21,14 +21,12 @@ map('n', 'U', '<C-r>', opt)
 -- Unmap space in normal mode
 map('n', '<Space>', '', opt)
 
+-- Remap weird behaviour select-mode
+map('s', 'p', 'p', opt)
+
 -- Use leader w to write
 map('n', '<Leader>w', '<cmd>w<Cr>', opt)
 
--- Better window jumping
-map('n', '<C-h>', '<C-w><C-h>', opt)
-map('n', '<C-j>', '<C-w><C-j>', opt)
-map('n', '<C-k>', '<C-w><C-k>', opt)
-map('n', '<C-l>', '<C-w><C-l>', opt)
 -- With leader
 map('n', '<Leader>h', '<C-w><C-h>', opt)
 map('n', '<Leader>j', '<C-w><C-j>', opt)
@@ -46,10 +44,6 @@ map('n', '<Leader>L', '<C-w>L', opt)
 -- map('n', '', ':resize +2<CR>', opt)
 -- map('n', '', ':vertical resize -2<CR>', opt)
 -- map('n', '', ':vertical resize +2<CR>', opt)
-
--- Switching between buffers with tab in normal mode
-map('n', '<TAB>', ':bnext<CR>', opt)
-map('n', '<S-TAB>', ':bprevious<CR>', opt)
 
 -- Better indenting
 map('v', '<', '<gv', opt)
@@ -83,10 +77,6 @@ map('n', '<Leader>fh', ':Telescope help_tags<CR>', opt)
 map('n', '<Leader>fo', ':Telescope oldfiles<CR>', opt)
 map('n', '<Leader>fg', ':Telescope live_grep<CR>', opt)
 map('n', '<Leader>fc', ':Telescope current_buffer_fuzzy_find<CR>', opt)
-
--- Bufferline tab options
-map('n', '<M-t>', ':tabnew<CR>', opt) -- new tab
-map('n', '<M-w>', ':bd!<CR>', opt) -- close tab
 
 -- Move between tabs
 map('n', '<M-p>', ':BufferLineCyclePrev<CR>', opt)
