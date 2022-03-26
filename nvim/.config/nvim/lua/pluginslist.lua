@@ -139,15 +139,7 @@ return packer.startup(
         }
 
 
-        -- Nvim File Tree
-        use
-        {
-            "kyazdani42/nvim-tree.lua",
-            config = function()
-                require("plugins/nvimtree")
-            end,
-        }
-
+        -- Nerd icons
         use
         {
             "kyazdani42/nvim-web-devicons",

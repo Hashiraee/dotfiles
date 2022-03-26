@@ -65,9 +65,6 @@ map('n', 'J', 'mzJ`z', opt)
 -- Disable useless binding
 map('n', 'Q', '', opt)
 
--- NvimTree
-map('n', '<C-n>', ':NvimTreeToggle<CR>', opt)
-
 -- Telescope
 map('n', '<Leader>gs', ':Telescope git_status <CR>', opt)
 map('n', '<Leader>gc', ':Telescope git_commits <CR>', opt)

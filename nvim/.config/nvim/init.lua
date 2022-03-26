@@ -5,7 +5,6 @@ require('impatient')
 require('options')
 require('mappings')
 require('globals')
-require('utils').hide()
 
 -- LSP
 require('lsp')
