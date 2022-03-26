@@ -17,6 +17,13 @@ opt.cmdheight = 1
 opt.updatetime = 250 -- Update interval for gitsigns
 opt.timeoutlen = 400
 
+-- Netrw options
+g.netrw_banner = 0
+g.netrw_liststyle = 1
+g.netrw_browse_split = 4
+g.netrw_altv = 1
+g.netrw_winsize = 30
+
 -- File encoding and language
 opt.fileencoding = 'utf-8'
 opt.spelllang = 'en_us'

@@ -8,8 +8,6 @@ if not snip_status_ok then
     return
 end
 
-require("luasnip/loaders/from_vscode").lazy_load()
-
 local lspkind_status_ok, lspkind = pcall(require, "lspkind")
 if not lspkind_status_ok then
     return
@@ -77,10 +75,10 @@ cmp.setup {
   },
 
   sources = {
+    { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "luasnip" },
     { name = "buffer" },
     { name = "gh_issues" },
   },
@@ -92,11 +90,11 @@ cmp.setup {
 
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
   },
 
   experimental = {
     ghost_text = false,
     native_menu = false,
   },
-
 }

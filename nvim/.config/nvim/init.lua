@@ -1,16 +1,16 @@
 -- Impatient
-require('impatient')
+require("impatient")
 
 -- Basic settings
-require('options')
-require('mappings')
-require('globals')
+require("options")
+require("mappings")
+require("globals")
 
 -- LSP
-require('lsp')
+require("lsp")
 
 -- Colorscheme
-require('colorscheme')
+require("colorscheme")
 
 -- Plugins
-require('pluginslist')
+require("pluginslist")

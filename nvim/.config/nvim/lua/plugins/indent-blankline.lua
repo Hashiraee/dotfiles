@@ -8,4 +8,7 @@ indent_blankline.setup {
     show_trailing_blankline_indent = false,
     show_end_of_line = false,
     use_treesitter = true,
+
+    filetype_exclude = { "help", "packer" },
+    buftype_exclude = { "terminal", "nofile", "toggleterm" },
 }
