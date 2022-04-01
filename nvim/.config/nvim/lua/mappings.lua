@@ -15,29 +15,20 @@ map('n', 'x', '"_x', opt)
 -- Better Yank to end of line
 map('n', 'Y', 'y$', opt)
 
--- Undo command with U
-map('n', 'U', '<C-r>', opt)
-
 -- Unmap space in normal mode
 map('n', '<Space>', '', opt)
 
 -- Remap weird behaviour select-mode
 map('s', 'p', 'p', opt)
 
--- Use leader w to write
-map('n', '<Leader>w', '<cmd>w<Cr>', opt)
+-- With comma remap windows
+map('n', ',h', '<C-w><C-h>', opt)
+map('n', ',j', '<C-w><C-j>', opt)
+map('n', ',k', '<C-w><C-k>', opt)
+map('n', ',l', '<C-w><C-l>', opt)
 
--- With leader
-map('n', '<Leader>h', '<C-w><C-h>', opt)
-map('n', '<Leader>j', '<C-w><C-j>', opt)
-map('n', '<Leader>k', '<C-w><C-k>', opt)
-map('n', '<Leader>l', '<C-w><C-l>', opt)
-
--- Better window placement
-map('n', '<Leader>H', '<C-w>H', opt)
-map('n', '<Leader>J', '<C-w>J', opt)
-map('n', '<Leader>K', '<C-w>K', opt)
-map('n', '<Leader>L', '<C-w>L', opt)
+-- Remap ,, to ,
+map('n', ',,', ',', opt)
 
 -- Resize windows
 -- map('n', '', ':resize -2<CR>', opt)
@@ -53,9 +44,16 @@ map('v', '>', '>gv', opt)
 map('n', '<M-j>', ':m .+1<CR>==', opt)
 map('n', '<M-k>', ':m .-2<CR>==', opt)
 
+-- Move current line/selection in insert mode
+map('i', '<M-j>', "<Esc>:m .+1<CR>==gi", opt)
+map('i', '<M-k>', "<Esc>:m .-2<CR>==gi", opt)
+
 -- Move current line/selection in visual mode
 map('v', '<M-j>', ":m '>+1<CR>gv-gv", opt)
 map('v', '<M-k>', ":m '<-2<CR>gv-gv", opt)
+
+-- Use ESC to turn off search highlighting
+map('n', '<Esc>', ':noh<CR>', opt)
 
 -- Keep search centered
 map('n', 'n', 'nzzzv', opt)
@@ -64,6 +62,9 @@ map('n', 'J', 'mzJ`z', opt)
 
 -- Disable useless binding
 map('n', 'Q', '', opt)
+
+-- Map :W to :w
+-- vim.api.nvim_add_user_command("W", ":w", {})
 
 -- Telescope
 map('n', '<Leader>gs', ':Telescope git_status <CR>', opt)
@@ -76,8 +77,8 @@ map('n', '<Leader>fg', ':Telescope live_grep<CR>', opt)
 map('n', '<Leader>fc', ':Telescope current_buffer_fuzzy_find<CR>', opt)
 
 -- Move between tabs
-map('n', '<M-p>', ':BufferLineCyclePrev<CR>', opt)
-map('n', '<M-n>', ':BufferLineCycleNext<CR>', opt)
+map('n', '<Tab>', ':BufferLineCyclePrev<CR>', opt)
+map('n', '<S-Tab>', ':BufferLineCycleNext<CR>', opt)
 
--- Use ESC to turn off search highlighting
-map('n', '<Esc>', ':noh<CR>', opt)
+-- Vimtex
+map('n', '<C-S>', ':VimtexCompile<CR>', opt)

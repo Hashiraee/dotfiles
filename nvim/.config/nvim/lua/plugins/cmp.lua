@@ -13,6 +13,7 @@ if not lspkind_status_ok then
     return
 end
 
+require("luasnip.loaders.from_lua").load({paths="~/.config/nvim/lua/snippets"})
 
 cmp.setup {
   snippet = {
@@ -75,9 +76,9 @@ cmp.setup {
   },
 
   sources = {
-    { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
+    { name = "luasnip" },
     { name = "path" },
     { name = "buffer" },
     { name = "gh_issues" },

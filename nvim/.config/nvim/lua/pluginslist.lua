@@ -117,10 +117,6 @@ return packer.startup(
         use
         {
             "L3MON4D3/LuaSnip",
-            after = "nvim-cmp",
-            config = function()
-                require("plugins/snippets")
-            end
         }
 
         -- Lspkind
@@ -226,7 +222,7 @@ return packer.startup(
             "quangnguyen30192/cmp-nvim-ultisnips",
             ft = "tex",
             config = function()
-                require("cmp_nvim_ultisnips").setup()
+                require("cmp_nvim_ultisnips").setup({})
             end
         }
 

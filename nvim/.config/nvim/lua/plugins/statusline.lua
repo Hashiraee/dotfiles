@@ -21,7 +21,7 @@ local icon_styles = {
   block = {
     left = " ",
     right = " ",
-    main_icon = "   ",
+    main_icon = "  ",
     vi_mode_icon = "  ",
     position_icon = "  ",
   },
@@ -86,7 +86,7 @@ components.active[1][2] = {
       icon = " "
       return icon
     end
-    return " " .. icon .. " " .. filename .. " "
+    return " " .. icon .. " " .. filename .. "  "
   end,
   hl = {
     fg = colors.white,
@@ -95,25 +95,25 @@ components.active[1][2] = {
 
   right_sep = {
     str = statusline_style.right,
-    hl = { fg = colors.black3, bg = colors.linecolor },
+    hl = { fg = colors.black1, bg = colors.black1 },
   },
 }
 
 components.active[1][3] = {
   provider = function()
     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    return "  " .. dir_name .. " "
+    return "  " .. dir_name .. "  "
   end,
 
   hl = {
     fg = colors.white,
-    bg = colors.linecolor,
+    bg = colors.black1,
   },
 
   right_sep = {
     str = statusline_style.right,
     hl = {
-      fg = colors.black2,
+      fg = colors.black1,
       bg = colors.black1,
     },
   },
@@ -250,7 +250,7 @@ components.active[3][1] = {
 components.active[3][2] = {
   provider = "git_branch",
   hl = {
-    fg = colors.yellow,
+    fg = colors.white,
     bg = colors.black1,
   },
   icon = "  ",
