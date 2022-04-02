@@ -314,7 +314,7 @@ live_config_reload: true
 #  Shell
 #-------
 shell:
-  program: /bin/zsh
+  program: /usr/local/bin/fish
   args:
     - --login
 
