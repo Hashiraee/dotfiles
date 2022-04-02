@@ -61,7 +61,10 @@ ls.add_snippets("all",
 	s("autotrig",
     {
 		t("autotriggered!"),
-	}),
+	}, {
+        condition = conds.line_begin,
+    }),
+
 },
 {
 	type = "autosnippets",
@@ -79,10 +82,14 @@ ls.add_snippets("lua",
         rep(1),
         t("\")"),
         i(0),
-	}),
+	},
+    {
+        condition = conds.line_begin,
+    }),
 },
 {
-    condition = conds.line_begin,
+	type = "autosnippets",
+	key = "all_auto",
 })
 
 
@@ -148,10 +155,16 @@ ls.add_snippets("rust",
 )
 
 
+ls.add_snippets("tex",
+{},
+{})
+
+require("snippets.ft.tex")
+
 ls.filetype_extend("lua", {})
 
 -- see DOC.md/LUA SNIPPETS LOADER for some details.
-require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "rust" } })
+require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "rust", "tex" } })
 
 -- Keymappings for snippets
 local map = vim.api.nvim_set_keymap
