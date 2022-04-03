@@ -155,10 +155,6 @@ ls.add_snippets("rust",
 )
 
 
-ls.add_snippets("tex",
-{},
-{})
-
 require("snippets.ft.tex")
 
 ls.filetype_extend("lua", {})

@@ -19,10 +19,6 @@ cmp.setup {
   snippet = {
       expand = function(args)
           luasnip.lsp_expand(args.body)
-
-          -- if vim.bo.filetype == "tex" then
-          --   vim.fn["UltiSnips#Anon"](args.body)
-          -- end
       end,
   },
 

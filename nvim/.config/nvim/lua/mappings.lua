@@ -15,6 +15,10 @@ map('n', 'x', '"_x', opt)
 -- Better Yank to end of line
 map('n', 'Y', 'y$', opt)
 
+-- Yank to system clipboard
+map('v', '<C-Y>', '"*y', opt)
+map('n', '<C-Y>', '"*y', opt)
+
 -- Unmap space in normal mode
 map('n', '<Space>', '', opt)
 
