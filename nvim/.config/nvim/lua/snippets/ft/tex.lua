@@ -150,19 +150,12 @@ ls.add_snippets("tex",
         condition = tex.in_text,
     }),
 
-
-    s("dm",
-    {
-        t({ "\\[", "\t" }), i(1), t({"\\] "}), i(0),
-    },
-    {
-        condition = tex.in_text and conds.line_begin,
-    }),
 },
 {
     type = "autosnippets",
     key = "all_auto",
 })
+
 
 ls.add_snippets("tex", {
 
