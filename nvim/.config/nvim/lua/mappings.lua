@@ -16,29 +16,20 @@ map('n', 'x', '"_x', opt)
 map('n', 'Y', 'y$', opt)
 
 -- Yank to system clipboard
-map('v', '<C-Y>', '"*y', opt)
-map('n', '<C-Y>', '"*y', opt)
+map('v', '<Leader>y', '"*y', {noremap = true, silent = false})
+map('n', '<Leader>y', '"*y', {noremap = true, silent = false})
+
+-- Put from system clipboard below
+map('n', '<Leader>p', '"*p', {noremap = true, silent = false})
+
+-- Put from system keyboard above
+map('n', '<Leader>p', '"*P', {noremap = true, silent = false})
 
 -- Unmap space in normal mode
 map('n', '<Space>', '', opt)
 
 -- Remap weird behaviour select-mode
 map('s', 'p', 'p', opt)
-
--- With comma remap windows
-map('n', ',h', '<C-w><C-h>', opt)
-map('n', ',j', '<C-w><C-j>', opt)
-map('n', ',k', '<C-w><C-k>', opt)
-map('n', ',l', '<C-w><C-l>', opt)
-
--- Remap ,, to ,
-map('n', ',,', ',', opt)
-
--- Resize windows
--- map('n', '', ':resize -2<CR>', opt)
--- map('n', '', ':resize +2<CR>', opt)
--- map('n', '', ':vertical resize -2<CR>', opt)
--- map('n', '', ':vertical resize +2<CR>', opt)
 
 -- Better indenting
 map('v', '<', '<gv', opt)
@@ -67,22 +58,42 @@ map('n', 'J', 'mzJ`z', opt)
 -- Disable useless binding
 map('n', 'Q', '', opt)
 
--- Map :W to :w
--- vim.api.nvim_add_user_command("W", ":w", {})
+-- Close all buffers except current
+map('n', '<Leader>o', '<Cmd>%bd|e#|bd#<CR>', opt)
 
 -- Telescope
 map('n', '<Leader>gs', ':Telescope git_status <CR>', opt)
 map('n', '<Leader>gc', ':Telescope git_commits <CR>', opt)
-map('n', '<Leader>ff', ':Telescope find_files<CR>', opt)
-map('n', '<Leader>fb', ':Telescope buffers<CR>', opt)
-map('n', '<Leader>fh', ':Telescope help_tags<CR>', opt)
-map('n', '<Leader>fo', ':Telescope oldfiles<CR>', opt)
-map('n', '<Leader>fg', ':Telescope live_grep<CR>', opt)
-map('n', '<Leader>fc', ':Telescope current_buffer_fuzzy_find<CR>', opt)
+map('n', '<Leader>f', ':Telescope find_files<CR>', opt)
+map('n', '<Leader>b', ':Telescope buffers<CR>', opt)
+map('n', '<Leader>h', ':Telescope help_tags<CR>', opt)
+map('n', '<Leader>\\', ':Telescope live_grep<CR>', opt)
+map('n', '<Leader>c', ':Telescope current_buffer_fuzzy_find<CR>', opt)
+map('n', '<Leader>s', ':Telescope lsp_document_symbols<CR>', opt)
+map('n', '<Leader>S', ':Telescope lsp_workspace_symbols<CR>', opt)
 
 -- Move between tabs
-map('n', '<Tab>', ':BufferLineCyclePrev<CR>', opt)
-map('n', '<S-Tab>', ':BufferLineCycleNext<CR>', opt)
+map('n', 'gn', ':BufferLineCycleNext<CR>', opt)
+map('n', 'gp', ':BufferLineCyclePrev<CR>', opt)
 
--- Vimtex
-map('n', '<C-S>', ':VimtexCompile<CR>', opt)
+-- Go to the end of file
+map('n', 'ge', 'G', opt)
+
+-- Go to the begin of line
+map('n', 'gh', '0', opt)
+
+-- Go to end of line
+map('n', 'gl', '$', opt)
+
+-- Go the begin first non-blank character
+map('n', 'gs', '^', opt)
+
+-- Remap window actions
+map('n', '<Leader>w', '<C-w>', opt)
+
+-- Mapping to insert newline in normal mode
+map('n', '[<Leader>', 'O<Esc>', opt)
+map('n', ']<Leader>', 'o<Esc>', opt)
+
+-- Map :W to :w
+-- vim.api.nvim_add_user_command("W", ":w", {})

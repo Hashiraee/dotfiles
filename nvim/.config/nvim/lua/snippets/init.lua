@@ -156,8 +156,8 @@ ls.add_snippets("rust",
 
 
 require("snippets.ft.tex")
+require("snippets.ft.lua")
 
-ls.filetype_extend("lua", {})
 
 -- see DOC.md/LUA SNIPPETS LOADER for some details.
 require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "rust", "tex" } })
