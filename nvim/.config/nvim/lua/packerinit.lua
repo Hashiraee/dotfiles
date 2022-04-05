@@ -6,14 +6,14 @@ if not present then
     -- Remove the dir before cloning
     vim.fn.delete(packer_path, "rf")
     vim.fn.system(
-        {
-            "git",
-            "clone",
-            "https://github.com/wbthomason/packer.nvim",
-            "--depth",
-            "20",
-            packer_path
-        }
+    {
+        "git",
+        "clone",
+        "https://github.com/wbthomason/packer.nvim",
+        "--depth",
+        "20",
+        packer_path
+    }
     )
 
     present, packer = pcall(require, "packer")

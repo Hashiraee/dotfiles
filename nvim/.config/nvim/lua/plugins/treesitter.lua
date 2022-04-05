@@ -34,7 +34,7 @@ ts_config.setup {
             },
         },
 
-        
+
         move = {
             enable = true,
             set_jumps = true,

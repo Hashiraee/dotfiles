@@ -5,16 +5,16 @@ end
 
 npairs.setup
 {
-  check_ts = true,
+    check_ts = true,
 
-  ts_config =
-  {
-    lua = { "string", "source" },
-  },
+    ts_config =
+    {
+        lua = { "string", "source" },
+    },
 
-  disable_filetype = { "TelescopePrompt", "vim" },
+    disable_filetype = { "TelescopePrompt", "vim" },
 
-  fast_wrap = {},
+    fast_wrap = {},
 }
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

@@ -3,7 +3,7 @@ if not present then
     return
 end
 
-local global_theme = "themes/nord"
+local global_theme = "themes/catppuccin"
 local colors = require(global_theme)
 
 icons.setup

@@ -28,28 +28,28 @@ local conds = require("luasnip.extras.expand_conditions")
 
 ls.config.set_config(
 {
-	history = true,
-	update_events = "TextChanged,TextChangedI",
-	delete_check_events = "TextChanged, InsertLeave",
-	enable_autosnippets = true,
+    history = true,
+    update_events = "TextChanged,TextChangedI",
+    delete_check_events = "TextChanged, InsertLeave",
+    enable_autosnippets = true,
 
-	ext_opts =
+    ext_opts =
     {
-		[types.choiceNode] =
+        [types.choiceNode] =
         {
-			active =
+            active =
             {
-				virt_text = { { "choiceNode", "Comment" } },
-			},
-		},
-	},
-	ext_base_prio = 300,
-	ext_prio_increase = 1,
+                virt_text = { { "choiceNode", "Comment" } },
+            },
+        },
+    },
+    ext_base_prio = 300,
+    ext_prio_increase = 1,
 })
 
 
 local function copy(args)
-	return args[1]
+    return args[1]
 end
 
 
@@ -58,38 +58,38 @@ ls.add_snippets("all", {}, {})
 
 ls.add_snippets("all",
 {
-	s("autotrig",
+    s("autotrig",
     {
-		t("autotriggered!"),
-	}, {
+        t("autotriggered!"),
+    }, {
         condition = conds.line_begin,
     }),
 
 },
 {
-	type = "autosnippets",
-	key = "all_auto",
+    type = "autosnippets",
+    key = "all_auto",
 })
 
 
 ls.add_snippets("lua",
 {
-	s("req",
+    s("req",
     {
-		t("local "),
+        t("local "),
         i(1, "arg"),
-		t(" = require(\""),
+        t(" = require(\""),
         rep(1),
         t("\")"),
         i(0),
-	},
+    },
     {
         condition = conds.line_begin,
     }),
 },
 {
-	type = "autosnippets",
-	key = "all_auto",
+    type = "autosnippets",
+    key = "all_auto",
 })
 
 
@@ -98,56 +98,56 @@ ls.add_snippets("rust",
     s(
         "allow",
         fmt(
-            [[
-                #![allow({})]{}
-            ]],
-            {
-                i(1, "args"),
-                i(0),
-            }
+        [[
+            #![allow({})]{}
+        ]],
+        {
+            i(1, "args"),
+            i(0),
+        }
         )
     ),
 
     s(
         "allowduu",
         fmt(
-            [[
-                #![allow(dead_code, unused_imports, unused_variables)]{}
-            ]],
-            { i(0) }
+        [[
+            #![allow(dead_code, unused_imports, unused_variables)]{}
+        ]],
+        { i(0) }
         )
     ),
 
     s(
         "derive",
         fmt(
-            [[
-                #[derive({})]{}
-            ]],
-            {
-                i(1, "args"),
-                i(0),
-            }
+        [[
+            #[derive({})]{}
+        ]],
+        {
+            i(1, "args"),
+            i(0),
+        }
         )
     ),
 
     s(
         "derivedebug",
         fmt(
-            [[
-                #[derive(Debug)]{}
-            ]],
-            { i(0) }
+        [[
+            #[derive(Debug)]{}
+        ]],
+        { i(0) }
         )
     ),
 
     s(
         "assert",
         fmt(
-            [[
-                assert_eq!({}, {});{}
-            ]],
-            { i(1, "left"), i(2, "right"), i(0) }
+        [[
+            assert_eq!({}, {});{}
+        ]],
+        { i(1, "left"), i(2, "right"), i(0) }
         )
     ),
 },
