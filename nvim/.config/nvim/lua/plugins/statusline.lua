@@ -364,6 +364,7 @@ components.active[3][10] = {
         bg = colors.black1,
     },
 }
+
 components.inactive = components.active
 
 require("feline").setup({
@@ -371,5 +372,6 @@ require("feline").setup({
         bg = colors.black1,
         fg = colors.black1,
     },
+
     components = components,
 })
