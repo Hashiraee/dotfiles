@@ -21,51 +21,60 @@ local lua = {}
 
 ls.add_snippets("lua",
 {
-    --[[ s(
+    s(
     {
         trig = "Some", wordTrig = false,
     },
     {
         t({"Something"}),
     },
-    {}), ]]
+    {}),
 
 
-    --[[ s(
+    s(
     {
         trig = "%d", regTrig = true,
     },
     {
         t({"A Number"}),
     },
-    {}), ]]
+    {}),
 
 
-    --[[ s(
+    s(
 	{ trig = "a%d", regTrig = true },
 		f(function(_, snip)
 			return "Triggered with " .. snip.trigger .. "."
 		end, {}
         )
-	), ]]
+	),
 
 
-    --[[ s(
+    s(
 		{ trig = "b(%d)", regTrig = true },
 		f(function(_, snip)
 			return "Captured Text: " .. snip.captures[1] .. "."
 		end, {}
         )
-	), ]]
+	),
 
 
-	--[[ s({ trig = "c(%d+)", regTrig = true }, {
+    s(
+		{ trig = "([A-Za-z])(%d)", regTrig = true },
+		f(function(_, snip)
+			return "Captured Text: " .. snip.captures[1] .. "."
+		end, {}
+        )
+	),
+
+
+	s({ trig = "c(%d+)", regTrig = true }, {
 		t("will only expand for even numbers"),
 	}, {
 		condition = function(line_to_cursor, matched_trigger, captures)
 			return tonumber(captures[1]) % 2 == 0
 		end,
-	}), ]]
+	}),
 
 },
 {

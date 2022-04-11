@@ -109,6 +109,11 @@ return packer.startup(function()
 
     use
     {
+        "hrsh7th/cmp-cmdline",
+    }
+
+    use
+    {
         "saadparwaiz1/cmp_luasnip",
         after = "nvim-cmp",
     }
