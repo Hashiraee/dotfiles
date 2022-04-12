@@ -21,7 +21,7 @@ local lua = {}
 
 ls.add_snippets("lua",
 {
-    s(
+    --[[ s(
     {
         trig = "Some", wordTrig = false,
     },
@@ -74,8 +74,7 @@ ls.add_snippets("lua",
 		condition = function(line_to_cursor, matched_trigger, captures)
 			return tonumber(captures[1]) % 2 == 0
 		end,
-	}),
-
+	}), ]]
 },
 {
     type = "autosnippets",

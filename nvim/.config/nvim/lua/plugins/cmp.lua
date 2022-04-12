@@ -93,8 +93,6 @@ cmp.setup {
     window = {
         completion = {
             border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-            -- scrollbar = '║',
-            scrollbar = false,
             winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
             autocomplete = {
                 require('cmp.types').cmp.TriggerEvent.InsertEnter,
@@ -105,8 +103,6 @@ cmp.setup {
         documentation = {
             border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
-            -- scrollbar = '║',
-            scrollbar = false,
         },
     },
 
@@ -122,5 +118,4 @@ cmp.setup.cmdline(':', {
     }, {
         { name = 'cmdline', keyword_length = 2, }
     }),
-
 })
