@@ -1,2 +1,5 @@
 .DS_Store
 packer_compiled.lua
+zsh/.config/zsh/plugins
+fish/.config/fish/fish_variables
+fish/.config/fish/completions

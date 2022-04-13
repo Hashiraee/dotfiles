@@ -1,0 +1,17 @@
+# Map aliases
+alias cnvim='cd ~/.dotfiles/nvim/.config/nvim; nvim init.lua'
+alias n='nvim'
+alias v='vim'
+alias czsh='nvim ~/.zshrc'
+alias szsh='source ~/.zshrc'
+alias calacritty='nvim ~/.config/alacritty/alacritty.yml'
+alias ctmux='nvim ~/.config/tmux/tmux.conf'
+
+# Some convinient aliases.
+alias ls='ls -F --color=auto'
+alias ll='ls -lF --color=auto'
+alias la='ls -alF --color=auto'
+alias xargs='xargs '
+alias safari='open -a safari'
+alias finder='open -a finder'
+alias tm='trash'

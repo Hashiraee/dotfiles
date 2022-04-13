@@ -55,7 +55,7 @@ opt.swapfile = false
 opt.backup = false
 
 -- Set python3 provider
-g.python3_host_prog="/usr/local/bin/python3"
+g.python3_host_prog="/usr/bin/python3"
 
 -- highlight yank
 vim.cmd[[
