@@ -91,7 +91,6 @@ return packer.startup(function()
     use
     {
         "hrsh7th/nvim-cmp",
-        branch = "dev",
         config = function()
             require("plugins/cmp")
         end

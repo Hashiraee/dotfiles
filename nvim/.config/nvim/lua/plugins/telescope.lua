@@ -16,13 +16,15 @@ telescope.setup({
             "--column",
             "--smart-case"
         },
+
         prompt_prefix = "   ",
-        selection_caret = "  ",
+        selection_caret = "  ",
         entry_prefix = "  ",
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "descending",
         layout_strategy = "horizontal",
+
         layout_config =
         {
             horizontal =
@@ -39,16 +41,19 @@ telescope.setup({
             height = 0.80,
             preview_cutoff = 120
         },
+
         file_sorter = require("telescope.sorters").get_fuzzy_file,
+
         file_ignore_patterns = {
             "%.class", "target/*", "%.lock","%.fls", "%.log", "%.aux",
             "%.pdf", "%.gz", "%.fdb*",
         },
+
         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-        path_display = {"absolute"},
+        path_display = { "absolute" },
         winblend = 0,
         border = {},
-        borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         color_devicons = true,
         use_less = true,
         set_env = {["COLORTERM"] = "truecolor"},
@@ -58,6 +63,13 @@ telescope.setup({
 
         -- Developer configurations: Not meant for general override
         buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker
+    },
+
+    pickers = {
+        current_buffer_fuzzy_find = {
+            theme = "dropdown",
+            previewer = false,
+        },
     },
 
     extensions =

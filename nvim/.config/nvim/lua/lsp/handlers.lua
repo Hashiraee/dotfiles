@@ -14,11 +14,7 @@ M.setup = function()
 
     local config = {
         virtual_text = false,
-
-        signs = {
-            active = signs,
-        },
-
+        signs = { active = signs },
         update_in_insert = false,
         underline = false,
         severity_sort = true,
@@ -33,6 +29,13 @@ M.setup = function()
         },
     }
 
+    -- Diagnostics keymaps
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+    vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist)
+
     vim.diagnostic.config(config)
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -45,7 +48,7 @@ M.setup = function()
 end
 
 -- Highlight words under cursor.
-local function lsp_highlight_document(client)
+local function lsp_document_highlight(client)
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec([[
             augroup lsp_document_highlight
@@ -61,33 +64,26 @@ end
 
 -- Keymappings
 local function lsp_keymaps(bufnr)
-    local opts = { noremap = true, silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    local attach_opts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
+    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, attach_opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, attach_opts)
 
     -- Workspace stuff
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, attach_opts)
 
-    -- Code actions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>==', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-    -- Diagnostics
-    vim.api.nvim_set_keymap('n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    vim.api.nvim_set_keymap('n', '<Leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    vim.api.nvim_set_keymap('n', '<Leader>Q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
+    -- Code actions and formatting
+    vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, attach_opts)
+    vim.keymap.set('n', '<Leader>==', vim.lsp.buf.formatting, attach_opts)
 end
 
 -- Add mappings and highlighting on attach.
 M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
-    lsp_highlight_document(client)
+    lsp_document_highlight(client)
 end
 
 -- Add lsp capabilities

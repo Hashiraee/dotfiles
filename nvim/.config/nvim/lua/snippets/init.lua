@@ -163,10 +163,9 @@ require("snippets.ft.lua")
 require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "rust", "tex" } })
 
 -- Keymappings for snippets
-local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-map("i", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-map("s", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
-map("i", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
-map("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
-map("n", "<Leader>gl", "<cmd>source ~/.dotfiles/nvim/.config/nvim/lua/snippets/init.lua<CR>", opts)
+vim.keymap.set("i", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+vim.keymap.set("s", "<C-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+vim.keymap.set("i", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+vim.keymap.set("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+vim.keymap.set("n", "<Leader>gl", "<cmd>source ~/.dotfiles/nvim/.config/nvim/lua/snippets/init.lua<CR>", opts)

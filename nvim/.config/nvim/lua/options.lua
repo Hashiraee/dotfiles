@@ -17,6 +17,9 @@ opt.cmdheight = 1
 opt.updatetime = 250 -- Update interval for gitsigns
 opt.timeoutlen = 400
 
+-- Set global statusline
+opt.laststatus = 3
+
 -- Netrw options
 g.netrw_banner = 0
 g.netrw_liststyle = 1
@@ -58,9 +61,11 @@ opt.backup = false
 g.python3_host_prog="/usr/bin/python3"
 
 -- highlight yank
-vim.cmd[[
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=250, on_visual=false}
-]]
+local highlight_group = vim.api.nvim_create_augroup("highlight_group", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 250 }) end,
+    group = highlight_group,
+})
 
 -- Set undodir and directory
 local undodir = os.getenv("HOME") .. '/.local/share/nvim/undodir'

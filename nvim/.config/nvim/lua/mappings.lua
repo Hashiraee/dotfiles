@@ -1,100 +1,98 @@
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true, silent = true}
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
-local opt = {}
+-- Options
+local opts = { noremap = true, silent = true }
 
 -- Don't copy the replaced text after pasting in visual mode
-map('v', 'p', '"_dP', opt)
-map('n', 'x', '"_x', opt)
+vim.keymap.set('v', 'p', '"_dP', opts)
+vim.keymap.set('n', 'x', '"_x', opts)
 
 -- Better Yank to end of line
-map('n', 'Y', 'y$', opt)
+vim.keymap.set('n', 'Y', 'y$', opts)
 
 -- Yank to system clipboard
-map('v', '<Leader>y', '"*y', {noremap = true, silent = false})
-map('n', '<Leader>y', '"*y', {noremap = true, silent = false})
+vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y', { noremap = true, silent = false })
 
 -- Put from system clipboard below
-map('n', '<Leader>p', '"*p', {noremap = true, silent = false})
+vim.keymap.set('n', '<Leader>p', '"+p', { noremap = true, silent = false })
 
 -- Put from system keyboard above
-map('n', '<Leader>p', '"*P', {noremap = true, silent = false})
+vim.keymap.set('n', '<Leader>p', '"+P', { noremap = true, silent = false })
 
 -- Unmap space in normal mode
-map('n', '<Space>', '', opt)
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap weird behaviour select-mode
-map('s', 'p', 'p', opt)
+vim.keymap.set('s', 'p', 'p', opts)
 
 -- Better indenting
-map('v', '<', '<gv', opt)
-map('v', '>', '>gv', opt)
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
 
 -- Move current line(s) in normal mode
-map('n', '<M-j>', ':m .+1<CR>==', opt)
-map('n', '<M-k>', ':m .-2<CR>==', opt)
+vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', opts)
+vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', opts)
 
 -- Move current line/selection in insert mode
-map('i', '<M-j>', "<Esc>:m .+1<CR>==gi", opt)
-map('i', '<M-k>', "<Esc>:m .-2<CR>==gi", opt)
+vim.keymap.set('i', '<M-j>', "<Esc>:m .+1<CR>==gi", opts)
+vim.keymap.set('i', '<M-k>', "<Esc>:m .-2<CR>==gi", opts)
 
 -- Move current line/selection in visual mode
-map('v', '<M-j>', ":m '>+1<CR>gv-gv", opt)
-map('v', '<M-k>', ":m '<-2<CR>gv-gv", opt)
+vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv-gv", opts)
+vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv-gv", opts)
 
 -- Use ESC to turn off search highlighting
-map('n', '<Esc>', ':noh<CR>', opt)
+vim.keymap.set('n', '<Esc>', ':noh<CR>', opts)
 
 -- Keep search centered
-map('n', 'n', 'nzzzv', opt)
-map('n', 'N', 'Nzzzv', opt)
-map('n', 'J', 'mzJ`z', opt)
+vim.keymap.set('n', 'n', 'nzzzv', opts)
+vim.keymap.set('n', 'N', 'Nzzzv', opts)
+vim.keymap.set('n', 'J', 'mzJ`z', opts)
 
 -- Disable useless binding
-map('n', 'Q', '', opt)
+vim.keymap.set('n', 'Q', '<Nop>', opts)
 
 -- Close all buffers except current
-map('n', '<Leader>o', '<Cmd>%bd|e#|bd#<CR>', opt)
+vim.keymap.set('n', '<Leader>o', '<Cmd>%bd|e#|bd#<CR>', opts)
 
 -- Telescope
-map('n', '<Leader>gs', ':Telescope git_status <CR>', opt)
-map('n', '<Leader>gc', ':Telescope git_commits <CR>', opt)
-map('n', '<Leader>f', ':Telescope find_files<CR>', opt)
-map('n', '<Leader>b', ':Telescope buffers<CR>', opt)
-map('n', '<Leader>h', ':Telescope help_tags<CR>', opt)
-map('n', '<Leader>\\', ':Telescope live_grep<CR>', opt)
-map('n', '<Leader>l', ':Telescope grep_string<CR>', opt)
-map('n', '<Leader>c', ':Telescope current_buffer_fuzzy_find<CR>', opt)
-map('n', '<Leader>s', ':Telescope lsp_document_symbols<CR>', opt)
-map('n', '<Leader>S', ':Telescope lsp_workspace_symbols<CR>', opt)
+vim.keymap.set('n', '<Leader>gs', '<Cmd>Telescope git_status<CR>', opts)
+vim.keymap.set('n', '<Leader>gc', '<Cmd>Telescope git_commits<CR>', opts)
+vim.keymap.set('n', '<Leader>f', '<Cmd>Telescope find_files<CR>', opts)
+vim.keymap.set('n', '<Leader>b', '<Cmd>Telescope buffers<CR>', opts)
+vim.keymap.set('n', '<Leader>h', '<Cmd>Telescope help_tags<CR>', opts)
+vim.keymap.set('n', '<Leader>\\', '<Cmd>Telescope live_grep<CR>', opts)
+vim.keymap.set('n', '<Leader>l', '<Cmd>Telescope grep_string<CR>', opts)
+vim.keymap.set('n', '<Leader>c', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', opts)
+vim.keymap.set('n', '<Leader>s', '<Cmd>Telescope lsp_document_symbols<CR>', opts)
+vim.keymap.set('n', '<Leader>S', '<Cmd>Telescope lsp_workspace_symbols<CR>', opts)
 
 -- Move between tabs
-map('n', 'gn', ':BufferLineCycleNext<CR>', opt)
-map('n', 'gp', ':BufferLineCyclePrev<CR>', opt)
+vim.keymap.set('n', 'gn', '<Cmd>BufferLineCycleNext<CR>', opts)
+vim.keymap.set('n', 'gp', '<Cmd>BufferLineCyclePrev<CR>', opts)
 
 -- Go to the end of file
-map('n', 'ge', 'G', opt)
+vim.keymap.set({ 'n', 'v' }, 'ge', 'G', opts)
 
 -- Go to the begin of line
-map('n', 'gh', '0', opt)
+vim.keymap.set({ 'n', 'v' }, 'gh', '0', opts)
 
 -- Go to end of line
-map('n', 'gl', '$', opt)
+vim.keymap.set({ 'n', 'v' }, 'gl', '$', opts)
 
 -- Go the begin first non-blank character
-map('n', 'gs', '^', opt)
+vim.keymap.set({ 'n', 'v' }, 'gs', '^', opts)
 
 -- Remap window actions
-map('n', '<Leader>w', '<C-w>', opt)
+vim.keymap.set({ 'n', 'v' }, '<Leader>w', '<C-w>', opts)
 
 -- Mapping to insert newline in normal mode
-map('n', '[<Leader>', 'O<Esc>', opt)
-map('n', ']<Leader>', 'o<Esc>', opt)
+vim.keymap.set('n', '[<Leader>', 'O<Esc>', opts)
+vim.keymap.set('n', ']<Leader>', 'o<Esc>', opts)
 
 -- Map :W to :w
--- vim.api.nvim_add_user_command("W", ":w", {})
+vim.api.nvim_create_user_command("W", ":w", {})
+
+-- Map :Q to :q
+vim.api.nvim_create_user_command("Q", ":q", {})
+
+-- Convenient
+vim.keymap.set('n', '<leader>;', ':')
