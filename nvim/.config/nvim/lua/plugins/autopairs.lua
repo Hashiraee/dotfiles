@@ -3,12 +3,10 @@ if not status_ok then
     return
 end
 
-npairs.setup
-{
+npairs.setup {
     check_ts = true,
 
-    ts_config =
-    {
+    ts_config = {
         lua = { "string", "source" },
     },
 

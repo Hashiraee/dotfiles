@@ -34,9 +34,6 @@ opt.spelllang = 'en_us'
 -- Disable startup screen
 opt.shortmess:append("sI")
 
--- Disable tilde on end of buffer
-vim.cmd("let &fcs='eob: '")
-
 -- Numbers
 opt.number = true
 opt.numberwidth = 4
@@ -71,7 +68,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local undodir = os.getenv("HOME") .. '/.local/share/nvim/undodir'
 os.execute("mkdir -p " .. undodir)
 opt.undodir = undodir
-vim.cmd('set undofile')
+vim.opt.undofile = true
 
 -- Normal h and l use when wrapping around long line
 opt.whichwrap:append("<>hl")

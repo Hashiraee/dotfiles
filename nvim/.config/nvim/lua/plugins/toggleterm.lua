@@ -3,7 +3,7 @@ if not present then
     return
 end
 
-toggleterm.setup{
+toggleterm.setup {
     size = function(term)
         if term.direction == "horizontal" then
             return vim.o.lines * 0.4

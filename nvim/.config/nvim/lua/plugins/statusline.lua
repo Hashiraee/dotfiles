@@ -322,7 +322,8 @@ components.active[3][6] = {
 }
 
 components.active[3][7] = {
-    provider = statusline_style.left,
+    -- provider = statusline_style.left,
+    provider = "",
     hl = {
         fg = colors.black1,
         bg = colors.black1,
@@ -330,7 +331,8 @@ components.active[3][7] = {
 }
 
 components.active[3][8] = {
-    provider = statusline_style.left,
+    -- provider = statusline_style.left,
+    provider = "",
     hl = {
         fg = colors.green,
         bg = colors.black1,
@@ -361,7 +363,7 @@ components.active[3][10] = {
 
     hl = {
         fg = colors.green,
-        bg = colors.black1,
+        bg = colors.black2,
     },
 }
 

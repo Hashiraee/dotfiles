@@ -3,10 +3,8 @@ if not present then
     return
 end
 
-bufferline.setup
-{
-    options =
-    {
+bufferline.setup {
+    options = {
         offsets = {{filetype = "NvimTree", text = "File Explorer", padding = 0}},
         modified_icon = "",
         left_trunc_marker = "",

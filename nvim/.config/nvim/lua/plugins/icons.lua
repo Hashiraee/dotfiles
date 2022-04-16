@@ -3,144 +3,119 @@ if not present then
     return
 end
 
-local global_theme = "themes/catppuccin"
-local colors = require(global_theme)
+local colors = require("themes/catppuccin")
 
-icons.setup
-{
-    override =
-    {
-        html =
-        {
+icons.setup {
+    override = {
+        html = {
             icon = "",
-            color = colors.baby_pink,
+            color = colors.mauve,
             name = "html"
         },
-        css =
-        {
+        css = {
             icon = "",
             color = colors.blue,
             name = "css"
         },
-        js =
-        {
+        js = {
             icon = "",
-            color = colors.sun,
+            color = colors.yellow,
             name = "js"
         },
-        ts =
-        {
+        ts = {
             icon = "ﯤ",
             color = colors.teal,
             name = "ts"
         },
-        kt =
-        {
+        kt = {
             icon = "󱈙",
-            color = colors.orange,
+            color = colors.peach,
             name = "kt"
         },
-        png =
-        {
+        png = {
             icon = "",
-            color = colors.dark_purple,
+            color = colors.mauve,
             name = "png"
         },
-        jpg =
-        {
+        jpg = {
             icon = "",
-            color = colors.dark_purple,
+            color = colors.mauve,
             name = "jpg"
         },
-        jpeg =
-        {
+        jpeg = {
             icon = "",
-            color = colors.dark_purple,
+            color = colors.mauve,
             name = "jpeg"
         },
-        mp3 =
-        {
+        mp3 = {
             icon = "",
             color = colors.white,
             name = "mp3"
         },
-        mp4 =
-        {
+        mp4 = {
             icon = "",
             color = colors.white,
             name = "mp4"
         },
-        out =
-        {
+        out = {
             icon = "",
             color = colors.white,
             name = "out"
         },
-        Dockerfile =
-        {
+        Dockerfile = {
             icon = "",
-            color = colors.cyan,
+            color = colors.sky,
             name = "Dockerfile"
         },
-        rb =
-        {
+        rb = {
             icon = "",
             color = colors.pink,
             name = "rb"
         },
-        vue =
-        {
+        vue = {
             icon = "﵂",
-            color = colors.vibrant_green,
+            color = colors.green,
             name = "vue"
         },
-        py =
-        {
+        py = {
             icon = "",
-            color = colors.cyan,
+            color = colors.sky,
             name = "py"
         },
-        toml =
-        {
+        toml = {
             icon = "",
             color = colors.blue,
             name = "toml"
         },
-        lock =
-        {
+        lock = {
             icon = "",
             color = colors.red,
             name = "lock"
         },
-        zip =
-        {
+        zip = {
             icon = "",
-            color = colors.sun,
+            color = colors.yellow,
             name = "zip"
         },
-        xz =
-        {
+        xz = {
             icon = "",
-            color = colors.sun,
+            color = colors.yellow,
             name = "xz"
         },
-        deb =
-        {
+        deb = {
             icon = "",
-            color = colors.cyan,
+            color = colors.sky,
             name = "deb"
         },
-        rpm =
-        {
+        rpm = {
             icon = "",
-            color = colors.orange,
+            color = colors.peach,
             name = "rpm"
         },
-        lua =
-        {
+        lua = {
             icon = "",
             color = colors.blue,
             name = "lua"
-        }
-    }
+        },
+    },
 }

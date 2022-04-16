@@ -1,5 +1,4 @@
-local colors =
-{
+local colors = {
     rosewater = "#F5E0DC", -- Rosewater
     flamingo = "#F2CDCD", -- Flamingo
     mauve = "#DDB6F2", -- Mauve
