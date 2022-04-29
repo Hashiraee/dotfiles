@@ -14,7 +14,7 @@ opt.cursorline = true
 opt.mouse = "a"
 opt.signcolumn = "yes"
 opt.cmdheight = 1
-opt.updatetime = 250 -- Update interval for gitsigns
+opt.updatetime = 250
 opt.timeoutlen = 400
 
 -- Set global statusline
@@ -33,6 +33,9 @@ opt.spelllang = 'en_us'
 
 -- Disable startup screen
 opt.shortmess:append("sI")
+
+-- Disable tilde on end of buffer
+opt.fillchars = 'eob: '
 
 -- Numbers
 opt.number = true
@@ -68,7 +71,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local undodir = os.getenv("HOME") .. '/.local/share/nvim/undodir'
 os.execute("mkdir -p " .. undodir)
 opt.undodir = undodir
-vim.opt.undofile = true
+opt.undofile = true
 
 -- Normal h and l use when wrapping around long line
 opt.whichwrap:append("<>hl")

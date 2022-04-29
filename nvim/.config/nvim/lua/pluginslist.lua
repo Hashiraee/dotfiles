@@ -55,7 +55,6 @@ return packer.startup(function()
     use
     {
         "nvim-telescope/telescope.nvim",
-        after = "plenary.nvim",
         config = function()
             require("plugins/telescope")
         end
@@ -213,16 +212,6 @@ return packer.startup(function()
     {
         "lervag/vimtex",
         ft = "tex",
-    }
-
-
-    -- Spellsitter
-    use
-    {
-        "lewis6991/spellsitter.nvim",
-        config = function()
-            require("spellsitter").setup()
-        end
     }
 
 

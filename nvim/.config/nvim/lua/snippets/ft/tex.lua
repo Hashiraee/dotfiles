@@ -95,7 +95,7 @@ ls.add_snippets("tex",
 
     s("enum",
     {
-        t({ "\\begin{enumerate}", "\t\\item " }),
+        t({ "\\begin{enumerate}[noitemsep]", "\t\\item " }),
 		i(1),
 		t({ "", "\\end{enumerate}" }),
     },
@@ -106,7 +106,7 @@ ls.add_snippets("tex",
 
     s("item",
     {
-        t({ "\\begin{itemize}", "\t\\item " }),
+        t({ "\\begin{itemize}[noitemsep]", "\t\\item " }),
 		i(1),
 		t({ "", "\\end{itemize}" }),
     },
@@ -332,7 +332,7 @@ ls.add_snippets("tex",
 
     s("sum",
     {
-        t({"\\sum_{"}), i(1, "i"), t({" = "}), i(2, "0"), t({"}^{"}), i(3, "\\infty"), t({"} "}), i(4, "arg"),
+        t({"\\sum_{"}), i(1, "t"), t({" = "}), i(2, "0"), t({"}^{"}), i(3, "T"), t({"} "}), i(4, "arg"),
     },
     {
         condition = tex.in_mathzone
@@ -421,7 +421,7 @@ ls.add_snippets("tex",
         wordTrig = false,
     },
     {
-        t({"_{"}), i(1, "arg"), t({"}"}), i(0),
+        t({"_{"}), i(1, "index"), t({"}"}), i(0),
     },
     {
         condition = tex.in_mathzone
@@ -434,7 +434,7 @@ ls.add_snippets("tex",
         wordTrig = true,
     },
     {
-        t({"$"}), i(1, "value"), t({"_{"}), i(2, "arg"), t({"}$"}), i(0),
+        t({"$"}), i(1, "value"), t({"_{"}), i(2, "index"), t({"}$"}), i(0),
     },
     {
         condition = tex.in_text
@@ -523,9 +523,9 @@ ls.add_snippets("tex",
     s({ trig = "ymr", wordTrig = false }, { t({"y_{t-r}"}) }, { condition = tex.in_mathzone }),
 
 
-    s("eps",
+    s("epsi",
     {
-        t({"\\epsilon"}),
+        t({"\\epsilon_{"}), i(1), t({"}"}), i(0),
     },
     {
         condition = tex.in_mathzone
@@ -783,6 +783,36 @@ ls.add_snippets("tex",
         t({ "\\begin{cases}", "\t" }),
 		i(1),
 		t({ "", "\\end{cases}" }),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("exp",
+    {
+        t({ "\\mathbb{E}\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("ph1",
+    {
+        t({ "\\phi_{1}" }),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("mu",
+    {
+        t({ "\\mu" }),
     },
     {
         condition = tex.in_mathzone

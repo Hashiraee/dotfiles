@@ -94,10 +94,6 @@ cmp.setup {
         completion = {
             border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
-            autocomplete = {
-                require('cmp.types').cmp.TriggerEvent.InsertEnter,
-                require('cmp.types').cmp.TriggerEvent.TextChanged,
-            },
         },
 
         documentation = {

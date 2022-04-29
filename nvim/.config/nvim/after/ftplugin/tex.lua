@@ -1,20 +1,27 @@
--- Stuff for LaTeX files and VimTeX settings.
-vim.cmd[[
-syntax enable
-set spell
+-- LaTeX files and VimTeX settings.
 
-let g:vimtex_compiler_latexmk={
-        \ 'executable' : 'latexmk',
-        \ 'options' : [
-        \   '-lualatex',
-        \   '-file-line-error',
-        \   '-synctex=1',
-        \   '-interaction=nonstopmode',
-        \ ],
-        \}
+-- Syntax settings
+vim.cmd('syntax enable')
+vim.opt.textwidth = 80
 
-let g:tex_flavor='latex'
-let g:vimtex_quickfix_mode=0
+-- Spell setting
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
 
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u 
-]]
+-- VimTeX settings
+vim.g.tex_flavor = 'latex'
+vim.g.vimtex_quickfix_mode = 2
+vim.g.vimtex_compiler_latexmk = {
+    executable = 'latexmk',
+    options = {
+        '-lualatex',
+        '-file-line-error',
+        '-synctex=1',
+        '-interaction=nonstopmode',
+    },
+}
+
+-- Mapping for correction
+vim.keymap.set('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<Cr><Cmd>VimtexCompile<Cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', '<Cmd>w<Cr><Cmd>VimtexCompile<Cr>', { noremap = true, silent = true })

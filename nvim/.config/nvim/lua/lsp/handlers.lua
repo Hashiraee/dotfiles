@@ -50,13 +50,21 @@ end
 -- Highlight words under cursor.
 local function lsp_document_highlight(client)
     if client.resolved_capabilities.document_highlight then
-        vim.cmd([[
-            augroup lsp_document_highlight
-                autocmd! * <buffer>
-                autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-            augroup END
-        ]])
+        local document_highlight_group = vim.api.nvim_create_augroup(
+        'LspDocumentHighlight', { clear = true }
+        )
+
+        vim.api.nvim_create_autocmd('CursorHold', {
+            buffer = 0,
+            callback = vim.lsp.buf.document_highlight,
+            group = document_highlight_group,
+        })
+
+        vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
+            buffer = 0,
+            callback = vim.lsp.buf.clear_references,
+            group = document_highlight_group,
+        })
     end
 end
 
