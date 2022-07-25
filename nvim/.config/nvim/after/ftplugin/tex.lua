@@ -10,6 +10,7 @@ vim.opt.spelllang = 'en_us'
 
 -- VimTeX settings
 vim.g.tex_flavor = 'latex'
+vim.g.vimtex_syntax_enabled = 0
 vim.g.vimtex_quickfix_mode = 2
 vim.g.vimtex_compiler_latexmk = {
     executable = 'latexmk',
