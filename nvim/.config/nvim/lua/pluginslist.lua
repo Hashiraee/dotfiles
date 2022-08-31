@@ -224,5 +224,13 @@ return packer.startup(function()
             require("plugins/indent-blankline")
         end
     }
+
+
+    -- R stuff
+    use
+    {
+        "jalvesaq/Nvim-R",
+        ft = {"R", "Rmd"},
+    }
 end
 )

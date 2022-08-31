@@ -78,4 +78,3 @@ opt.whichwrap:append("<>hl")
 
 -- Mapping leader key to space
 g.mapleader = " "
-g.maplocalleader = " "

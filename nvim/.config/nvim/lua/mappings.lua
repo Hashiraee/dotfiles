@@ -69,18 +69,6 @@ vim.keymap.set('n', '<Leader>S', '<Cmd>Telescope lsp_workspace_symbols<CR>', opt
 vim.keymap.set('n', 'gn', '<Cmd>BufferLineCycleNext<CR>', opts)
 vim.keymap.set('n', 'gp', '<Cmd>BufferLineCyclePrev<CR>', opts)
 
--- Go to the end of file
-vim.keymap.set({ 'n', 'v' }, 'ge', 'G', opts)
-
--- Go to the begin of line
-vim.keymap.set({ 'n', 'v' }, 'gh', '0', opts)
-
--- Go to end of line
-vim.keymap.set({ 'n', 'v' }, 'gl', '$', opts)
-
--- Go the begin first non-blank character
-vim.keymap.set({ 'n', 'v' }, 'gs', '^', opts)
-
 -- Remap window actions
 vim.keymap.set({ 'n', 'v' }, '<Leader>w', '<C-w>', opts)
 
@@ -93,6 +81,3 @@ vim.api.nvim_create_user_command("W", ":w", {})
 
 -- Map :Q to :q
 vim.api.nvim_create_user_command("Q", ":q", {})
-
--- Convenient
-vim.keymap.set('n', '<leader>;', ':')
