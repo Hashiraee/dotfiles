@@ -73,7 +73,7 @@ vim.keymap.set('n', '<Leader>gs', '<Cmd>Telescope git_status<CR>', opts)
 vim.keymap.set('n', '<Leader>gc', '<Cmd>Telescope git_commits<CR>', opts)
 vim.keymap.set('n', '<Leader>f', '<Cmd>Telescope find_files<CR>', opts)
 vim.keymap.set('n', '<Leader>b', '<Cmd>Telescope buffers<CR>', opts)
-vim.keymap.set('n', '<Leader>h', '<Cmd>Telescope help_tags<CR>', opts)
+vim.keymap.set('n', '<Leader>t', '<Cmd>Telescope help_tags<CR>', opts)
 vim.keymap.set('n', '<Leader>\\', '<Cmd>Telescope live_grep<CR>', opts)
 vim.keymap.set('n', '<Leader>l', '<Cmd>Telescope grep_string<CR>', opts)
 vim.keymap.set('n', '<Leader>c', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', opts)
@@ -82,3 +82,12 @@ vim.keymap.set('n', '<Leader>S', '<Cmd>Telescope lsp_workspace_symbols<CR>', opt
 
 -- Telescope filebrowser
 vim.keymap.set('n', '<Leader>n', '<Cmd>Telescope file_browser<CR>', opts)
+
+-- Harpoon
+vim.keymap.set('n', '<Leader>a', function() require("harpoon.mark").add_file() end, opts)
+vim.keymap.set('n', '<Leader>h', function() require("harpoon.ui").toggle_quick_menu() end, opts)
+
+vim.keymap.set('n', "<C-j>", function() require("harpoon.ui").nav_file(1) end, opts)
+vim.keymap.set('n', "<C-k>", function() require("harpoon.ui").nav_file(2) end, opts)
+vim.keymap.set('n', "<C-l>", function() require("harpoon.ui").nav_file(3) end, opts)
+vim.keymap.set('n', "<C-;>", function() require("harpoon.ui").nav_file(4) end, opts)

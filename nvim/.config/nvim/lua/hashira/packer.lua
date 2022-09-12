@@ -76,6 +76,14 @@ return require("packer").startup({ function(use)
         end
     }
 
+    -- Harpoon
+    use {
+        "ThePrimeagen/harpoon",
+        config = function()
+            require("harpoon").setup()
+        end
+    }
+
     -- Comment plugin
     use {
         "numToStr/Comment.nvim",

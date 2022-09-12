@@ -14,4 +14,4 @@ require("hashira.globals")
 require("hashira.autocmds")
 
 -- Snippets
--- require("hashira.snippets")
+require("hashira.luasnip")

@@ -97,7 +97,7 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, attach_opts)
 
     -- Code actions and formatting
-    vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, attach_opts)
+    vim.keymap.set('n', '<Leader>ga', vim.lsp.buf.code_action, attach_opts)
     vim.keymap.set('n', '<Leader>==', vim.lsp.buf.formatting, attach_opts)
 end
 
@@ -115,7 +115,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'rust_analyzer', 'sumneko_lua' }
+local servers = { 'rust_analyzer', 'sumneko_lua', 'texlab' }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup {
@@ -154,7 +154,7 @@ lspconfig.sumneko_lua.setup {
     },
 }
 
-lspconfig.r_language_server.setup{
+lspconfig.r_language_server.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 }

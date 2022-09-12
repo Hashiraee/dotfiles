@@ -1,22 +1,44 @@
 ---@diagnostic disable: unused-local
---[[ local snip_status_ok, ls = pcall(require, "luasnip")
-if not snip_status_ok then
+local status, ls = pcall(require, "luasnip")
+if not status then
     return
 end
 
-
 local s = ls.snippet
-local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
+
+local sn = ls.snippet_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
-local rep = require("luasnip.extras").rep
-local conds = require("luasnip.extras.expand_conditions")
 local r = ls.restore_node
 
+local lse = require("luasnip.extras")
+local l = lse.lambda
+local rep = lse.rep
+local p = lse.partial
+local m = lse.match
+local n = lse.nonempty
+local dl = lse.dynamic_lambda
 
+local lsef = require("luasnip.extras.fmt")
+local fmt = lsef.fmt
+local fmta = lsef.fmta
+
+local types = require("luasnip.util.types")
+local conds = require("luasnip.extras.expand_conditions")
+
+
+-- Some renames
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+local opts = { noremap = true, silent = true, buffer = true }
+local file_pattern = "*.tex"
+local group = augroup("Latex Snippets", { clear = true })
+
+
+-- LaTex environments
 local tex = {}
 tex.in_mathzone = function()
     return vim.fn['vimtex#syntax#in_mathzone']() == 1
@@ -26,6 +48,7 @@ tex.in_text = function()
 end
 
 
+-- Snippets
 ls.add_snippets("tex",
 {
     s("dm",
@@ -877,4 +900,4 @@ ls.add_snippets("tex", {
 },
 {
     key = "tex",
-}) ]]
+})
