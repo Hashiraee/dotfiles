@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -91,6 +92,9 @@ return require("packer").startup({ function(use)
             require("Comment").setup()
         end
     }
+
+    -- Lua dev
+    use { "folke/lua-dev.nvim" }
 
     -- LaTeX (vimtex)
     use { "lervag/vimtex", ft = "tex" }

@@ -43,7 +43,7 @@ telescope.setup {
         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 
         file_ignore_patterns = {
-            "%.class", "target/*", "%.lock","%.fls", "%.log", "%.aux",
+            "%.class", "target/*", "%.lock", "%.fls", "%.log", "%.aux",
             "%.pdf", "%.gz", "%.fdb*",
         },
 
@@ -53,7 +53,7 @@ telescope.setup {
         borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         color_devicons = true,
         use_less = true,
-        set_env = {["COLORTERM"] = "truecolor"},
+        set_env = { ["COLORTERM"] = "truecolor" },
 
         mappings = {
             i = {},
@@ -74,10 +74,10 @@ telescope.setup {
 
     extensions = {
         fzf = {
-            fuzzy = true,                    -- false will only do exact matching
+            fuzzy = true, -- false will only do exact matching
             override_generic_sorter = true,
-            override_file_sorter = true,     -- override the file sorter
-            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case",
         },
 
         file_browser = {

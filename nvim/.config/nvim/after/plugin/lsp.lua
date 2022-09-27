@@ -1,3 +1,10 @@
+local luadev_status, lua_dev = pcall(require, "lua-dev")
+if not luadev_status then
+    return
+end
+
+lua_dev.setup {}
+
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
     return
@@ -46,11 +53,13 @@ local config = {
 vim.diagnostic.config(config)
 
 -- Diagnostics keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist)
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>Q', vim.diagnostic.setqflist, opts)
 
 -- For hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -94,11 +103,11 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, attach_opts)
 
     -- Workspace stuff
-    vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, attach_opts)
+    vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, attach_opts)
 
     -- Code actions and formatting
-    vim.keymap.set('n', '<Leader>ga', vim.lsp.buf.code_action, attach_opts)
-    vim.keymap.set('n', '<Leader>==', vim.lsp.buf.formatting, attach_opts)
+    vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, attach_opts)
+    vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.formatting, attach_opts)
 end
 
 -- Add mappings and highlighting on attach.
@@ -106,16 +115,15 @@ local on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
     lsp_document_highlight(client)
 
-    -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting,
-        { desc = 'Format current buffer with LSP' })
+        { desc = "Format current buffer with LSP" })
 end
 
 -- Nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'rust_analyzer', 'sumneko_lua', 'texlab' }
+local servers = { "rust_analyzer", "sumneko_lua", "texlab", "pyright", "r_language_server" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup {
@@ -152,9 +160,4 @@ lspconfig.sumneko_lua.setup {
             telemetry = { enable = false, },
         },
     },
-}
-
-lspconfig.r_language_server.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
 }

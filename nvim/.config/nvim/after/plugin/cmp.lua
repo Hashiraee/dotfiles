@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
     return
@@ -68,7 +69,6 @@ cmp.setup {
 
     formatting = {
         format = lspkind.cmp_format {
-            max_width = 50,
             mode = 'symbol_text',
             menu = {
                 buffer = "(Buf)",
@@ -83,9 +83,9 @@ cmp.setup {
 
     sources = cmp.config.sources {
         { name = "luasnip" },
-        { name = "nvim_lsp" },
+        { name = "nvim_lsp", max_item_count = 20 },
         { name = "nvim_lua" },
-        { name = "buffer" },
+        { name = "buffer", max_item_count = 10 },
         { name = "path" },
         { name = "gh_issues" },
     },
@@ -118,9 +118,10 @@ cmp.setup {
 }
 
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path', keyword_length = 2, }
+        { name = 'path', keyword_length = 1, max_item_count = 10, }
     }, {
-        { name = 'cmdline', keyword_length = 2, }
+        { name = 'cmdline', keyword_length = 1, max_item_count = 10, }
     }),
 })

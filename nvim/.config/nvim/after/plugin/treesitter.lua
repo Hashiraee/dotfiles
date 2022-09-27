@@ -9,7 +9,10 @@ treesitter.setup {
 
     highlight = { enable = true },
 
-    indent = { enable = true },
+    indent = {
+        enable = true,
+        disable = { "python" },
+    },
 
     incremental_selection = {
         enable = false,
@@ -45,8 +48,8 @@ treesitter.setup {
                 ['[['] = '@class.outer',
             },
             goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
+                ['[M'] = '@function.outer',
+                ['[]'] = '@class.outer',
             },
         },
 

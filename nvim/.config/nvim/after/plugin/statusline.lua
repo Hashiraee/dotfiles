@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+---@diagnostic disable: missing-parameter
 local status, feline = pcall(require, "feline")
 if not status then
     return
@@ -100,7 +100,7 @@ local function get()
 
     -- Helper functions
     local function any_git_changes()
-        local gst = b.gitsigns_status_dict -- Git stats
+        local gst = b.gitsigns_status_dict
         if gst then
             if gst["added"] and gst["added"] > 0
                 or gst["removed"] and gst["removed"] > 0
@@ -112,7 +112,10 @@ local function get()
         return false
     end
 
-    -- Current vi mode
+    -- #################### STATUSLINE ->
+    -- ######## Left
+
+    -- Current vi mode ------>
     local vi_mode_hl = function()
         return {
             fg = sett.text,
@@ -175,8 +178,9 @@ local function get()
             return any_git_changes()
         end,
     }
+    -- Current vi mode ------>
 
-    -- Diffs
+    -- Diffs ------>
     components.active[1][6] = {
         provider = "git_diff_added",
         hl = {
@@ -214,6 +218,9 @@ local function get()
             return any_git_changes()
         end,
     }
+    -- Diffs ------>
+
+    -- Extras ------>
 
     -- File progess
     components.active[1][10] = {
@@ -224,7 +231,7 @@ local function get()
             if current_line == 1 then
                 return " Top "
             elseif current_line == vim.fn.line("$") then
-                return " Bottom "
+                return " Bot "
             end
             local result, _ = math.modf((current_line / total_line) * 100)
             return " " .. result .. "%% "
@@ -251,7 +258,11 @@ local function get()
         },
         left_sep = invi_sep,
     }
+    -- Extras ------>
+    -- ######## Left
 
+    -- ######## Center
+    -- Diagnostics ------>
     components.active[2][1] = {
         provider = function()
             local Lsp = vim.lsp.util.get_progress_messages()[1]
@@ -289,7 +300,7 @@ local function get()
         },
     }
 
-    -- General diagnostics
+    -- General diagnostics (errors, warnings, info and hints)
     components.active[2][2] = {
         provider = "diagnostic_errors",
         enabled = function()
@@ -338,8 +349,10 @@ local function get()
         },
         icon = assets.lsp.hint,
     }
+    -- Diagnostics ------>
+    -- ######## Center
 
-
+    -- ######## Right
     components.active[3][1] = {
         provider = "git_branch",
         enabled = is_enabled(shortline, winid, 70),
@@ -409,8 +422,9 @@ local function get()
             },
         },
     }
+    -- ######## Right
 
-    -- Inanctive components
+    -- Inactive components
     components.inactive[1][1] = {
         provider = function()
             return " " .. string.upper(vim.bo.ft) .. " "
