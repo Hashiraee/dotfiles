@@ -84,7 +84,7 @@ cmp.setup {
     sources = cmp.config.sources {
         { name = "luasnip" },
         { name = "nvim_lsp", max_item_count = 20 },
-        { name = "nvim_lua" },
+        { name = "nvim_lua", max_item_count = 10 },
         { name = "buffer", max_item_count = 10 },
         { name = "path" },
         { name = "gh_issues" },

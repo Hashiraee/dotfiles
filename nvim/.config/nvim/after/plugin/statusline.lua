@@ -1,4 +1,4 @@
----@diagnostic disable: missing-parameter
+---@diagnostic disable: missing-parameter, undefined-global
 local status, feline = pcall(require, "feline")
 if not status then
     return
@@ -231,7 +231,7 @@ local function get()
             if current_line == 1 then
                 return " Top "
             elseif current_line == vim.fn.line("$") then
-                return " Bot "
+                return " Bottom "
             end
             local result, _ = math.modf((current_line / total_line) * 100)
             return " " .. result .. "%% "
@@ -367,7 +367,7 @@ local function get()
 
     components.active[3][2] = {
         provider = function()
-            if next(vim.lsp.buf_get_clients()) ~= nil then
+            if next(vim.lsp.get_active_clients()) ~= nil then
                 return assets.lsp.server .. "Lsp"
             else
                 return ""

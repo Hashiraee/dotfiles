@@ -28,6 +28,9 @@ vim.keymap.set('v', 'p', '"_dp', opts)
 vim.keymap.set('v', 'P', '"_dP', opts)
 vim.keymap.set('n', 'x', '"_x', opts)
 
+-- Weird behavior in select mode
+vim.keymap.set('s', 'p', 'p', opts)
+
 -- Better indenting
 vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
@@ -73,7 +76,7 @@ vim.keymap.set('n', '<Leader>gs', '<Cmd>Telescope git_status<CR>', opts)
 vim.keymap.set('n', '<Leader>gc', '<Cmd>Telescope git_commits<CR>', opts)
 vim.keymap.set('n', '<Leader>f', '<Cmd>Telescope find_files<CR>', opts)
 vim.keymap.set('n', '<Leader>b', '<Cmd>Telescope buffers<CR>', opts)
-vim.keymap.set('n', '<Leader>t', '<Cmd>Telescope help_tags<CR>', opts)
+-- vim.keymap.set('n', '<Leader>t', '<Cmd>Telescope help_tags<CR>', opts)
 vim.keymap.set('n', '<Leader>;', '<Cmd>Telescope live_grep<CR>', opts)
 vim.keymap.set('n', '<Leader>\\', '<Cmd>Telescope grep_string<CR>', opts)
 vim.keymap.set('n', '<Leader>c', '<Cmd>Telescope current_buffer_fuzzy_find<CR>', opts)

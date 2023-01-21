@@ -45,6 +45,8 @@ return require("packer").startup({ function(use)
     use { "williamboman/mason.nvim" }
     use { "williamboman/mason-lspconfig.nvim" }
 
+    -- Null ls
+    use { "jose-elias-alvarez/null-ls.nvim" }
 
     -- Autocomplete plugins (cmp)
     use { "hrsh7th/nvim-cmp" }
@@ -59,9 +61,6 @@ return require("packer").startup({ function(use)
 
     -- Toggle Terminal
     use { "akinsho/toggleterm.nvim" }
-
-    -- Bufferline (tabs)
-    use { "akinsho/bufferline.nvim" }
 
     -- Status line
     use { "feline-nvim/feline.nvim" }
@@ -94,7 +93,7 @@ return require("packer").startup({ function(use)
     }
 
     -- Lua dev
-    use { "folke/lua-dev.nvim" }
+    use { "folke/neodev.nvim" }
 
     -- LaTeX (vimtex)
     use { "lervag/vimtex", ft = "tex" }

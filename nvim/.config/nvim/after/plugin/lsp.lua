@@ -1,9 +1,9 @@
-local luadev_status, lua_dev = pcall(require, "lua-dev")
+local luadev_status, neodev = pcall(require, "neodev")
 if not luadev_status then
     return
 end
 
-lua_dev.setup {}
+neodev.setup {}
 
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
@@ -73,7 +73,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 -- Highlight words under cursor.
 local function lsp_document_highlight(client)
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.documentHighlightProvider then
         local document_highlight_group = vim.api.nvim_create_augroup(
             'LspDocumentHighlight', { clear = true }
         )
@@ -107,7 +107,8 @@ local function lsp_keymaps(bufnr)
 
     -- Code actions and formatting
     vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, attach_opts)
-    vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.formatting, attach_opts)
+    vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.format, attach_opts)
+    vim.keymap.set('n', '<Leader>ls', vim.lsp.buf.signature_help, attach_opts)
 end
 
 -- Add mappings and highlighting on attach.
@@ -115,12 +116,17 @@ local on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
     lsp_document_highlight(client)
 
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting,
-        { desc = "Format current buffer with LSP" })
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        if vim.lsp.buf.format then
+            vim.lsp.buf.format()
+        elseif vim.lsp.buf.formatting then
+            vim.lsp.buf.formatting()
+        end
+    end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Nvim-cmp supports additional completion capabilities
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
 local servers = { "rust_analyzer", "sumneko_lua", "texlab", "pyright", "r_language_server" }
@@ -138,7 +144,7 @@ for _, lsp in ipairs(servers) do
 end
 
 -- Configuration for Lua
-local runtime_path = vim.split(package.path, ';')
+local runtime_path = vim.split(package.path, ';', {})
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
@@ -156,7 +162,11 @@ lspconfig.sumneko_lua.setup {
                 globals = { 'vim' },
             },
 
-            workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+                checkThirdParty = false,
+            },
+
             telemetry = { enable = false, },
         },
     },
