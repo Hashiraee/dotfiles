@@ -49,13 +49,40 @@ end
 
 
 -- Snippets
-ls.add_snippets("tex",
-{
+ls.add_snippets("tex", {
+
+    s("h1",
+    {
+        t({ "\\section{" }), i(1), t({ "}" }),
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s("h2",
+    {
+        t({ "\\subsection{" }), i(1), t({ "}" }),
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s("h3",
+    {
+        t({ "\\subsubsection{" }), i(1), t({ "}" }),
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
     s("dm",
     {
-        t({ "\\[", "\t" }),
+        t({ "\\begin{equation*}", "\t" }),
         i(1),
-        t({ "", "\\]" }),
+        t({ "", "\\end{equation*}" }),
     },
     {
         condition = tex.in_text
@@ -240,6 +267,24 @@ ls.add_snippets("tex",
     }),
 
 
+    s("ubf",
+    {
+        t({"\\underline{\\textbf{"}), i(1), t({"}}"}), i(0),
+    },
+    {
+        condition = tex.in_text,
+    }),
+
+
+    s("undl",
+    {
+        t({"\\underline{"}), i(1), t({"}"}), i(0),
+    },
+    {
+        condition = tex.in_text,
+    }),
+
+
     s("tital",
     {
         t({"\\textit{"}), i(1), t({"}"}), i(0),
@@ -249,7 +294,7 @@ ls.add_snippets("tex",
     }),
 
 
-    s("tfrac",
+    s("//",
     {
         t({"$\\frac{"}), i(1), t({"}{"}), i(2), t({"}$"}),
         i(0),
@@ -276,7 +321,7 @@ ls.add_snippets("tex",
 
     s("==",
     {
-        t({"&= "}), i(1), t({" \\\\"}), i(0),
+        t({"& = "}), i(1), t({" \\\\"}), i(0),
     },
     {
         condition = tex.in_mathzone
@@ -426,6 +471,15 @@ ls.add_snippets("tex",
     }),
 
 
+    s("til",
+    {
+        t({"\\tilde{"}), i(1), t({"}"}), i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
     s("sum",
     {
         t({"\\sum_{"}), i(1, "t"), t({" = "}), i(2, "0"), t({"}^{"}), i(3, "T"), t({"} "}), i(4, "arg"),
@@ -462,7 +516,7 @@ ls.add_snippets("tex",
     }),
 
 
-    s("sqrt",
+    s("sq",
     {
         t({"\\sqrt{"}), i(1, "arg"), t({"}"}), i(0),
     },
@@ -526,11 +580,24 @@ ls.add_snippets("tex",
 
     s(
     {
-        trig = "__",
-        wordTrig = true,
+        trig = "--",
+        wordTrig = false,
     },
     {
-        t({"$"}), i(1, "value"), t({"_{"}), i(2, "index"), t({"}$"}), i(0),
+        t({"_{"}), i(1, "index"), t({"}"}), i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "__",
+        wordTrig = false,
+    },
+    {
+        t({"$"}), t({"_{"}), i(1, "index"), t({"}$"}), i(0),
     },
     {
         condition = tex.in_text
@@ -584,23 +651,23 @@ ls.add_snippets("tex",
 
     s({ trig = "xii", wordTrig = false }, { t({"x_{i}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "Xii", wordTrig = false }, { t({"X_{i}"}) }, { condition = tex.in_mathzone }),
-    s({ trig = "xjj", wordTrig = false }, { t({"x_{j}"}) }, { condition = tex.in_mathzone }),
-    s({ trig = "xkk", wordTrig = false }, { t({"x_{k}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "xnn", wordTrig = false }, { t({"x_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Xnn", wordTrig = false }, { t({"X_{n}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "xtt", wordTrig = false }, { t({"x_{t}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "Xtt", wordTrig = false }, { t({"X_{t}"}) }, { condition = tex.in_mathzone }),
 
     s({ trig = "yii", wordTrig = false }, { t({"y_{i}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "Yii", wordTrig = false }, { t({"Y_{i}"}) }, { condition = tex.in_mathzone }),
-    s({ trig = "yjj", wordTrig = false }, { t({"y_{j}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "ynn", wordTrig = false }, { t({"y_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Ynn", wordTrig = false }, { t({"Y_{n}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "ytt", wordTrig = false }, { t({"y_{t}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "Ytt", wordTrig = false }, { t({"Y_{t}"}) }, { condition = tex.in_mathzone }),
-    s({ trig = "Xtt", wordTrig = false }, { t({"X_{t}"}) }, { condition = tex.in_mathzone }),
+
     s({ trig = "ett", wordTrig = false }, { t({"\\epsilon_{t}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "eii", wordTrig = false }, { t({"\\epsilon_{i}"}) }, { condition = tex.in_mathzone }),
-    s({ trig = "eee", wordTrig = false }, { t({"\\epsilon"}) }, { condition = tex.in_mathzone }),
 
+    s({ trig = "utt", wordTrig = false }, { t({"u_{t}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "uii", wordTrig = false }, { t({"u_{i}"}) }, { condition = tex.in_mathzone }),
 
     s({ trig = "xp1", wordTrig = false }, { t({"x_{t+1}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "xp2", wordTrig = false }, { t({"x_{t+2}"}) }, { condition = tex.in_mathzone }),
@@ -612,12 +679,10 @@ ls.add_snippets("tex",
     s({ trig = "xmp", wordTrig = false }, { t({"x_{t-p}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "xmr", wordTrig = false }, { t({"x_{t-r}"}) }, { condition = tex.in_mathzone }),
 
-
     s({ trig = "yp1", wordTrig = false }, { t({"y_{t+1}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "yp2", wordTrig = false }, { t({"y_{t+2}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "ypp", wordTrig = false }, { t({"y_{t+p}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "ypr", wordTrig = false }, { t({"y_{t+r}"}) }, { condition = tex.in_mathzone }),
-
 
     s({ trig = "ym1", wordTrig = false }, { t({"y_{t-1}"}) }, { condition = tex.in_mathzone }),
     s({ trig = "ym2", wordTrig = false }, { t({"y_{t-2}"}) }, { condition = tex.in_mathzone }),
@@ -625,25 +690,7 @@ ls.add_snippets("tex",
     s({ trig = "ymr", wordTrig = false }, { t({"y_{t-r}"}) }, { condition = tex.in_mathzone }),
 
 
-    s("epsilon",
-    {
-        t({"\\epsilon_{"}), i(1), t({"}"}), i(0),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("bbb",
-    {
-        t({"\\beta_{"}), i(1), t({"}"}), i(0),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("alpha",
+    s(";a",
     {
         t({"\\alpha"}),
     },
@@ -652,43 +699,7 @@ ls.add_snippets("tex",
     }),
 
 
-    s("theta",
-    {
-        t({"\\theta"}),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("nu",
-    {
-        t({"\\nu"}),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("eta",
-    {
-        t({"\\eta"}),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("phi",
-    {
-        t({"\\phi"}),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("beta",
+    s(";b",
     {
         t({"\\beta"}),
     },
@@ -697,7 +708,7 @@ ls.add_snippets("tex",
     }),
 
 
-    s("gamma",
+    s(";g",
     {
         t({"\\gamma"}),
     },
@@ -706,25 +717,16 @@ ls.add_snippets("tex",
     }),
 
 
-    s("rho",
+    s(";G",
     {
-        t({"\\rho"}),
+        t({"\\Gamma"}),
     },
     {
         condition = tex.in_mathzone
     }),
 
 
-    s("omega",
-    {
-        t({"\\omega"}),
-    },
-    {
-        condition = tex.in_mathzone
-    }),
-
-
-    s("delta",
+    s(";d",
     {
         t({"\\delta"}),
     },
@@ -733,9 +735,252 @@ ls.add_snippets("tex",
     }),
 
 
-    s("sigma",
+    s(";D",
+    {
+        t({"\\Delta"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";e",
+    {
+        t({"\\epsilon"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";z",
+    {
+        t({"\\zeta"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";h",
+    {
+        t({"\\eta"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";o",
+    {
+        t({"\\theta"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";O",
+    {
+        t({"\\Theta"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";k",
+    {
+        t({"\\kappa"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";l",
+    {
+        t({"\\lambda"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";L",
+    {
+        t({"\\Lambda"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";u",
+    {
+        t({"\\mu"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";n",
+    {
+        t({"\\nu"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";x",
+    {
+        t({"\\xi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";X",
+    {
+        t({"\\Xi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";i",
+    {
+        t({"\\pi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";I",
+    {
+        t({"\\Pi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";r",
+    {
+        t({"\\rho"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";s",
     {
         t({"\\sigma"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";S",
+    {
+        t({"\\Sigma"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";t",
+    {
+        t({"\\tau"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";y",
+    {
+        t({"\\upsilon"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";f",
+    {
+        t({"\\phi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";F",
+    {
+        t({"\\Phi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";c",
+    {
+        t({"\\chi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";p",
+    {
+        t({"\\psi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";P",
+    {
+        t({"\\Psi"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";w",
+    {
+        t({"\\omega"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(";W",
+    {
+        t({"\\Omega"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("tht",
+    {
+        t({"_{T + h | T}"}),
     },
     {
         condition = tex.in_mathzone
@@ -814,7 +1059,7 @@ ls.add_snippets("tex",
 
     s(
     {
-        trig = "invs",
+        trig = "inv",
         wordTrig = false,
     },
     {
@@ -827,11 +1072,11 @@ ls.add_snippets("tex",
 
     s(
     {
-        trig = "compl",
+        trig = "\'",
         wordTrig = false,
     },
     {
-        t({"^{c}"}),
+        t({"^{\\prime}"}),
     },
     {
         condition = tex.in_mathzone
@@ -919,7 +1164,7 @@ ls.add_snippets("tex",
 
     s(
     {
-        trig = "tsubs",
+        trig = "tsub",
         wordTrig = false,
     },
     {
@@ -932,7 +1177,7 @@ ls.add_snippets("tex",
 
     s(
     {
-        trig = "itt",
+        trig = "ttt",
         wordTrig = true,
     },
     {
@@ -956,7 +1201,31 @@ ls.add_snippets("tex",
 
     s("expec",
     {
-        t({ "\\mathbb{E}\\left[ " }),
+        t({ "\\mathds{E}\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("var",
+    {
+        t({ "\\mathds{V}ar\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("cov",
+    {
+        t({ "\\mathds{C}ov\\left[ " }),
 		i(1),
 		t({" \\right]"}),
         i(0),
@@ -968,9 +1237,9 @@ ls.add_snippets("tex",
 
     s("prob",
     {
-        t({ "\\mathds{P}\\left[ " }),
+        t({ "\\mathds{P}[ " }),
 		i(1),
-		t({ " \\right]" }),
+		t({ " ]" }),
         i(0),
     },
     {
@@ -998,9 +1267,18 @@ ls.add_snippets("tex",
     }),
 
 
-    s("mu",
+    s("uuu",
     {
         t({ "\\mu" }),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("mutt",
+    {
+        t({ "\\mu_{t}" }),
     },
     {
         condition = tex.in_mathzone
@@ -1024,6 +1302,21 @@ ls.add_snippets("tex",
 
     s(
     {
+        trig = "([0-9])cm",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\vspace{0." .. snip.captures[1] .. "cm}"
+        end, {}
+    ),
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s(
+    {
         trig = "([A-Za-z])hat",
         regTrig = true,
     },
@@ -1035,6 +1328,38 @@ ls.add_snippets("tex",
     {
         condition = tex.in_mathzone
     }),
+
+
+    s(
+    {
+        trig = "([A-Za-z])til",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\tilde{" .. snip.captures[1] .. "}"
+        end, {}
+    ),
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    -- s(
+    -- {
+    --     trig = "(%w)(,)(%w);e",
+    --     regTrig = true,
+    -- },
+    -- f(
+    --     function(_, snip)
+    --         return "\\epsilon_{" .. snip.captures[1] .. snip.captures[2] .. snip.captures[3] .. "}"
+    --     end, {}
+    -- ),
+    -- {
+    --     condition = tex.in_mathzone
+    -- }),
+
+
 },
 {
     type = "autosnippets",

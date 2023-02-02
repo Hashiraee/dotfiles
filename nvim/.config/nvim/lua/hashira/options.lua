@@ -26,7 +26,7 @@ opt.smartindent = true
 opt.autoindent = true
 
 -- Set global statusline
-opt.laststatus = 3
+opt.laststatus = 2
 
 -- File encoding and language
 opt.fileencoding = "utf-8"

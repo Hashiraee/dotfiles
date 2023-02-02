@@ -96,7 +96,7 @@ return require("packer").startup({ function(use)
     use { "folke/neodev.nvim" }
 
     -- LaTeX (vimtex)
-    use { "lervag/vimtex", ft = "tex" }
+    use { "lervag/vimtex", }
 
 
     if packer_bootstrap then

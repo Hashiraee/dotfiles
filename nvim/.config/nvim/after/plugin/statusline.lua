@@ -431,7 +431,7 @@ local function get()
         end,
         hl = {
             fg = clrs.overlay2,
-            bg = clrs.mantle,
+            bg = clrs.lavender,
         },
     }
 

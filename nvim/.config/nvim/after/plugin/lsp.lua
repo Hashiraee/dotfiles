@@ -37,7 +37,7 @@ local config = {
     virtual_text = false,
     signs = { active = signs },
     update_in_insert = false,
-    underline = false,
+    underline = true,
     severity_sort = true,
 
     float = {
@@ -98,8 +98,8 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
-    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, attach_opts)
+    vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, attach_opts)
+    vim.keymap.set('n', '<Leader>lt', vim.lsp.buf.type_definition, attach_opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, attach_opts)
 
     -- Workspace stuff
@@ -129,7 +129,7 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { "rust_analyzer", "sumneko_lua", "texlab", "pyright", "r_language_server" }
+local servers = { "rust_analyzer", "sumneko_lua", "texlab", "pyright" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup {
