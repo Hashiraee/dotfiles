@@ -1,0 +1,445 @@
+-- Some renames
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+local opts = { noremap = true, silent = true, buffer = true }
+local file_pattern = "*.tex"
+local group = augroup("Latex Snippets", { clear = true })
+
+
+-- LaTex environments
+local tex = {}
+tex.in_mathzone = function()
+    return vim.fn['vimtex#syntax#in_mathzone']() == 1
+end
+tex.in_text = function()
+    return not tex.in_mathzone()
+end
+
+
+-- Snippets
+ls.add_snippets("tex", {
+    s("iii",
+    {
+        t({"\\infty"})
+    },
+    {
+        condition = tex.in_mathzone or tex.in_text
+    }),
+
+
+    s("<=",
+    {
+        t({"\\le"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(">=",
+    {
+        t({"\\ge"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("EE",
+    {
+        t({"\\exits"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("AA",
+    {
+        t({"\\forall"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s({ trig = "xii", wordTrig = false }, { t({"x_{i}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Xii", wordTrig = false }, { t({"X_{i}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xnn", wordTrig = false }, { t({"x_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Xnn", wordTrig = false }, { t({"X_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xtt", wordTrig = false }, { t({"x_{t}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Xtt", wordTrig = false }, { t({"X_{t}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "yii", wordTrig = false }, { t({"y_{i}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Yii", wordTrig = false }, { t({"Y_{i}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ynn", wordTrig = false }, { t({"y_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Ynn", wordTrig = false }, { t({"Y_{n}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ytt", wordTrig = false }, { t({"y_{t}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "Ytt", wordTrig = false }, { t({"Y_{t}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "ett", wordTrig = false }, { t({"\\epsilon_{t}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "eii", wordTrig = false }, { t({"\\epsilon_{i}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "utt", wordTrig = false }, { t({"u_{t}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "uii", wordTrig = false }, { t({"u_{i}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "xp1", wordTrig = false }, { t({"x_{t+1}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xp2", wordTrig = false }, { t({"x_{t+2}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xpp", wordTrig = false }, { t({"x_{t+p}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xpr", wordTrig = false }, { t({"x_{t+r}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "xm1", wordTrig = false }, { t({"x_{t-1}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xm2", wordTrig = false }, { t({"x_{t-2}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xmp", wordTrig = false }, { t({"x_{t-p}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "xmr", wordTrig = false }, { t({"x_{t-r}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "yp1", wordTrig = false }, { t({"y_{t+1}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "yp2", wordTrig = false }, { t({"y_{t+2}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ypp", wordTrig = false }, { t({"y_{t+p}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ypr", wordTrig = false }, { t({"y_{t+r}"}) }, { condition = tex.in_mathzone }),
+
+    s({ trig = "ym1", wordTrig = false }, { t({"y_{t-1}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ym2", wordTrig = false }, { t({"y_{t-2}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ymp", wordTrig = false }, { t({"y_{t-p}"}) }, { condition = tex.in_mathzone }),
+    s({ trig = "ymr", wordTrig = false }, { t({"y_{t-r}"}) }, { condition = tex.in_mathzone }),
+
+
+    s(
+    {
+        trig = "**",
+        wordTrig = false,
+    },
+    {
+        t({"\\cdot"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("dint",
+    {
+        t({"\\int_{"}), i(1, "-\\infty"), t({"}^{"}), i(2, "\\infty"), t({"} "}), i(3, "arg"), i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "->",
+        wordTrig = false,
+    },
+    {
+        t({"\\to"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "<->",
+        wordTrig = false,
+    },
+    {
+        t({"\\leftrightarrow"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "!>",
+        wordTrig = false,
+    },
+    {
+        t({"\\mapsto"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "inv",
+        wordTrig = false,
+    },
+    {
+        t({"^{-1}"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "\'",
+        wordTrig = false,
+    },
+    {
+        t({"^{\\prime}"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(">>",
+    {
+        t({"\\gg"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("<<",
+    {
+        t({"\\ll"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("sim",
+    {
+        t({"\\sim"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("cc",
+    {
+        t({"\\subset"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("notin",
+    {
+        t({"\\not\\in"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("inn",
+    {
+        t({"\\in"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("NN", { t({"\\N"}) }, { condition = tex.in_mathzone }),
+    s("RR", { t({"\\R"}) }, { condition = tex.in_mathzone }),
+    s("ZZ", { t({"\\Z"}) }, { condition = tex.in_mathzone }),
+    s("QQ", { t({"\\Q"}) }, { condition = tex.in_mathzone }),
+    s("OO", { t({"\\O"}) }, { condition = tex.in_mathzone }),
+
+
+    s("<!",
+    {
+        t({"\\triangleleft"})
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("<>",
+    {
+        t({"\\diamond"})
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "tsub",
+        wordTrig = false,
+    },
+    {
+        t({"_{\\text{"}), i(1, "text"), t({"}}"}),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "ttt",
+        wordTrig = true,
+    },
+    {
+        t({"\\text{"}), i(1, "text"), t({"}"}), i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("cases",
+    {
+        t({ "\\begin{cases}", "\t" }),
+		i(1),
+		t({ "", "\\end{cases}" }),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("expec",
+    {
+        t({ "\\mathds{E}\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("var",
+    {
+        t({ "\\mathds{V}ar\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("cov",
+    {
+        t({ "\\mathds{C}ov\\left[ " }),
+		i(1),
+		t({" \\right]"}),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("prob",
+    {
+        t({ "\\mathds{P}[ " }),
+		i(1),
+		t({ " ]" }),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("pr1",
+    {
+        t({ "\\mathds{P}\\left[ Y_{i} = 1 | X_{i} \\right]" }),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("pr0",
+    {
+        t({ "\\mathds{P}\\left[ Y_{i} = 0 | X_{i} \\right]" }),
+        i(0),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s("mutt",
+    {
+        t({ "\\mu_{t}" }),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "([A-Za-z])bar",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\bar{" .. snip.captures[1] .. "}"
+        end, {}
+    ),
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "([0-9])cm",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\vspace{0." .. snip.captures[1] .. "cm}"
+        end, {}
+    ),
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s(
+    {
+        trig = "([A-Za-z])hat",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\hat{" .. snip.captures[1] .. "}"
+        end, {}
+    ),
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+    {
+        trig = "([A-Za-z])til",
+        regTrig = true,
+    },
+    f(
+        function(_, snip)
+            return "\\tilde{" .. snip.captures[1] .. "}"
+        end, {}
+    ),
+    {
+        condition = tex.in_mathzone
+    }),
+},

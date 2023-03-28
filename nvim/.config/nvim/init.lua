@@ -1,5 +1,11 @@
--- Impatient to improve start-up time
-require("impatient")
+local load = function(mod)
+    package.loaded[mod] = nil
+    require(mod)
+end
 
--- Core settings
-require("hashira")
+load("config.options")
+load("config.lazy")
+load("config.keymaps")
+load("config.autocmds")
+
+vim.cmd.colorscheme("catppuccin")
