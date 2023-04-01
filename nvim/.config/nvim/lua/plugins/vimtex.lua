@@ -1,13 +1,13 @@
 local Plugin = { "lervag/vimtex" }
 
--- Plugin.ft = "tex"
+Plugin.ft = "tex"
 
 function Plugin.config()
     -- LaTeX files and VimTeX settings.
     vim.opt.textwidth = 120
 
     -- Spell setting
-    -- vim.opt.spell = true
+    vim.opt.spell = true
     vim.opt.spelllang = "en_us"
 
     -- VimTeX settings
@@ -23,7 +23,6 @@ function Plugin.config()
     vim.g.vimtex_compiler_latexmk = {
         executable = 'latexmk',
         options = {
-            '-lualatex',
             '-file-line-error',
             '-synctex=1',
             '-interaction=nonstopmode',
@@ -44,7 +43,6 @@ function Plugin.config()
 
     -- VimTex setting for viewing
     vim.keymap.set('n', '<Leader>v', '<Cmd>VimtexView<Cr>', { noremap = true, silent = true })
-
 
     -- Focus back to terminal
     local function TexFocusVim()

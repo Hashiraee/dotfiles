@@ -2,6 +2,8 @@ local Plugin = { "nvim-tree/nvim-tree.lua" }
 
 Plugin.name = "nvim-tree"
 
+Plugin.lazy = true
+
 Plugin.event = "VeryLazy"
 
 Plugin.cmd = { "NvimTreeToggle" }

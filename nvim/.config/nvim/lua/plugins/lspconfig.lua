@@ -101,7 +101,7 @@ function settings.on_attach(_, bufnr)
     vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, attach_opts)
 
     -- Code actions and formatting
-    vim.keymap.set('n', '<Leader>lc', vim.lsp.buf.code_action, attach_opts)
+    vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, attach_opts)
     vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.format, attach_opts)
     vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help, attach_opts)
 
