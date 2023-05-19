@@ -1,13 +1,13 @@
 local Plugin = { "lervag/vimtex" }
 
-Plugin.ft = "tex"
+-- Plugin.ft = "tex"
 
 function Plugin.config()
     -- LaTeX files and VimTeX settings.
     vim.opt.textwidth = 120
 
     -- Spell setting
-    vim.opt.spell = true
+    -- vim.opt.spell = true
     vim.opt.spelllang = "en_us"
 
     -- VimTeX settings
@@ -35,7 +35,7 @@ function Plugin.config()
     vim.g.vimtex_view_skim_reading_bar = 1
 
     -- Mapping for correction
-    vim.keymap.set('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u', { noremap = true, silent = true })
+    vim.keymap.set('i', "<C-l>", '<C-g>u<Esc>[s1z=`]a<C-g>u', { noremap = true, silent = true })
 
     -- Mappings for compiling
     vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<Cr><Cmd>VimtexCompile<Cr>', { noremap = true, silent = true })

@@ -10,7 +10,6 @@ Plugin.opts = {
         "vim",
         "python",
         "rust",
-        "help",
         "markdown",
         "markdown_inline",
     },
