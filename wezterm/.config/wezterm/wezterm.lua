@@ -3,7 +3,7 @@ return {
     color_scheme = "Catppuccin Mocha",
 
     -- Font size
-    font_size = 16,
+    font_size = 12,
 
     -- Tab bar stye
     tab_bar_at_bottom = true,
