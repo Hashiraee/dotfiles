@@ -5,3 +5,4 @@ fish/.config/fish/fish_variables
 fish/.config/fish/completions
 zsh/.config/zsh/.zsh_history
 lazy-lock.json
+spell/

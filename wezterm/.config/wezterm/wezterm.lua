@@ -1,26 +1,34 @@
-return {
-    -- Colorscheme
-    color_scheme = "Catppuccin Mocha",
+local wezterm = require("wezterm")
 
-    -- Font size
-    font_size = 12,
+local config = {}
 
-    -- Tab bar stye
-    tab_bar_at_bottom = true,
-    hide_tab_bar_if_only_one_tab = true,
-    use_fancy_tab_bar = true,
+-- Colorscheme
+config.color_scheme = "Catppuccin Mocha"
 
-    -- Window decorations
-    window_decorations = "RESIZE",
+-- Font size
+config.font_size = 16
 
-    -- No confirmation on quit
-    window_close_confirmation = "NeverPrompt",
+-- Tab bar stye
+config.tab_bar_at_bottom = true
+config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = true
 
-    -- Padding
-    window_padding = {
-        left = 0,
-        right = 0,
-        top = 0,
-        bottom = 0,
-    },
+-- Window decorations
+config.window_decorations = "RESIZE"
+
+-- No confirmation on quit
+config.window_close_confirmation = "NeverPrompt"
+
+config.font = wezterm.font('JetBrains Mono', { weight = 'Regular', italic = false })
+
+-- Padding
+config.window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
 }
+
+config.window_background_opacity = 0.85
+
+return config

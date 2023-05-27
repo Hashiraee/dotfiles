@@ -14,6 +14,7 @@ set ideajoin
 map <leader>ff <Action>(GotoFile)
 nmap <leader>w <c-w>
 nmap <leader>lf <Action>(ReformatCode)
+nmap <leader>lr <Action>(RenameElement)
 
 " Visual remaps
 vmap gc <Action>(CommentByLineComment)
@@ -28,3 +29,6 @@ nmap ]b :bn<CR>
 
 " Inline comment
 nmap gcc <Action>(CommentByLineComment)
+
+" Open file explorer
+nmap <leader>e <Action>(ActivateProjectToolWindow)

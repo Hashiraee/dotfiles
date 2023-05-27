@@ -159,7 +159,10 @@ function Plugin.config()
         end,
         ["lua_ls"] = function()
             require("plugins.lsp.lua_ls")
-        end
+        end,
+        ["r_language_server"] = function()
+            require("plugins.lsp.r_language_server")
+        end,
     })
 end
 
