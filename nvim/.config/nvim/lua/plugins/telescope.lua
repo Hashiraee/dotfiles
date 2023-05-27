@@ -7,7 +7,7 @@ Plugin.event = "VeryLazy"
 Plugin.opts = {
     defaults = {
         prompt_prefix = "   ",
-        selection_caret = "  ",
+        selection_caret = " ",
         entry_prefix = "  ",
     },
 }
