@@ -85,6 +85,9 @@ vim.opt.pumblend = 10
 -- Maximum entries in completion list.
 vim.opt.pumheight = 10
 
+-- Disable mode
+vim.opt.showmode = false
+
 -- Show hidden characters
 vim.opt.list = false
 

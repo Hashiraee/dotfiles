@@ -48,6 +48,9 @@ vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", opts)
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { noremap = true, silent = true, desc = "Previous Buffer"})
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { noremap = true, silent = true, desc = "Previous Buffer"})
 
+-- Saving with leader s
+vim.keymap.set("n", "<Leader>s", "<cmd>w<cr>", { noremap = true, silent = true, desc = "Save"})
+
 -- Harpoon stuff
 --  vim.keymap.set('n', '<Leader>ha', function() require("harpoon.mark").add_file() end, opts)
 --  vim.keymap.set('n', '<Leader>hh', function() require("harpoon.ui").toggle_quick_menu() end, opts)
