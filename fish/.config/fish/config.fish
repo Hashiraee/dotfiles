@@ -15,3 +15,4 @@ alias la="exa -al"
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+if status is-interactive; and command -q pyenv; pyenv init - | source ; end

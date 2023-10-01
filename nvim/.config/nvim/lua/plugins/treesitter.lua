@@ -4,16 +4,16 @@ Plugin.dependencies = {
     { "nvim-treesitter/nvim-treesitter-textobjects" }
 }
 
--- Plugin.opts = {
---     ensure_installed = {
---         "lua",
---         "vim",
---         "python",
---         "rust",
---         "markdown",
---         "markdown_inline",
---     },
---
+Plugin.opts = {
+    ensure_installed = {
+        "lua",
+        "vim",
+        "python",
+        "rust",
+        "markdown",
+        "markdown_inline",
+    },
+
 --     autotag = {
 --         enable = true,
 --     },
@@ -56,7 +56,7 @@ Plugin.dependencies = {
 --             ['[C'] = '@class.outer',
 --         },
 --     },
--- }
+}
 
 function Plugin.config(_, opts)
     require("nvim-treesitter.configs").setup(opts)

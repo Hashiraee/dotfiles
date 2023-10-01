@@ -51,17 +51,17 @@ local assets = {
     right_separator = "",
     bar = "█",
     mode_icon = "",
-    dir = " ",
-    file = " ",
+    dir = "  ",
+    file = " ",
     lsp = {
-        server = "",
+        server = " ",
         error = " ",
         warning = " ",
         info = " ",
         hint = " ",
     },
     git = {
-        branch = "",
+        branch = "󰊢 ",
         added = " ",
         changed = " ",
         removed = " ",
@@ -206,7 +206,7 @@ Plugin.opts = {
             {
                 function()
                     if next(vim.lsp.get_active_clients()) ~= nil then
-                        return assets.lsp.server .. " Lsp"
+                        return assets.lsp.server .. " LSP"
                     else
                         return ""
                     end

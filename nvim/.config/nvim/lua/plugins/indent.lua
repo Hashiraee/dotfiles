@@ -1,16 +1,38 @@
-local Plugin = { "lukas-reineke/indent-blankline.nvim" }
+local Plugin = { "lukas-reineke/indent-blankline.nvim", main = "ibl" }
 
 Plugin.name = "indent_blankline"
 
 Plugin.event = { "BufReadPost", "BufNewFile" }
 
-Plugin.opts = {
-    char = "│",
-    show_trailing_blankline_indent = false,
-    show_first_indent_level = false,
-    use_treesitter = true,
-    show_current_context = false,
-    filetype_exclude = { "help", "alpha", "dashboard", "lazy", "mason", "NvimTree", "qf" },
-}
+function Plugin.config()
+    local indent = require("ibl")
+
+    indent.setup({
+        scope = {
+            enabled = false,
+            char = "│",
+            show_start = false,
+            show_end = false,
+            include = {
+                node_type = {
+                    lua = { "return_statement", "table_constructor" },
+                },
+            },
+        },
+
+        exclude = {
+            filetypes = { "help", "alpha", "dashboard", "lazy", "mason", "NvimTree", "qf" },
+        },
+
+        indent = {
+            char = "│",
+            smart_indent_cap = true,
+        },
+
+        whitespace = {
+            remove_blankline_trail = false,
+        },
+    })
+end
 
 return Plugin

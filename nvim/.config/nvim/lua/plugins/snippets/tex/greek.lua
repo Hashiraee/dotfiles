@@ -87,7 +87,7 @@ return {
         snippetType = "autosnippet",
     },
     {
-        t("\\epsilon"),
+        t("\\varepsilon"),
     },
     {
         condition = tex.in_mathzone
@@ -99,7 +99,7 @@ return {
         snippetType = "autosnippet",
     },
     {
-        t("\\varepsilon"),
+        t("\\epsilon"),
     },
     {
         condition = tex.in_mathzone
