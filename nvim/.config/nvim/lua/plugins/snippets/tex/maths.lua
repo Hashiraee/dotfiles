@@ -378,11 +378,24 @@ return {
 
     s(
 	{
-        trig = "sum",
+        trig = "sumi",
         snippetType = "autosnippet",
     },
     {
-        t({"\\sum_{"}), i(1, "t"), t({" = "}), i(2, "0"), t({"}^{"}), i(3, "T"), t({"} "}), i(4, "arg"),
+        t({"\\sum_{"}), i(1, "i"), t({" = "}), i(2, "1"), t({"}^{"}), i(3, "N"), t({"} "}), i(4, "arg"),
+    },
+    {
+        condition = tex.in_mathzone
+    }),
+
+
+    s(
+	{
+        trig = "sumt",
+        snippetType = "autosnippet",
+    },
+    {
+        t({"\\sum_{"}), i(1, "t"), t({" = "}), i(2, "1"), t({"}^{"}), i(3, "T"), t({"} "}), i(4, "arg"),
     },
     {
         condition = tex.in_mathzone

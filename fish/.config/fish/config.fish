@@ -2,9 +2,9 @@ abbr -a n nvim
 abbr -a v vim
 abbr -a cnvim cd ~/.dotfiles/nvim/.config/nvim
 
-alias ls="exa"
-alias ll="exa -l"
-alias la="exa -al"
+alias ls="eza"
+alias ll="eza -l"
+alias la="eza -al"
 
 # Set the cursor shapes for the different vi modes.
 # set fish_cursor_default     block      blink

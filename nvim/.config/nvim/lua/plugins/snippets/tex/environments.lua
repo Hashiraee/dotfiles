@@ -50,6 +50,45 @@ return {
 
     s(
     {
+        trig = "twosp",
+        snippetType = "autosnippet",
+    },
+    {
+        t({ "\\vspace{0.2cm}" }),
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s(
+    {
+        trig = "foursp",
+        snippetType = "autosnippet",
+    },
+    {
+        t({ "\\vspace{0.4cm}" }),
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s(
+    {
+        trig = "vsp",
+        snippetType = "autosnippet",
+    },
+    {
+        t({ "\\vspace{" }), i(1), t({"cm}"}), i(0)
+    },
+    {
+        condition = tex.in_text and conds.line_begin
+    }),
+
+
+    s(
+    {
         trig = "mk",
         snippetType = "autosnippet",
     },

@@ -174,9 +174,10 @@ Plugin.opts = {
                     return ""
                 end,
                 padding = 0,
-                colors = {
-                    bg = set.lualine_bg,
-                }
+                -- color = {
+                --     fg = set.extras,
+                --     bg = set.lualine_bg,
+                -- },
             },
             {
                 "diagnostics",
@@ -198,6 +199,7 @@ Plugin.opts = {
                 always_visible = false,
                 padding = 1,
                 color = {
+                    fg = set.extras,
                     bg = set.lualine_bg,
                 },
             },
@@ -255,7 +257,7 @@ Plugin.opts = {
                 end,
                 padding = 1,
                 color = {
-                    fd = set.text,
+                    fg = set.text,
                     bg = set.curr_file,
                 },
             },
@@ -264,7 +266,7 @@ Plugin.opts = {
                     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
                     return assets.dir .. dir_name
                 end,
-                padding = 2,
+                padding = 1,
                 color = {
                     fg = set.text,
                     bg = set.curr_dir,
