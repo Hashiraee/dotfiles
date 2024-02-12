@@ -1,30 +1,39 @@
-local lazy = {}
-
-function lazy.install(path)
-  if not vim.loop.fs_stat(path) then
-    print("Installing lazy.nvim....")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-      "git",
-      "clone",
-      "--filter=blob:none",
-      "https://github.com/folke/lazy.nvim.git",
-      "--branch=stable",
-      path,
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
     })
-  end
 end
+vim.opt.rtp:prepend(lazypath)
 
-function lazy.setup(plugins)
-  lazy.install(lazy.path)
-  vim.opt.rtp:prepend(lazy.path)
-  require("lazy").setup(plugins, lazy.opts)
-end
-
-lazy.path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-lazy.opts = {
-    change_detection = {
-        notify = false,
+require("lazy").setup({
+    defaults = {
+        lazy = false,
     },
-}
-
-lazy.setup({{ import = "plugins" }})
+    spec = "plugins",
+    change_detection = { notify = false },
+    performance = {
+        cache = {
+            enabled = true,
+        },
+        reset_packpath = true,
+        rtp = {
+            reset = true,
+            disabled_plugins = {
+                "gzip",
+                -- "matchit",
+                -- "matchparen",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
+})

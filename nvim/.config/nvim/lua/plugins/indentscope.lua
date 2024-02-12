@@ -10,7 +10,7 @@ Plugin.opts = {
 
 function Plugin.init()
     vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "NvimTree", "Trouble", "lazy", "mason" },
+        pattern = { "help", "alpha", "dashboard", "NvimTree", "Trouble", "lazy", "mason", "noice" },
         callback = function()
             vim.b.miniindentscope_disable = true
         end,

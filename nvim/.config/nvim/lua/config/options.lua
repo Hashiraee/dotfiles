@@ -26,6 +26,7 @@ vim.opt.splitright = true
 
 -- Scroll off
 vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8 -- Columns of context
 
 -- Highlight while searching
 vim.opt.incsearch = true
@@ -41,7 +42,7 @@ vim.opt.laststatus = 2
 
 -- File encoding and language
 vim.opt.fileencoding = "utf-8"
-vim.opt.spelllang = "en_us"
+vim.opt.spelllang = { "en" }
 
 -- Show incremental updates of command
 vim.opt.inccommand = "split"
@@ -79,8 +80,10 @@ vim.opt.errorbells = false
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.wildmode = "longest:full,full"
 
--- Pop-up blend
-vim.opt.pumblend = 10
+-- -- Pop-up blend
+vim.opt.pumblend = 0
+vim.opt.winblend = 0
+
 
 -- Maximum entries in completion list.
 vim.opt.pumheight = 10
@@ -105,7 +108,7 @@ vim.opt.undolevels = 10000
 -- Normal h and l use when wrapping around long line
 vim.opt.whichwrap:append("<>hl")
 
-vim.opt.shortmess:append { W = true, I = true, c = true }
+vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
 -- Set python3 provider
 vim.g.python3_host_prog="/usr/bin/python3"
@@ -116,3 +119,16 @@ vim.g.netrw_liststyle = 1
 vim.g.netrw_browse_split = 4
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 30
+
+vim.opt.formatoptions = "jcroqlnt" -- tcqj
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+
+-- Allow cursor to move where there is no text in visual block mode
+vim.opt.virtualedit = "block"
+
+-- Minimum window width
+vim.opt.winminwidth = 5
+
+-- No tilde symbols
+vim.opt.fillchars = { eob = " " }

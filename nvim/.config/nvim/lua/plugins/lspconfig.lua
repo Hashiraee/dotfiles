@@ -2,10 +2,7 @@ local Plugin = { "neovim/nvim-lspconfig" }
 local settings = {}
 
 Plugin.dependencies = {
-    {
-        "folke/neodev.nvim",
-        config = true,
-    },
+    { "folke/neodev.nvim",                 config = true },
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim", lazy = true },
 
@@ -88,7 +85,7 @@ function Plugin.init()
     vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, opts)
 end
 
-function settings.on_attach(_, bufnr)
+function settings.on_attach(client, bufnr)
     local attach_opts = { silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
@@ -110,12 +107,8 @@ function settings.on_attach(_, bufnr)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
 
-    local lspconfig = require("lspconfig")
-    local lsp_options = lspconfig.util.default_config
-    local lsp_document_hightlight_option = lsp_options.capabilities.textDocument.documentHighlight
-
     -- Highlight word under cursor.
-    if lsp_document_hightlight_option then
+    if client.supports_method("textDocument/documentHighlight") then
         local document_highlight_group = vim.api.nvim_create_augroup(
             "LspDocumentHighlight", { clear = true }
         )
@@ -135,7 +128,9 @@ function settings.on_attach(_, bufnr)
 end
 
 function Plugin.config()
-    -- See :help lspconfig-global-defaults
+    -- Setting up neodev
+    require("neodev").setup({})
+
     local lspconfig = require("lspconfig")
     local lsp_defaults = lspconfig.util.default_config
 
@@ -150,7 +145,12 @@ function Plugin.config()
     vim.api.nvim_create_autocmd("LspAttach", {
         group = lsp_group,
         desc = "LSP actions",
-        callback = settings.on_attach
+        callback = function(args)
+            local client_id = args.data.client_id
+            local client = vim.lsp.get_client_by_id(client_id)
+            local bufnr = args.buf
+            settings.on_attach(client, bufnr)
+        end
     })
 
     require("mason-lspconfig").setup_handlers({
@@ -160,8 +160,11 @@ function Plugin.config()
         ["lua_ls"] = function()
             require("plugins.lsp.lua_ls")
         end,
-        ["r_language_server"] = function()
-            require("plugins.lsp.r_language_server")
+        ["pyright"] = function()
+            require("plugins.lsp.pyright")
+        end,
+        ["tsserver"] = function()
+            require("plugins.lsp.tsserver")
         end,
     })
 end

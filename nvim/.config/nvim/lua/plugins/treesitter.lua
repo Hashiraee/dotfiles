@@ -1,5 +1,7 @@
 local Plugin = { "nvim-treesitter/nvim-treesitter" }
 
+Plugin.event = "VeryLazy"
+
 Plugin.dependencies = {
     { "nvim-treesitter/nvim-treesitter-textobjects" }
 }
@@ -8,17 +10,22 @@ Plugin.opts = {
     ensure_installed = {
         "lua",
         "vim",
-        "python",
-        "rust",
+        "regex",
+        "bash",
         "markdown",
         "markdown_inline",
-    },
-
-    autotag = {
-        enable = true,
+        "python",
+        "rust",
+        "javascript",
+        "typescript",
+        -- "latex",
     },
 
     highlight = {
+        enable = true,
+    },
+
+    indent = {
         enable = true,
     },
 
@@ -33,29 +40,29 @@ Plugin.opts = {
                 ['ic'] = '@class.inner',
             }
         },
+        move = {
+            enable = true,
+            set_jumps = true,
+
+            goto_next_start = {
+                [']f'] = '@function.outer',
+                [']c'] = '@class.outer',
+            },
+            goto_next_end = {
+                [']F'] = '@function.outer',
+                [']C'] = '@class.outer',
+            },
+            goto_previous_start = {
+                ['[f'] = '@function.outer',
+                ['[c'] = '@class.outer',
+            },
+            goto_previous_end = {
+                ['[F'] = '@function.outer',
+                ['[C'] = '@class.outer',
+            },
+        },
     },
 
-    move = {
-        enable = true,
-        set_jumps = true,
-
-        goto_next_start = {
-            [']f'] = '@function.outer',
-            [']c'] = '@class.outer',
-        },
-        goto_next_end = {
-            [']F'] = '@function.outer',
-            [']C'] = '@class.outer',
-        },
-        goto_previous_start = {
-            ['[f'] = '@function.outer',
-            ['[c'] = '@class.outer',
-        },
-        goto_previous_end = {
-            ['[F'] = '@function.outer',
-            ['[C'] = '@class.outer',
-        },
-    },
 }
 
 function Plugin.config(_, opts)

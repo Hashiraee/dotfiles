@@ -1,6 +1,5 @@
 local Plugin = { "hrsh7th/nvim-cmp" }
 
-
 Plugin.dependencies = {
     -- Sources
     { "hrsh7th/cmp-buffer" },
@@ -13,12 +12,10 @@ Plugin.dependencies = {
     { "L3MON4D3/LuaSnip" },
 
     -- Autopairs
-    { "windwp/nvim-autopairs", config = true },
+    -- { "windwp/nvim-autopairs", config = true },
 }
 
-
 Plugin.event = "InsertEnter"
-
 
 function Plugin.config()
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -26,13 +23,10 @@ function Plugin.config()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
     -- Autopairs settings
-    cmp.event:on(
-    "confirm_done",
-    cmp_autopairs.on_confirm_done()
-    )
+    -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
         snippet = {
@@ -44,7 +38,7 @@ function Plugin.config()
         sources = {
             { name = "nvim_lsp", max_item_count = 20 },
             { name = "nvim_lua", max_item_count = 10 },
-            { name = "buffer", max_item_count = 10 },
+            { name = "buffer",   max_item_count = 10 },
             { name = "luasnip" },
             { name = "path" },
             { name = "gh_issues" },
@@ -52,18 +46,18 @@ function Plugin.config()
 
         window = {
             completion = {
-                -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                -- winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
-                winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
+                scrollbar = false,
             },
 
             documentation = {
-                -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                -- winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
-                winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
             },
         },
 
+        ---@diagnostic disable-next-line: missing-fields
         formatting = {
             format = lspkind.cmp_format {
                 mode = 'symbol_text',
@@ -79,26 +73,27 @@ function Plugin.config()
             },
         },
 
-        --[[ experimental = {
-            ghost_text = {
-                hl_group = "LspCodeLens",
-            }
-        }, ]]
+        experimental = {
+            ghost_text = false,
+            -- ghost_text = {
+            --     hl_group = "Comment",
+            -- }
+        },
 
         mapping = {
             ['<C-u>'] = cmp.mapping.scroll_docs(-4),
             ['<C-d>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
-            ['<C-e>'] = cmp.mapping({
+
+            ['<C-e'] = cmp.mapping({
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
 
-            ["<CR>"] = cmp.mapping.confirm
-            {
+            ["<CR>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = false,
-            },
+            }),
 
             ["<Tab>"] = function(fallback)
                 if cmp.visible() then
@@ -118,6 +113,5 @@ function Plugin.config()
         },
     })
 end
-
 
 return Plugin

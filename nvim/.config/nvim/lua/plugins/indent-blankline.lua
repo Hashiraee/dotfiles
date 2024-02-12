@@ -21,7 +21,7 @@ function Plugin.config()
         },
 
         exclude = {
-            filetypes = { "help", "alpha", "dashboard", "lazy", "mason", "NvimTree", "qf" },
+            filetypes = { "help", "alpha", "dashboard", "lazy", "mason", "NvimTree", "qf", "noice" },
         },
 
         indent = {

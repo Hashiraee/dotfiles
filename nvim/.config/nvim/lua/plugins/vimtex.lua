@@ -1,13 +1,11 @@
 local Plugin = { "lervag/vimtex" }
 
--- Plugin.ft = "tex"
+Plugin.name = "vimtex"
 
 function Plugin.config()
     -- LaTeX files and VimTeX settings.
-    vim.opt.textwidth = 120
+    vim.opt.textwidth = 80
 
-    -- Spell setting
-    -- vim.opt.spell = true
     vim.opt.spelllang = "en_us"
 
     -- VimTeX settings
@@ -42,7 +40,7 @@ function Plugin.config()
     vim.keymap.set('n', '<C-s>', '<Cmd>w<Cr><Cmd>VimtexCompile<Cr>', { noremap = true, silent = true })
 
     -- VimTex setting for viewing
-    vim.keymap.set('n', '<Leader>v', '<Cmd>VimtexView<Cr>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>v', '<Cmd>VimtexView<Cr>', { noremap = true, silent = true })
 
     -- Focus back to terminal
     local function TexFocusVim()
@@ -51,9 +49,9 @@ function Plugin.config()
 
     local vimtex_group = vim.api.nvim_create_augroup("vimtex_group", { clear = true, })
     vim.api.nvim_create_autocmd("User", {
+        group = vimtex_group,
         pattern = { "VimtexEventViewReverse" },
         callback = TexFocusVim,
-        group = vimtex_group,
     })
 end
 

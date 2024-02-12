@@ -5,6 +5,8 @@ Plugin.event = "InsertEnter"
 
 function Plugin.config()
     local ls = require("luasnip")
+
+    ---@diagnostic disable-next-line: assign-type-mismatch
     require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/plugins/snippets/" })
 
     local s = ls.snippet
@@ -37,6 +39,7 @@ function Plugin.config()
         update_events = "TextChanged,TextChangedI",
         delete_check_events = "TextChanged,InsertLeave",
         enable_autosnippets = true,
+
         -- Event on which to check for exiting a snippet's region
         region_check_events = "InsertEnter",
         ext_base_prio = 300,
@@ -45,39 +48,33 @@ function Plugin.config()
 
     -- Keymappings for snippets
     local opts = { noremap = true, silent = true }
-    vim.keymap.set({ "i", "s" }, "<C-j>",
-    function()
-        if ls.jumpable(1) then
-            ls.jump(1)
-        end
-    end,
-    opts)
+    vim.keymap.set({ "i", "s" }, "<C-n>",
+        function()
+            if ls.jumpable(1) then
+                ls.jump(1)
+            end
+        end, opts)
 
-    vim.keymap.set({ "i", "s" }, "<C-k>",
-    function()
-        if ls.jumpable(-1) then
-            ls.jump(-1)
-        end
-    end,
-    opts)
+    vim.keymap.set({ "i", "s" }, "<C-p>",
+        function()
+            if ls.jumpable(-1) then
+                ls.jump(-1)
+            end
+        end, opts)
 
+    -- vim.keymap.set({"i", "s" }, "<>",
+    --     function()
+    --         if ls.choice_active() then
+    --             ls.change_choice(1)
+    --         end
+    --     end, opts)
 
-    vim.keymap.set({ "s" }, "<C-l>",
-    function()
-        if ls.choice_active() then
-            ls.change_choice(1)
-        end
-    end,
-    opts)
-
-
-    vim.keymap.set({ "i", "s" }, "<C-h>",
-    function()
-        if ls.choice_active() then
-            ls.change_choice(-1)
-        end
-    end,
-    opts)
+    -- vim.keymap.set({ "i", "s" }, "<>",
+    --     function()
+    --         if ls.choice_active() then
+    --             ls.change_choice(-1)
+    --         end
+    --     end, opts)
 end
 
 return Plugin

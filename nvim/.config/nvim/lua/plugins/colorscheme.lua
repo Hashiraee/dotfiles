@@ -1,20 +1,73 @@
-local Plugins = {
-
-    -- Tokyonight
-    {
-        "folke/tokyonight.nvim",
-    },
-
-    -- Catppuccin
+local Themes = {
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        priority = 1000,
         config = function()
-            require("catppuccin").setup({
+            local catppuccin = require("catppuccin")
+            catppuccin.setup({
+                flavour = "mocha",
                 transparent_background = true,
             })
+
+            -- Setting the colorscheme
+            -- vim.cmd.colorscheme("catppuccin")
         end
-    }
+    },
+    {
+        "EdenEast/nightfox.nvim",
+        name = "nightfox",
+        priority = 1000,
+        config = function()
+            local nightfox = require("nightfox")
+            nightfox.setup({
+                options = {
+                    transparent = true,
+                },
+            })
+
+            -- Setting the colorscheme
+            -- vim.cmd.colorscheme("terafox")
+        end
+    },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        priority = 1000,
+        config = function()
+            local rose_pine = require("rose-pine")
+            rose_pine.setup({
+                variant = "main",
+                extend_background_behind_borders = true,
+                styles = {
+                    transparency = true,
+                },
+            })
+
+            -- Setting the colorscheme
+            vim.cmd.colorscheme("rose-pine")
+        end
+    },
+    {
+        "folke/tokyonight.nvim",
+        name = "tokyonight",
+        priority = 1000,
+        config = function()
+            local tokyonight = require("tokyonight")
+
+            ---@diagnostic disable-next-line: missing-fields
+            tokyonight.setup({
+                style = "night",
+                transparent = true,
+                styles = {
+                    floats = "transparent",
+                },
+            })
+
+            -- Setting the colorscheme
+            -- vim.cmd.colorscheme("tokyonight")
+        end
+    },
 }
 
-return Plugins
+return Themes

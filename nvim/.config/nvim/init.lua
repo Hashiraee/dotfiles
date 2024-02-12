@@ -1,11 +1,6 @@
-local load = function(mod)
-    package.loaded[mod] = nil
-    require(mod)
-end
-
-load("config.options")
-load("config.lazy")
-load("config.keymaps")
-load("config.autocmds")
-
-vim.cmd.colorscheme("catppuccin")
+require("config.options")
+require("config.lazy")
+require("config.keymaps")
+require("config.autocmds")
+require("config.usercmds")
+require("util.ui")

@@ -4,48 +4,6 @@ Plugin.name = "lualine"
 
 Plugin.event = "VeryLazy"
 
-local C = require("catppuccin.palettes").get_palette()
-
-local set = {
-    text = C.surface0,
-    bkg = C.surface0,
-    diffs = C.mauve,
-    extras = C.overlay1,
-    curr_file = C.maroon,
-    curr_dir = C.flamingo,
-    lualine_bg = "#191828",
-    show_modified = false,
-}
-
-if require("catppuccin").flavour == "latte" then
-    local latte = require("catppuccin.palettes").get_palette("latte")
-    set.text = latte.base
-    set.bkg = latte.crust
-end
-
-local mode_colors = {
-    ["n"] = { "NORMAL", C.lavender },
-    ["no"] = { "N-PENDING", C.lavender },
-    ["i"] = { "INSERT", C.green },
-    ["ic"] = { "INSERT", C.green },
-    ["t"] = { "TERMINAL", C.green },
-    ["v"] = { "VISUAL", C.flamingo },
-    ["V"] = { "V-LINE", C.flamingo },
-    [""] = { "V-BLOCK", C.flamingo },
-    ["R"] = { "REPLACE", C.maroon },
-    ["Rv"] = { "V-REPLACE", C.maroon },
-    ["s"] = { "SELECT", C.maroon },
-    ["S"] = { "S-LINE", C.maroon },
-    [""] = { "S-BLOCK", C.maroon },
-    ["c"] = { "COMMAND", C.peach },
-    ["cv"] = { "COMMAND", C.peach },
-    ["ce"] = { "COMMAND", C.peach },
-    ["r"] = { "PROMPT", C.teal },
-    ["rm"] = { "MORE", C.teal },
-    ["r?"] = { "CONFIRM", C.mauve },
-    ["!"] = { "SHELL", C.green },
-}
-
 local assets = {
     left_separator = "",
     right_separator = "",
@@ -66,11 +24,50 @@ local assets = {
         changed = " ",
         removed = " ",
     },
+    copilot = " ",
+    show_modified = false,
+}
+
+local Util = require("util.ui")
+local palette = require("rose-pine.palette")
+local colors = {
+    normal = {
+        a = { bg = palette.muted, fg = palette.base, gui = "bold" },
+        b = { bg = palette.muted, fg = palette.base },
+        c = { bg = palette.muted, fg = palette.base },
+    },
+    insert = {
+        a = { bg = palette.foam, fg = palette.base, gui = "bold" },
+        b = { bg = palette.foam, fg = palette.base },
+        c = { bg = palette.foam, fg = palette.base },
+    },
+    visual = {
+        a = { bg = palette.iris, fg = palette.base, gui = "bold" },
+        b = { bg = palette.iris, fg = palette.base },
+        c = { bg = palette.iris, fg = palette.base },
+    },
+    replace = {
+        a = { bg = palette.pine, fg = palette.base, gui = "bold" },
+        b = { bg = palette.pine, fg = palette.base },
+        c = { bg = palette.pine, fg = palette.base },
+    },
+    command = {
+        a = { bg = palette.love, fg = palette.base, gui = "bold" },
+        b = { bg = palette.love, fg = palette.base },
+        c = { bg = palette.love, fg = palette.base },
+    },
+    inactive = {
+        a = { bg = palette.gold, fg = palette.base, gui = "bold" },
+        b = { bg = palette.gold, fg = palette.base },
+        c = { bg = palette.gold, fg = palette.base },
+    },
 }
 
 Plugin.opts = {
+    -- Options
     options = {
-        theme = "auto",
+        -- theme = vim.g.colors_name,
+        theme = colors,
         icons_enabled = true,
         component_separators = { left = assets.left_separator, right = assets.right_separator },
         section_separators = { left = assets.left_separator, right = assets.right_separator },
@@ -81,9 +78,10 @@ Plugin.opts = {
         always_divide_middle = true,
         globalstatus = false,
         refresh = {
-            statusline = 500,
-        }
+            statusline = 300,
+        },
     },
+
     sections = {
         lualine_a = {
             {
@@ -91,59 +89,69 @@ Plugin.opts = {
                 padding = 1,
                 color = function()
                     return {
-                        fg = set.text,
-                        bg = mode_colors[vim.fn.mode()][2],
                         gui = "bold",
                     }
                 end,
             },
-            {
-                "diff",
-                colored = false,
-                symbols = { added = assets.git.added, modified = assets.git.changed, removed = assets.git.removed },
-                color = function()
-                    return {
-                        fg = set.text,
-                        bg = set.diffs,
-                        -- bg = mode_colors[vim.fn.mode()][2],
-                    }
-                end,
-            },
         },
+
         lualine_b = {
             {
-                function()
-                    local current_line = vim.fn.line(".")
-                    local total_line = vim.fn.line("$")
-
-                    if current_line == 1 then
-                        return "Top"
-                    elseif current_line == vim.fn.line("$") then
-                        return "Bottom"
-                    end
-                    local result, _ = math.modf((current_line / total_line) * 100)
-                    return "" .. result .. "%%"
-                end,
-                padding = 1,
-                color = {
-                    fg = set.extras,
-                    bg = set.lualine_bg,
+                "branch",
+                padding = {
+                    left = 1,
+                    right = 1,
+                },
+                icon = {
+                    assets.git.branch,
+                    seperator = "",
+                    padding = {
+                        left = 0,
+                        right = 0,
+                    },
                 },
             },
             {
-                function()
-                    local row = vim.fn.line(".")
-                    local column = vim.fn.col(".")
-                    return "" .. row .. ":" .. column .. ""
+                "diff",
+                symbols = {
+                    added = assets.git.added,
+                    modified = assets.git.changed,
+                    removed = assets.git.removed,
+                },
+                source = function()
+                    ---@diagnostic disable-next-line: undefined-field
+                    local gitsigns = vim.b.gitsigns_status_dict
+                    if gitsigns then
+                        return {
+                            added = gitsigns.added,
+                            modified = gitsigns.changed,
+                            removed = gitsigns.removed,
+                        }
+                    end
                 end,
-                padding = 1,
-                color = {
-                    fg = set.extras,
-                    bg = set.lualine_bg,
+                padding = {
+                    left = 0,
+                    right = 1,
                 },
             },
         },
+
+        -- Diagnostics
         lualine_c = {
+            {
+                "diagnostics",
+                sections = { "error", "warn", "info", "hint" },
+                symbols = {
+                    error = assets.lsp.error,
+                    warn = assets.lsp.warning,
+                    info = assets.lsp.info,
+                    hint = assets.lsp.hint,
+                },
+                colored = true,
+                update_in_insert = false,
+                always_visible = false,
+                padding = 1,
+            },
             {
                 function()
                     local Lsp = vim.lsp.util.get_progress_messages()[1]
@@ -153,8 +161,8 @@ Plugin.opts = {
                         local title = Lsp.title or ""
                         local spinners = {
                             "",
-                            "",
                             "",
+                            "",
                         }
                         local success_icon = {
                             "",
@@ -174,76 +182,94 @@ Plugin.opts = {
                     return ""
                 end,
                 padding = 0,
-                -- color = {
-                --     fg = set.extras,
-                --     bg = set.lualine_bg,
-                -- },
-            },
-            {
-                "diagnostics",
-                sections = { "error", "warn", "info", "hint" },
-                diagnostics_color = {
-                    error = "DiagnosticError",
-                    warn  = "DiagnosticWarn",
-                    info  = "DiagnosticInfo",
-                    hint  = "DiagnosticHint",
-                },
-                symbols = {
-                    error = assets.lsp.error,
-                    warn = assets.lsp.warning,
-                    info = assets.lsp.info,
-                    hint = assets.lsp.hint,
-                },
-                colored = true,
-                update_in_insert = false,
-                always_visible = false,
-                padding = 1,
                 color = {
-                    fg = set.extras,
-                    bg = set.lualine_bg,
+                    gui = "bold",
                 },
-            },
+            }
         },
+
+        -- Copilot
         lualine_x = {
             {
                 function()
+                    local copilot = require("copilot.api").status.data
+                    if copilot ~= nil then
+                        return assets.copilot .. ""
+                    end
+                end,
+                padding = {
+                    left = 1,
+                    right = 1,
+                },
+                color = function()
+                    local copilot_colors = {
+                        [""] = Util.fg("@text.math"),
+                        ["Normal"] = Util.fg("@text.math"),
+                        ["Warning"] = Util.fg("@comment.todo"),
+                        ["InProgress"] = Util.fg("@comment.warning"),
+                    }
+                    local copilot = require("copilot.api").status.data
+                    if copilot ~= nil then
+                        return copilot_colors[copilot.status]
+                    end
+                end,
+            },
+        },
+
+        -- LSP provider
+        lualine_y = {
+            {
+                function()
                     if next(vim.lsp.get_active_clients()) ~= nil then
-                        return assets.lsp.server .. " LSP"
+                        return assets.lsp.server .. "LSP"
                     else
                         return ""
                     end
                 end,
-                padding = 1,
-                color = {
-                    fg = set.extras,
-                    bg = set.lualine_bg,
+                padding = {
+                    left = 1,
+                    right = 1,
                 },
-                --[[ function()
-                    if next(vim.lsp.get_active_clients()) ~= nil then
-                        local clients = vim.lsp.get_active_clients()
-                        local client_names = {}
-                        for _, client in ipairs(clients) do
-                            table.insert(client_names, client.name)
-                        end
-                        return assets.lsp.server .. "Lsp: " .. table.concat(client_names, ', ') .. " "
-                    else
-                        return ""
-                    end
-                end, ]]
-            },
-        },
-        lualine_y = {
-            {
-                "branch",
-                icon = assets.git.branch,
-                padding = 1,
                 color = {
-                    fg = set.extras,
-                    bg = set.lualine_bg,
+                    gui = "bold",
                 },
             },
         },
+
+        -- Location, file, and workspace
         lualine_z = {
+            {
+                function()
+                    local current_line = vim.fn.line(".")
+                    local total_line = vim.fn.line("$")
+
+                    if current_line == 1 then
+                        return "Top"
+                    elseif current_line == vim.fn.line("$") then
+                        return "Bottom"
+                    end
+                    local result, _ = math.modf((current_line / total_line) * 100)
+                    return "" .. result .. "%%"
+                end,
+                padding = 1,
+                color = {
+                    gui = "bold",
+                },
+            },
+            {
+                function()
+                    local row = vim.fn.line(".")
+                    local column = vim.fn.col(".")
+                    return "" .. row .. ":" .. column .. ""
+                end,
+                padding = {
+                    left = 0,
+                    right = 1,
+                },
+                color = {
+                    gui = "bold",
+                },
+            },
             {
                 function()
                     local filename = vim.fn.expand("%:t")
@@ -252,13 +278,12 @@ Plugin.opts = {
                     if icon == nil then
                         return "" .. assets.file .. ""
                     else
-                        return (set.show_modified and "%m" or "") .. "" .. icon .. " " .. filename .. ""
+                        return (assets.show_modified and "%m" or "") .. "" .. icon .. " " .. filename .. ""
                     end
                 end,
                 padding = 1,
                 color = {
-                    fg = set.text,
-                    bg = set.curr_file,
+                    gui = "bold",
                 },
             },
             {
@@ -268,19 +293,20 @@ Plugin.opts = {
                 end,
                 padding = 1,
                 color = {
-                    fg = set.text,
-                    bg = set.curr_dir,
-                }
+                    gui = "bold",
+                },
             },
         },
     },
+
+    -- Inactive sections
     inactive_sections = {
-        lualine_a = {},
+        lualine_a = { "filename" },
         lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = { "location" },
+        lualine_c = {},
+        lualine_x = {},
         lualine_y = {},
-        lualine_z = {}
+        lualine_z = { "location" },
     },
 }
 

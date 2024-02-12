@@ -25,6 +25,9 @@ lspconfig.lua_ls.setup({
                 },
                 checkThirdParty = false
             },
+            completion = {
+                callSnippet = "Replace",
+            },
             telemetry = {
                 enable = false
             },
