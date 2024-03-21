@@ -7,7 +7,7 @@ local Themes = {
             local catppuccin = require("catppuccin")
             catppuccin.setup({
                 flavour = "mocha",
-                transparent_background = true,
+                transparent_background = false,
             })
 
             -- Setting the colorscheme
@@ -22,7 +22,7 @@ local Themes = {
             local nightfox = require("nightfox")
             nightfox.setup({
                 options = {
-                    transparent = true,
+                    transparent = false,
                 },
             })
 
@@ -58,7 +58,7 @@ local Themes = {
             ---@diagnostic disable-next-line: missing-fields
             tokyonight.setup({
                 style = "night",
-                transparent = true,
+                transparent = false,
                 styles = {
                     floats = "transparent",
                 },

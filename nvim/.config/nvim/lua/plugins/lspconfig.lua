@@ -2,7 +2,7 @@ local Plugin = { "neovim/nvim-lspconfig" }
 local settings = {}
 
 Plugin.dependencies = {
-    { "folke/neodev.nvim",                 config = true },
+    { "folke/neodev.nvim" },
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim", lazy = true },
 
@@ -20,7 +20,6 @@ Plugin.dependencies = {
                     "lua_ls",
                     "rust_analyzer",
                     "texlab",
-                    "pyright",
                 }
             })
         end
@@ -41,10 +40,10 @@ function Plugin.init()
     end
 
     -- Signs
-    sign({ name = 'DiagnosticSignError', text = '' })
-    sign({ name = 'DiagnosticSignWarn', text = '' })
-    sign({ name = 'DiagnosticSignHint', text = '' })
-    sign({ name = 'DiagnosticSignInfo', text = '' })
+    sign({ name = "DiagnosticSignError", text = "" })
+    sign({ name = "DiagnosticSignWarn", text = "" })
+    sign({ name = "DiagnosticSignHint", text = "" })
+    sign({ name = "DiagnosticSignInfo", text = "" })
 
     -- Diagnostics settings
     vim.diagnostic.config({
@@ -78,39 +77,38 @@ function Plugin.init()
 
     -- Diagnostics keymaps
     local opts = { noremap = true, silent = true }
-    vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, opts)
-    vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
+    vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, opts)
 end
 
 function settings.on_attach(client, bufnr)
     local attach_opts = { silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
-    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, attach_opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, attach_opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, attach_opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, attach_opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, attach_opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, attach_opts)
+    vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, attach_opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, attach_opts)
 
     -- Workspace stuff
-    vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, attach_opts)
+    vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, attach_opts)
 
     -- Code actions and formatting
-    vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, attach_opts)
-    vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.format, attach_opts)
-    vim.keymap.set({ 'i', 'n' }, '<C-k>', vim.lsp.buf.signature_help, attach_opts)
+    vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, attach_opts)
+    vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.format, attach_opts)
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, attach_opts)
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(0, "Format", function(_)
         vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' })
+    end, { desc = "Format current buffer with LSP" })
 
     -- Highlight word under cursor.
     if client.supports_method("textDocument/documentHighlight") then
         local document_highlight_group = vim.api.nvim_create_augroup(
-            "LspDocumentHighlight", { clear = true }
+            "LspDocumentHighlight" .. bufnr, { clear = true }
         )
 
         vim.api.nvim_create_autocmd("CursorHold", {
@@ -124,13 +122,20 @@ function settings.on_attach(client, bufnr)
             callback = vim.lsp.buf.clear_references,
             group = document_highlight_group,
         })
+
+        -- Clean up autocommands when the buffer is closed or the LSP client detaches
+        vim.api.nvim_create_autocmd("BufDelete", {
+            buffer = bufnr,
+            callback = function()
+                vim.api.nvim_clear_autocmds({ group = document_highlight_group })
+            end,
+        })
     end
 end
 
 function Plugin.config()
     -- Setting up neodev
     require("neodev").setup({})
-
     local lspconfig = require("lspconfig")
     local lsp_defaults = lspconfig.util.default_config
 
@@ -145,10 +150,10 @@ function Plugin.config()
     vim.api.nvim_create_autocmd("LspAttach", {
         group = lsp_group,
         desc = "LSP actions",
-        callback = function(args)
-            local client_id = args.data.client_id
+        callback = function(event)
+            local client_id = event.data.client_id
             local client = vim.lsp.get_client_by_id(client_id)
-            local bufnr = args.buf
+            local bufnr = event.buf
             settings.on_attach(client, bufnr)
         end
     })

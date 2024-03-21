@@ -42,7 +42,7 @@ vim.opt.laststatus = 2
 
 -- File encoding and language
 vim.opt.fileencoding = "utf-8"
-vim.opt.spelllang = { "en" }
+vim.opt.spelllang = { "en_us" }
 
 -- Show incremental updates of command
 vim.opt.inccommand = "split"
@@ -132,3 +132,6 @@ vim.opt.winminwidth = 5
 
 -- No tilde symbols
 vim.opt.fillchars = { eob = " " }
+
+-- Extend path
+vim.opt.path:append("**")

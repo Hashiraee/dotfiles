@@ -41,26 +41,33 @@ function Plugin.config()
             { name = "buffer",   max_item_count = 10 },
             { name = "luasnip" },
             { name = "path" },
-            { name = "gh_issues" },
+        },
+
+        completion = {
+            get_trigger_characters = function(trigger_characters)
+                return vim.tbl_filter(function(char)
+                    return char ~= " "
+                end, trigger_characters)
+            end
         },
 
         window = {
             completion = {
                 border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
+                winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
                 scrollbar = false,
             },
 
             documentation = {
                 border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                winhighlight = 'NormalFloat:NormalFloat,FloatBorder:TelescopeBorder',
+                winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
             },
         },
 
         ---@diagnostic disable-next-line: missing-fields
         formatting = {
             format = lspkind.cmp_format {
-                mode = 'symbol_text',
+                mode = "symbol_text",
                 max_width = 50,
                 menu = {
                     buffer = "(Buf)",
@@ -75,17 +82,16 @@ function Plugin.config()
 
         experimental = {
             ghost_text = false,
-            -- ghost_text = {
-            --     hl_group = "Comment",
-            -- }
         },
 
         mapping = {
-            ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-d>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete(),
+            ["<C-u>"] = cmp.mapping.scroll_docs(-4),
 
-            ['<C-e'] = cmp.mapping({
+            ["<C-d>"] = cmp.mapping.scroll_docs(4),
+
+            ["<C-Space>"] = cmp.mapping.complete(),
+
+            ["<C-e"] = cmp.mapping({
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),

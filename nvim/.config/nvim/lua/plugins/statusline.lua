@@ -8,8 +8,8 @@ local assets = {
     left_separator = "",
     right_separator = "",
     bar = "█",
-    mode_icon = "",
-    dir = "  ",
+    mode_icon = " ",
+    dir = "",
     file = " ",
     lsp = {
         server = " ",
@@ -19,7 +19,7 @@ local assets = {
         hint = " ",
     },
     git = {
-        branch = "󰊢 ",
+        branch = "󰊢",
         added = " ",
         changed = " ",
         removed = " ",
@@ -66,13 +66,12 @@ local colors = {
 Plugin.opts = {
     -- Options
     options = {
-        -- theme = vim.g.colors_name,
         theme = colors,
         icons_enabled = true,
         component_separators = { left = assets.left_separator, right = assets.right_separator },
         section_separators = { left = assets.left_separator, right = assets.right_separator },
         disabled_filetypes = {
-            statusline = { "NvimTree" },
+            statusline = {},
         },
         ignore_focus = {},
         always_divide_middle = true,
@@ -86,7 +85,7 @@ Plugin.opts = {
         lualine_a = {
             {
                 "mode",
-                padding = 1,
+                padding = { left = 1, right = 2 },
                 color = function()
                     return {
                         gui = "bold",
@@ -98,18 +97,13 @@ Plugin.opts = {
         lualine_b = {
             {
                 "branch",
-                padding = {
-                    left = 1,
-                    right = 1,
-                },
+                padding = { left = 0, right = 2 },
                 icon = {
                     assets.git.branch,
                     seperator = "",
-                    padding = {
-                        left = 0,
-                        right = 0,
-                    },
+                    padding = { left = 0, right = 0 },
                 },
+                color = { gui = "bold" },
             },
             {
                 "diff",
@@ -129,10 +123,7 @@ Plugin.opts = {
                         }
                     end
                 end,
-                padding = {
-                    left = 0,
-                    right = 1,
-                },
+                padding = { left = 0, right = 0 },
             },
         },
 
@@ -182,9 +173,7 @@ Plugin.opts = {
                     return ""
                 end,
                 padding = 0,
-                color = {
-                    gui = "bold",
-                },
+                color = { gui = "bold" },
             }
         },
 
@@ -197,10 +186,7 @@ Plugin.opts = {
                         return assets.copilot .. ""
                     end
                 end,
-                padding = {
-                    left = 1,
-                    right = 1,
-                },
+                padding = { left = 0, right = 1 },
                 color = function()
                     local copilot_colors = {
                         [""] = Util.fg("@text.math"),
@@ -226,13 +212,8 @@ Plugin.opts = {
                         return ""
                     end
                 end,
-                padding = {
-                    left = 1,
-                    right = 1,
-                },
-                color = {
-                    gui = "bold",
-                },
+                padding = { left = 0, right = 2 },
+                color = { gui = "bold" },
             },
         },
 
@@ -251,10 +232,8 @@ Plugin.opts = {
                     local result, _ = math.modf((current_line / total_line) * 100)
                     return "" .. result .. "%%"
                 end,
-                padding = 1,
-                color = {
-                    gui = "bold",
-                },
+                padding = { left = 0, right = 1 },
+                color = { gui = "bold" }
             },
             {
                 function()
@@ -262,13 +241,8 @@ Plugin.opts = {
                     local column = vim.fn.col(".")
                     return "" .. row .. ":" .. column .. ""
                 end,
-                padding = {
-                    left = 0,
-                    right = 1,
-                },
-                color = {
-                    gui = "bold",
-                },
+                padding = { left = 0, right = 1 },
+                color = { gui = "bold" },
             },
             {
                 function()
@@ -281,20 +255,16 @@ Plugin.opts = {
                         return (assets.show_modified and "%m" or "") .. "" .. icon .. " " .. filename .. ""
                     end
                 end,
-                padding = 1,
-                color = {
-                    gui = "bold",
-                },
+                padding = { left = 1, right = 1 },
+                color = { gui = "bold" },
             },
             {
                 function()
                     local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-                    return assets.dir .. dir_name
+                    return assets.dir .. " " .. dir_name
                 end,
-                padding = 1,
-                color = {
-                    gui = "bold",
-                },
+                padding = { left = 1, right = 1 },
+                color = { gui = "bold" },
             },
         },
     },
@@ -309,9 +279,5 @@ Plugin.opts = {
         lualine_z = { "location" },
     },
 }
-
-function Plugin.init()
-    vim.opt.showmode = false
-end
 
 return Plugin

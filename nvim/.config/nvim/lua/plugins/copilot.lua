@@ -22,6 +22,7 @@ Plugin.opts = {
         typescript = true,
         javascriptreact = true,
         typescriptreact = true,
+        tex = true,
         ["*"] = false,
     },
     suggestion = {
@@ -39,9 +40,9 @@ Plugin.opts = {
 }
 
 function Plugin.init()
-    vim.keymap.set("n", "<leader>co", "<cmd>lua require('copilot.panel').open()<cr>")
+    vim.keymap.set("n", "<Leader>co", "<cmd>lua require('copilot.panel').open()<cr>")
 
-    vim.keymap.set("n", "<leader>ct", function()
+    vim.keymap.set("n", "<Leader>ct", function()
         require('copilot.suggestion').toggle_auto_trigger()
         if vim.b.copilot_suggestion_auto_trigger then
             vim.notify("suggestion auto trigger enabled", "info", { title = "Copilot" })

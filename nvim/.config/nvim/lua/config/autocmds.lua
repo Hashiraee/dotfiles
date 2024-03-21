@@ -28,12 +28,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Spell setting
-vim.api.nvim_create_autocmd({'FileType', 'BufEnter'}, {
+vim.api.nvim_create_autocmd({"FileType", "BufEnter"}, {
     pattern = "*",
     callback = function()
         if vim.bo.filetype == "tex" then
             vim.wo.spell = true
-            print('Spell checking enabled for LaTeX.')
         else
             vim.wo.spell = false
         end
@@ -42,7 +41,7 @@ vim.api.nvim_create_autocmd({'FileType', 'BufEnter'}, {
 
 -- Quickfix list delete keymap
 local function remove_qf_item()
-    local idx = vim.fn.line('.')
+    local idx = vim.fn.line(".")
     local qf_list = vim.fn.getqflist()
 
     -- Return if there are no items to remove
@@ -50,10 +49,10 @@ local function remove_qf_item()
 
     -- Remove the item from the quickfix list
     table.remove(qf_list, idx)
-    vim.fn.setqflist(qf_list, 'r')
+    vim.fn.setqflist(qf_list, "r")
 
     -- Reopen quickfix window to refresh the list
-    vim.cmd('copen')
+    vim.cmd("copen")
 
     -- If not at the end of the list, stay at the same index, otherwise, go one up.
     local new_idx = idx < #qf_list and idx or math.max(idx - 1, 1)
@@ -63,15 +62,12 @@ local function remove_qf_item()
     vim.api.nvim_win_set_cursor(winid, { new_idx, 0 })
 end
 
--- Define the RemoveQuickFixItem command using Neovim Lua API
-vim.api.nvim_create_user_command('RemoveQuickFixItem', remove_qf_item, {})
-
--- Set up an autocommand for the quickfix FileType using Neovim Lua API
-vim.api.nvim_create_augroup('qf_cmds', { clear = true })
-vim.api.nvim_create_autocmd('FileType', {
-    group = 'qf_cmds',
-    pattern = 'qf',
+vim.api.nvim_create_augroup("qf_cmds", { clear = true })
+vim.api.nvim_create_user_command("RemoveQuickFixItem", remove_qf_item, {})
+vim.api.nvim_create_autocmd("FileType", {
+    group = "qf_cmds",
+    pattern = "qf",
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, 'n', 'dd', ':RemoveQuickFixItem<CR>', { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(0, "n", "dd", ":RemoveQuickFixItem<CR>", { noremap = true, silent = true })
     end,
 })

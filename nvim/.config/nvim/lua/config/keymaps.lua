@@ -1,29 +1,29 @@
 -- Options Table
 local opts = { noremap = true, silent = true }
 
--- Unbind Space (leader)
+-- Unbind Space (Leader)
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
 
 -- Disable useless binding
 vim.keymap.set({ "n", "v" }, "Q", "<Nop>", opts)
 
 -- Use ESC to turn off search highlighting
-vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
+vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", opts)
 
 -- Remap window actions
-vim.keymap.set({ "n", "v" }, "<leader>w", "<C-w>", opts)
+vim.keymap.set({ "n", "v" }, "<Leader>w", "<C-w>", opts)
 
 -- Yank to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { noremap = true, silent = false })
+vim.keymap.set({ "n", "v" }, "<Leader>y", '"+y', { noremap = true, silent = false })
 
 -- Delete to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", '"+d', { noremap = true, silent = false })
+vim.keymap.set({ "n", "v" }, "<Leader>d", '"+d', { noremap = true, silent = false })
 
 -- Put from system clipboard below
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { noremap = true, silent = false })
+vim.keymap.set({ "n", "v" }, "<Leader>p", '"+p', { noremap = true, silent = false })
 
 -- Put from system keyboard above
-vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { noremap = true, silent = false })
+vim.keymap.set({ "n", "v" }, "<Leader>P", '"+P', { noremap = true, silent = false })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -48,15 +48,26 @@ vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv", opts)
 vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", opts)
 
 -- Switch between buffers
-vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { noremap = true, silent = true, desc = "Previous Buffer" })
-vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { noremap = true, silent = true, desc = "Previous Buffer" })
+vim.keymap.set("n", "[b", "<Cmd>bprevious<CR>", { noremap = true, silent = true, desc = "Previous Buffer" })
+vim.keymap.set("n", "]b", "<Cmd>bnext<CR>", { noremap = true, silent = true, desc = "Previous Buffer" })
 
 -- Going to next item on quickfixlist
-vim.keymap.set("n", "]q", "<cmd>cnext<cr>zz", { noremap = true, silent = true, desc = "Next Quickfix" })
-vim.keymap.set("n", "[q", "<cmd>cprev<cr>zz", { noremap = true, silent = true, desc = "Next Quickfix" })
+vim.keymap.set("n", "]q", "<Cmd>cnext<CR>zz", { noremap = true, silent = true, desc = "Next Quickfix" })
+vim.keymap.set("n", "[q", "<Cmd>cprev<CR>zz", { noremap = true, silent = true, desc = "Next Quickfix" })
 
--- Closing buffer
-vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { noremap = true, silent = true, desc = "Previous Buffer" })
+-- Highlight last copied text
+vim.keymap.set("n", "gp", "`[v`]", { noremap = true, silent = true, desc = "Highlight last pasted text" })
 
--- Saving with leader s
-vim.keymap.set("n", "<leader>s", "<cmd>w<cr>", { noremap = true, silent = true, desc = "Save" })
+-- Toggle colorcolumn
+vim.keymap.set(
+    "n",
+    "<Leader>oc",
+    function()
+        if vim.wo.colorcolumn == "" then
+            vim.wo.colorcolumn = "80"
+        else
+            vim.wo.colorcolumn = ""
+        end
+    end,
+    { noremap = true, silent = true, desc = "Toggle colorcolumn" }
+)

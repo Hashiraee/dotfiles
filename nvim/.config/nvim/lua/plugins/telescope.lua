@@ -4,16 +4,6 @@ Plugin.name = "telescope"
 
 Plugin.opts = {
     defaults = {
-        vimgrep_arguments = {
-            "rg",
-            "-L",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-        },
         prompt_prefix = "   ",
         selection_caret = "  ",
         entry_prefix = "  ",
@@ -36,7 +26,6 @@ Plugin.opts = {
         },
         file_ignore_patterns = { "node_modules", "env", "venv" },
         path_display = { "truncate" },
-        winblend = 0,
         border = {},
         borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         color_devicons = true,
@@ -49,7 +38,7 @@ Plugin.opts = {
 
         buffers = {
             show_all_buffers = true,
-            sort_lastused= true,
+            sort_lastused = true,
             theme = "dropdown",
             previewer = false,
             mappings = {
@@ -77,30 +66,39 @@ Plugin.opts = {
             override_file_sorter = true,
             case_mode = "smart_case",
         },
+
+        file_browser = {
+            theme = "dropdown",
+            hijack_netrw = true,
+            initial_mode = "normal",
+        },
     },
 }
 
 Plugin.dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-file-browser.nvim" },
 }
 
 Plugin.cmd = { "Telescope" }
 
 function Plugin.init()
-    vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
-    vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-    vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope buffers<cr>")
-    vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
-    vim.keymap.set("n", "<leader>fs", "<cmd>Telescope grep_string<cr>")
-    vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>")
-    vim.keymap.set("n", "<leader>fc", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
-    vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
-    vim.keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>")
+    vim.keymap.set("n", "<Leader>ff", "<Cmd>Telescope find_files<cr>")
+    vim.keymap.set("n", "<Leader>fb", "<Cmd>Telescope buffers<cr>")
+    vim.keymap.set("n", "<Leader><Leader>", "<Cmd>Telescope buffers<cr>")
+    vim.keymap.set("n", "<Leader>fg", "<Cmd>Telescope live_grep<cr>")
+    vim.keymap.set("n", "<Leader>fs", "<Cmd>Telescope grep_string<cr>")
+    vim.keymap.set("n", "<Leader>fd", "<Cmd>Telescope diagnostics<cr>")
+    vim.keymap.set("n", "<Leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<cr>")
+    vim.keymap.set("n", "<Leader>fh", "<Cmd>Telescope help_tags<cr>")
+    vim.keymap.set("n", "<Leader>fo", "<Cmd>Telescope oldfiles<cr>")
+    vim.keymap.set("n", "<Leader>ft", "<Cmd>Telescope file_browser<cr>")
 end
 
 function Plugin.config()
     require("telescope").setup(Plugin.opts)
     require("telescope").load_extension("fzf")
+    require("telescope").load_extension("file_browser")
 end
 
 return Plugin
