@@ -2,6 +2,8 @@ abbr -a n nvim
 abbr -a v vim
 abbr -a cnvim cd ~/.dotfiles/nvim/.config/nvim
 
+fish_config theme choose "rosepine"
+
 alias ls="eza"
 alias ll="eza -l"
 alias la="eza -al"

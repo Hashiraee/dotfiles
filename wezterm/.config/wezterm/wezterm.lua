@@ -3,10 +3,10 @@ local wezterm = require("wezterm")
 local config = {}
 
 -- Colorscheme
-config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "rose-pine"
 
 -- Font size
-config.font_size = 16
+config.font_size = 14
 
 -- Tab bar stye
 config.tab_bar_at_bottom = true
@@ -19,7 +19,7 @@ config.window_decorations = "RESIZE"
 -- No confirmation on quit
 config.window_close_confirmation = "NeverPrompt"
 
-config.font = wezterm.font('JetBrains Mono', { weight = 'Regular', italic = false })
+config.font = wezterm.font('JetBrains Mono', { weight = 'Bold', italic = false })
 
 -- Padding
 config.window_padding = {
@@ -29,6 +29,13 @@ config.window_padding = {
     bottom = 0,
 }
 
--- config.window_background_opacity = 0.85
+config.window_background_opacity = 0.95
+
+config.colors = {
+    -- the foreground color of selected text
+    selection_fg = 'black',
+    -- the background color of selected text
+    selection_bg = '#fffacd',
+}
 
 return config
