@@ -33,11 +33,10 @@ function Plugin.config()
     vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u", { noremap = true, silent = true })
 
     -- Mappings for compiling
-    vim.keymap.set("i", "<C-s>", "<Esc><Cmd>w<CR><Cmd>VimtexCompile<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<C-s>", "<Cmd>w<CR><Cmd>VimtexCompile<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>vs", "<Cmd>w<CR><Cmd>VimtexCompile<CR>", { noremap = true, silent = true })
 
     -- VimTex setting for viewing
-    vim.keymap.set("n", "<leader>v", "<Cmd>VimtexView<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>vv", "<Cmd>VimtexView<CR>", { noremap = true, silent = true })
 
     -- Focus back to terminal
     local function TexFocusVim()

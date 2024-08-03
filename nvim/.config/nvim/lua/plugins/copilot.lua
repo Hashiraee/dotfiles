@@ -18,6 +18,7 @@ Plugin.opts = {
         python = true,
         rust = true,
         make = true,
+        sh = true,
         javascript = true,
         typescript = true,
         javascriptreact = true,
@@ -45,9 +46,9 @@ function Plugin.init()
     vim.keymap.set("n", "<Leader>ct", function()
         require('copilot.suggestion').toggle_auto_trigger()
         if vim.b.copilot_suggestion_auto_trigger then
-            vim.notify("suggestion auto trigger enabled", "info", { title = "Copilot" })
+            vim.notify("suggestion auto trigger enabled", vim.log.levels.INFO, { title = "Copilot" })
         else
-            vim.notify("suggestion auto trigger disabled", "info", { title = "Copilot" })
+            vim.notify("suggestion auto trigger disabled", vim.log.levels.INFO, { title = "Copilot" })
         end
     end)
 end

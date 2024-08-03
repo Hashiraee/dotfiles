@@ -168,6 +168,9 @@ function Plugin.config()
         ["pyright"] = function()
             require("plugins.lsp.pyright")
         end,
+        ["basedpyright"] = function()
+            require("plugins.lsp.basedpyright")
+        end,
         ["tsserver"] = function()
             require("plugins.lsp.tsserver")
         end,

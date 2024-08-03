@@ -14,22 +14,22 @@ local Themes = {
             -- vim.cmd.colorscheme("catppuccin")
         end
     },
-    {
-        "EdenEast/nightfox.nvim",
-        name = "nightfox",
-        priority = 1000,
-        config = function()
-            local nightfox = require("nightfox")
-            nightfox.setup({
-                options = {
-                    transparent = false,
-                },
-            })
-
-            -- Setting the colorscheme
-            -- vim.cmd.colorscheme("terafox")
-        end
-    },
+    -- {
+    --     "EdenEast/nightfox.nvim",
+    --     name = "nightfox",
+    --     priority = 1000,
+    --     config = function()
+    --         local nightfox = require("nightfox")
+    --         nightfox.setup({
+    --             options = {
+    --                 transparent = false,
+    --             },
+    --         })
+    --
+    --         -- Setting the colorscheme
+    --         -- vim.cmd.colorscheme("terafox")
+    --     end
+    -- },
     {
         "rose-pine/neovim",
         name = "rose-pine",
@@ -46,26 +46,6 @@ local Themes = {
 
             -- Setting the colorscheme
             vim.cmd.colorscheme("rose-pine")
-        end
-    },
-    {
-        "folke/tokyonight.nvim",
-        name = "tokyonight",
-        priority = 1000,
-        config = function()
-            local tokyonight = require("tokyonight")
-
-            ---@diagnostic disable-next-line: missing-fields
-            tokyonight.setup({
-                style = "night",
-                transparent = false,
-                styles = {
-                    floats = "transparent",
-                },
-            })
-
-            -- Setting the colorscheme
-            -- vim.cmd.colorscheme("tokyonight")
         end
     },
 }

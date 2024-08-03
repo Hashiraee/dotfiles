@@ -24,7 +24,18 @@ Plugin.opts = {
             height = 0.80,
             preview_cutoff = 120,
         },
-        file_ignore_patterns = { "node_modules", "env", "venv" },
+        file_ignore_patterns = {
+            ".git",
+            ".env",
+            "env",
+            ".venv",
+            ".venv",
+            ".pdf",
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".svg",
+        },
         path_display = { "truncate" },
         border = {},
         borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -33,6 +44,11 @@ Plugin.opts = {
 
     pickers = {
         find_files = {},
+
+        git_files = {
+            theme = "dropdown",
+            previewer = false,
+        },
 
         live_grep = {},
 
@@ -66,39 +82,35 @@ Plugin.opts = {
             override_file_sorter = true,
             case_mode = "smart_case",
         },
-
-        file_browser = {
-            theme = "dropdown",
-            hijack_netrw = true,
-            initial_mode = "normal",
-        },
     },
 }
 
 Plugin.dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    { "nvim-telescope/telescope-file-browser.nvim" },
 }
 
 Plugin.cmd = { "Telescope" }
 
 function Plugin.init()
-    vim.keymap.set("n", "<Leader>ff", "<Cmd>Telescope find_files<cr>")
-    vim.keymap.set("n", "<Leader>fb", "<Cmd>Telescope buffers<cr>")
-    vim.keymap.set("n", "<Leader><Leader>", "<Cmd>Telescope buffers<cr>")
-    vim.keymap.set("n", "<Leader>fg", "<Cmd>Telescope live_grep<cr>")
-    vim.keymap.set("n", "<Leader>fs", "<Cmd>Telescope grep_string<cr>")
-    vim.keymap.set("n", "<Leader>fd", "<Cmd>Telescope diagnostics<cr>")
-    vim.keymap.set("n", "<Leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<cr>")
-    vim.keymap.set("n", "<Leader>fh", "<Cmd>Telescope help_tags<cr>")
-    vim.keymap.set("n", "<Leader>fo", "<Cmd>Telescope oldfiles<cr>")
-    vim.keymap.set("n", "<Leader>ft", "<Cmd>Telescope file_browser<cr>")
+    local builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<Leader>ff", function()
+        builtin.find_files({
+            hidden = true,
+        })
+    end)
+    vim.keymap.set("n", "<C-p>", function() builtin.git_files({}) end)
+    vim.keymap.set("n", "<Leader>fb", function() builtin.buffers({}) end)
+    vim.keymap.set("n", "<Leader>fc", function() builtin.current_buffer_fuzzy_find({}) end)
+    vim.keymap.set("n", "<Leader>fg", function() builtin.live_grep({}) end)
+    vim.keymap.set("n", "<Leader>fs", function() builtin.grep_string({ search = vim.fn.input("Grep > ")}) end)
+    vim.keymap.set("n", "<Leader>fd", function() builtin.diagnostics({}) end)
+    vim.keymap.set("n", "<Leader>fh", function() builtin.help_tags({}) end)
+    vim.keymap.set("n", "<Leader>fo", function() builtin.oldfiles({}) end)
 end
 
 function Plugin.config()
     require("telescope").setup(Plugin.opts)
     require("telescope").load_extension("fzf")
-    require("telescope").load_extension("file_browser")
 end
 
 return Plugin

@@ -10,15 +10,15 @@ Plugin.opts = {
     ensure_installed = {
         "lua",
         "vim",
-        "regex",
-        "bash",
+        "vimdoc",
         "markdown",
         "markdown_inline",
-        "python",
-        "rust",
+        "bash",
         "javascript",
+        "python",
+        "regex",
+        "rust",
         "typescript",
-        "latex",
     },
 
     highlight = {

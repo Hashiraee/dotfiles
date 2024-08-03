@@ -25,10 +25,10 @@ require("lazy").setup({
         rtp = {
             reset = true,
             disabled_plugins = {
-                "gzip",
                 -- "matchit",
                 -- "matchparen",
-                "netrwPlugin",
+                -- "netrwPlugin",
+                "gzip",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
