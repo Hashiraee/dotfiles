@@ -57,7 +57,7 @@ function Plugin.init()
             focusable = true,
             style = "minimal",
             border = "rounded",
-            source = "always",
+            source = true,
             header = "",
             prefix = "",
         },
@@ -165,14 +165,11 @@ function Plugin.config()
         ["lua_ls"] = function()
             require("plugins.lsp.lua_ls")
         end,
-        ["pyright"] = function()
-            require("plugins.lsp.pyright")
-        end,
         ["basedpyright"] = function()
             require("plugins.lsp.basedpyright")
         end,
-        ["tsserver"] = function()
-            require("plugins.lsp.tsserver")
+        ["ts_ls"] = function()
+            require("plugins.lsp.ts_ls")
         end,
     })
 end

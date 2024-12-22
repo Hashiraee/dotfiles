@@ -106,6 +106,13 @@ function Plugin.init()
     vim.keymap.set("n", "<Leader>fd", function() builtin.diagnostics({}) end)
     vim.keymap.set("n", "<Leader>fh", function() builtin.help_tags({}) end)
     vim.keymap.set("n", "<Leader>fo", function() builtin.oldfiles({}) end)
+
+    vim.keymap.set("n", "<Leader>sb", function()
+        builtin.live_grep({
+            grep_open_files = true,
+            prompt_title = "Seach in Open Buffers"
+        })
+    end)
 end
 
 function Plugin.config()

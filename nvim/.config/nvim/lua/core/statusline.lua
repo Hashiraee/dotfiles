@@ -275,13 +275,13 @@ local function directory()
 end
 
 
-local function copilot()
-    local copilot_status = require("copilot.api").status.data
-
-    if copilot_status ~= nil then
-        return " " .. assets.copilot .. " "
-    end
-end
+-- local function copilot()
+--     local copilot_status = require("copilot.api").status.data
+--
+--     if copilot_status ~= nil then
+--         return " " .. assets.copilot .. " "
+--     end
+-- end
 
 
 Statusline = {}
@@ -299,7 +299,7 @@ Statusline.active = function()
         update_mode_colors(),
         "%=%#StatusLineExtra#",
         update_mode_colors(),
-        copilot(),
+        -- copilot(),
         lsp_status(),
         file_position(),
         line_info(),
