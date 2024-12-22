@@ -1,3 +1,4 @@
+-- Autocommands
 local group = vim.api.nvim_create_augroup("user_cmds", { clear = true })
 
 -- Highlight on yank
@@ -5,15 +6,36 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight on yank",
     group = group,
     callback = function()
-        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+        vim.hl.on_yank({ higroup = "IncSearch", timeout = 100 })
+    end,
+})
+
+-- Terminal options
+vim.api.nvim_create_autocmd("TermOpen", {
+    desc = "Terminal options",
+    group = group,
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.cmd("startinsert")
+    end,
+})
+
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+    group = group,
+    callback = function()
+        if vim.o.buftype ~= "nofile" then
+            vim.cmd("checktime")
+        end
     end,
 })
 
 -- Close certain filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "qf", "help", "man", "lspinfo", "nofile" },
     group = group,
-    command = "nnoremap <buffer> q <cmd>quit<cr>"
+    pattern = { "qf", "help", "man", "lspinfo", "nofile", "netrw", "gitsigns-blame" },
+    command = "nnoremap <buffer> q <CMD>quit<CR>"
 })
 
 -- Go to last location when opening a buffer
@@ -27,16 +49,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- Spell setting
-vim.api.nvim_create_autocmd({"FileType", "BufEnter"}, {
-    pattern = "*",
+-- Wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
     callback = function()
-        if vim.bo.filetype == "tex" then
-            vim.wo.spell = true
-        else
-            vim.wo.spell = false
-        end
-    end
+        vim.opt_local.wrap = true
+        vim.opt_local.spell = true
+    end,
 })
 
 -- Quickfix list delete keymap

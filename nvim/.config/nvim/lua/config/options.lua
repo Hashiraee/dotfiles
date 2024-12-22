@@ -1,109 +1,111 @@
 -- Remap space as leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Add border
+vim.o.winborder = "rounded"
 
 -- Better terminal colors
-vim.opt.termguicolors = true
+vim.o.termguicolors = true
 
 -- Tab expands to spaces
-vim.opt.expandtab = true
+vim.o.expandtab = true
 
 -- Tab options
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.smarttab = true
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.smarttab = true
 
 -- Indent Options
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-vim.opt.breakindent = true
-vim.opt.shiftround = true
+vim.o.smartindent = true
+vim.o.autoindent = true
+vim.o.breakindent = true
+vim.o.shiftround = true
 
 -- More natural split options
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 -- Scroll off
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8 -- Columns of context
+vim.o.scrolloff = 8
+vim.o.sidescrolloff = 8
 
 -- Highlight while searching
-vim.opt.incsearch = true
+vim.o.incsearch = true
 
 -- Update time
-vim.opt.updatetime = 100
+vim.o.updatetime = 100
 
 -- No line wrapping
-vim.opt.wrap = false
+vim.o.wrap = false
 
 -- Set status line
-vim.opt.laststatus = 2
+vim.o.laststatus = 2
 
 -- File encoding and language
-vim.opt.fileencoding = "utf-8"
-vim.opt.spelllang = { "en_us" }
+vim.o.fileencoding = "utf-8"
+vim.o.spelllang = "en_us"
 
 -- Show incremental updates of command
-vim.opt.inccommand = "split"
+vim.o.inccommand = "split"
 
 -- Disable ruler
-vim.opt.ruler = false
+vim.o.ruler = false
 
 -- Text options for searching
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- Set cursor line
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
 -- Show sign column
-vim.opt.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
 -- Set number and relative number
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- Command height option
-vim.opt.cmdheight = 1
+vim.o.cmdheight = 1
 
 -- Wait for key presses
-vim.opt.timeoutlen = 300
+vim.o.timeoutlen = 300
 
 -- Enable mouse
-vim.opt.mouse = "a"
+vim.o.mouse = "a"
 
 -- Disable Error bells
-vim.opt.errorbells = false
+vim.o.errorbells = false
 
 -- Complete options
-vim.opt.completeopt = "menu,menuone,noselect"
-vim.opt.wildmode = "longest:full,full"
+vim.o.completeopt = "menu,menuone,noselect"
+vim.o.wildmode = "longest:full,full"
 
 -- -- Pop-up blend
-vim.opt.pumblend = 0
-vim.opt.winblend = 0
-
+vim.o.pumblend = 0
+vim.o.winblend = 0
 
 -- Maximum entries in completion list.
-vim.opt.pumheight = 10
+vim.o.pumheight = 10
 
 -- Disable mode
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- Show hidden characters
-vim.opt.list = false
+vim.o.list = false
 
 -- Grep program
-vim.opt.grepprg = "rg --vimgrep"
-vim.opt.grepformat = "%f:%l:%c:%m"
+vim.o.grepprg = "rg --vimgrep"
+vim.o.grepformat = "%f:%l:%c:%m"
 
 -- Backup options
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
-vim.opt.undofile = true
-vim.opt.undolevels = 10000
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
+vim.o.undofile = true
+vim.o.undolevels = 10000
 
 -- Normal h and l use when wrapping around long line
 vim.opt.whichwrap:append("<>hl")
@@ -116,22 +118,25 @@ vim.g.python3_host_prog="/usr/bin/python3"
 -- Netrw options
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 1
-vim.g.netrw_browse_split = 4
+vim.g.netrw_browse_split = 0
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 30
 
-vim.opt.formatoptions = "jcroqlnt" -- tcqj
-vim.opt.grepformat = "%f:%l:%c:%m"
-vim.opt.grepprg = "rg --vimgrep"
+vim.o.formatoptions = "jcroqlnt" -- tcqj
+vim.o.grepformat = "%f:%l:%c:%m"
+vim.o.grepprg = "rg --vimgrep"
 
 -- Allow cursor to move where there is no text in visual block mode
-vim.opt.virtualedit = "block"
+vim.o.virtualedit = "block"
 
 -- Minimum window width
-vim.opt.winminwidth = 5
+vim.o.winminwidth = 5
 
 -- No tilde symbols
 vim.opt.fillchars = { eob = " " }
+
+-- Disable cursor blinking in terminal mode
+vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-TermCursor'
 
 -- Extend path
 vim.opt.path:append("**")

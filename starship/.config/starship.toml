@@ -1,0 +1,114 @@
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Starship Prompt Format
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$dotnet\
+$golang\
+$helm\
+$lua\
+$nodejs\
+$python\
+$terraform\
+$kubernetes\
+$azure\
+$gcloud\
+$aws\
+$direnv\
+$env_var\
+$sudo\
+$jobs\
+$line_break\
+$status\
+$container\
+$shell\
+$character"""
+
+[character]
+disabled = false
+format = '$symbol '
+success_symbol = '[\$](bold green)'
+error_symbol = '[\$](bold red)'
+
+[username]
+disabled = true
+show_always = true
+format = '[$user]($style) '
+
+[directory]
+format = '[$path]($style) '
+truncate_to_repo = true
+truncation_length = 8
+
+[git_branch]
+disabled = false
+format = '[git:\($branch(:$remote_branch)\)]($style) '
+
+[docker_context]
+disabled = false
+style = 'bold blue'
+format = 'via [docker:\($context\)]($style) '
+
+[kubernetes]
+disabled = false
+style = 'bold green'
+# Optional: Add $namespace after $context
+format = 'using [k8s:\($context\)]($style) '
+
+[package]
+disabled = true
+
+[lua]
+disabled = true
+
+[python]
+disabled = false
+format = 'via [Python:\(${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
+
+[golang]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[terraform]
+disabled = true
+
+[helm]
+disabled = true
+
+[jobs]
+symbol = '+'
+number_threshold = 2
+symbol_threshold = 1
+style = 'bold red'
+format ='running [jobs:\($symbol$number\)]($style) '
+
+[azure]
+disabled = false
+symbol = '󰠅 '
+style = 'blue bold'
+format = 'on [Azure:\(($subscription)\)]($style) '
+
+[gcloud]
+disabled = false
+style = 'bold yellow'
+format = 'on [GCP:(\($project\))]($style) '
+[gcloud.project_aliases]
+default-446914 = 'default'
+
+[aws]
+disabled = false
+style = 'bold red'
+format = 'on [AWS:($profile )(\($region\) )]($style) '

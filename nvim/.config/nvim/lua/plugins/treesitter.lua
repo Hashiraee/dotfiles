@@ -1,73 +1,77 @@
-local Plugin = { "nvim-treesitter/nvim-treesitter" }
-
-Plugin.event = "VeryLazy"
+local Plugin = { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }
 
 Plugin.dependencies = {
     { "nvim-treesitter/nvim-treesitter-textobjects" }
 }
 
-Plugin.opts = {
-    ensure_installed = {
-        "lua",
-        "vim",
-        "vimdoc",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "javascript",
-        "python",
-        "regex",
-        "rust",
-        "typescript",
-    },
-
-    highlight = {
-        enable = true,
-        disable = { "latex" },
-    },
-
-    indent = {
-        enable = true,
-    },
-
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-            }
+function Plugin.config()
+    local treesitter = require("nvim-treesitter.configs")
+    ---@diagnostic disable-next-line: missing-fields
+    treesitter.setup({
+        ensure_installed = {
+            "c",
+            "lua",
+            "vim",
+            "vimdoc",
+            "query",
+            "markdown",
+            "markdown_inline",
+            "regex",
+            "yaml",
+            "bash",
+            "python",
+            "go",
+            "rust",
+            "javascript",
+            "typescript",
+            "terraform",
+            "hcl",
+            "bicep",
         },
-        move = {
-            enable = true,
-            set_jumps = true,
 
-            goto_next_start = {
-                ["]f"] = "@function.outer",
-                ["]c"] = "@class.outer",
+        auto_install = false,
+
+        highlight = {
+            enable = true,
+        },
+
+        indent = {
+            enable = true,
+        },
+
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                }
             },
-            goto_next_end = {
-                ["]F"] = "@function.outer",
-                ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-                ["[f"] = "@function.outer",
-                ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-                ["[F"] = "@function.outer",
-                ["[C"] = "@class.outer",
+            move = {
+                enable = true,
+                set_jumps = true,
+                goto_next_start = {
+                    ["]f"] = "@function.outer",
+                    ["]c"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]F"] = "@function.outer",
+                    ["]C"] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[f"] = "@function.outer",
+                    ["[c"] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[F"] = "@function.outer",
+                    ["[C"] = "@class.outer",
+                },
             },
         },
-    },
-
-}
-
-function Plugin.config(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
+    })
 end
 
 return Plugin
