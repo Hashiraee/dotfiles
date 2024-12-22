@@ -26,7 +26,7 @@ vim.opt.splitright = true
 
 -- Scroll off
 vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8 -- Columns of context
+vim.opt.sidescrolloff = 8
 
 -- Highlight while searching
 vim.opt.incsearch = true
@@ -83,7 +83,6 @@ vim.opt.wildmode = "longest:full,full"
 -- -- Pop-up blend
 vim.opt.pumblend = 0
 vim.opt.winblend = 0
-
 
 -- Maximum entries in completion list.
 vim.opt.pumheight = 10

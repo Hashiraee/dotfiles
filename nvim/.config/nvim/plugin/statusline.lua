@@ -156,33 +156,37 @@ end
 
 
 local function lsp_progress()
-    -- local Lsp = vim.lsp.util.get_progress_messages()[1]
-    local Lsp = vim.lsp.status()[1]
-    if Lsp then
-        local msg = Lsp.message or ""
-        local percentage = Lsp.percentage or 0
-        local title = Lsp.title or ""
-        local spinners = {
-            "",
-            "",
-            "",
-        }
-        local success_icon = {
-            "",
-            "",
-            "",
-        }
-        local ms = vim.loop.hrtime() / 1000000
-        local frame = math.floor(ms / 120) % #spinners
-        if percentage >= 70 then
-            return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg,
-                percentage)
-        end
-
-        return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+    local Lsp = vim.lsp.status()
+    if not Lsp or Lsp == "" then
+        return ""
     end
 
-    return ""
+    -- Extract the percentage using pattern matching
+    local percentage = tonumber(string.match(Lsp, "(%d+)%%")) or 0
+
+    -- Extract the operation or title (optional customization)
+    local title = string.match(Lsp, ": ([^:]+)") or "Processing"
+
+    -- Spinner animation frames
+    local spinners = {
+        "", "", "",
+    }
+
+    -- Success icons
+    local success_icon = {
+        "", "", "",
+    }
+
+    -- Calculate the spinner frame based on time
+    local ms = vim.uv.hrtime() / 1000000
+    local frame = math.floor(ms / 120) % #spinners
+
+    -- Format the output based on the percentage
+    if percentage >= 50 then
+        return string.format(" %%<%s %s (%d%%%%) ", success_icon[frame + 1], title, percentage)
+    else
+        return string.format(" %%<%s %s (%d%%%%) ", spinners[frame + 1], title, percentage)
+    end
 end
 
 

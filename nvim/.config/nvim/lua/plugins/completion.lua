@@ -10,9 +10,6 @@ Plugin.dependencies = {
 
     -- Snippets
     { "L3MON4D3/LuaSnip" },
-
-    -- Autopairs
-    -- { "windwp/nvim-autopairs", config = true },
 }
 
 Plugin.event = "InsertEnter"
@@ -23,10 +20,6 @@ function Plugin.config()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
-    -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-    -- Autopairs settings
-    -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
         snippet = {

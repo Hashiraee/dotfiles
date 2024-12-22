@@ -1,7 +1,5 @@
 local Plugin = { "lewis6991/gitsigns.nvim" }
 
-Plugin.name = "gitsigns"
-
 function Plugin.config()
     local gitsigns = require("gitsigns")
     gitsigns.setup({
@@ -25,13 +23,13 @@ function Plugin.config()
             -- Actions
             vim.keymap.set("n", "<Leader>hs", gs.stage_hunk, opts)
             vim.keymap.set("n", "<Leader>hr", gs.reset_hunk, opts)
-            vim.keymap.set("v", "<Leader>hs", function() gs.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end, opts)
-            vim.keymap.set("v", "<Leader>hr", function() gs.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end, opts)
+            vim.keymap.set("v", "<Leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
+            vim.keymap.set("v", "<Leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, opts)
             vim.keymap.set("n", "<Leader>hS", gs.stage_buffer, opts)
             vim.keymap.set("n", "<Leader>hu", gs.undo_stage_hunk, opts)
             vim.keymap.set("n", "<Leader>hR", gs.reset_buffer, opts)
             vim.keymap.set("n", "<Leader>hp", gs.preview_hunk, opts)
-            vim.keymap.set("n", "<Leader>hb", function() gs.blame_line { full = true } end, opts)
+            vim.keymap.set("n", "<Leader>hb", function() gs.blame_line({ full = true }) end, opts)
             vim.keymap.set("n", "<Leader>tb", gs.toggle_current_line_blame, opts)
             vim.keymap.set("n", "<Leader>hd", gs.diffthis, opts)
             vim.keymap.set("n", "<Leader>hD", function() gs.diffthis("~") end, opts)
