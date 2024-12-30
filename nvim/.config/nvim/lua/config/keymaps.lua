@@ -59,13 +59,21 @@ vim.keymap.set("n", "[q", "<CMD>cprev<CR>zz", opts)
 vim.keymap.set("n", "gp", "`[v`]", opts)
 
 -- Toggle colorcolumn
-vim.keymap.set("n", "<Leader>oc",
-    function()
-        if vim.wo.colorcolumn == "" then
-            vim.wo.colorcolumn = "80"
-        else
-            vim.wo.colorcolumn = ""
-        end
-    end,
-    { noremap = true, silent = true, desc = "Toggle colorcolumn" }
-)
+local function toggle_colorcolumn()
+    if vim.wo.colorcolumn == "" then
+        vim.wo.colorcolumn = "80"
+    else
+        vim.wo.colorcolumn = ""
+    end
+end
+vim.keymap.set("n", "<Leader>oc", toggle_colorcolumn, opts)
+
+-- Toggle relative line numbers
+local function toggle_relative_ln()
+    if vim.wo.relativenumber == true then
+        vim.wo.relativenumber = false
+    else
+        vim.wo.relativenumber = true
+    end
+end
+vim.keymap.set("n", "<Leader>or", toggle_relative_ln, opts)

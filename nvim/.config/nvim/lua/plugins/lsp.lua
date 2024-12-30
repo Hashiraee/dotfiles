@@ -22,8 +22,9 @@ Plugin.dependencies = {
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
-                    "pyright",
+                    "basedpyright",
                     "ts_ls",
+                    "gopls",
                 },
                 automatic_installation = false
             })
@@ -172,12 +173,9 @@ Plugin.config = function()
         ["lua_ls"] = function()
             require("plugins.lsp.lua_ls")
         end,
-        ["pyright"] = function()
-            require("plugins.lsp.pyright")
+        ["basedpyright"] = function()
+            require("plugins.lsp.basedpyright")
         end,
-        -- ["pyright"] = function()
-        --     require("plugins.lsp.pyright")
-        -- end,
     })
 end
 

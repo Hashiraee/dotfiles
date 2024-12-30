@@ -6,6 +6,7 @@ Plugin.dependencies = {
 
 function Plugin.config()
     local treesitter = require("nvim-treesitter.configs")
+    ---@diagnostic disable-next-line: missing-fields
     treesitter.setup({
         ensure_installed = {
             "c",
@@ -16,6 +17,7 @@ function Plugin.config()
             "markdown",
             "markdown_inline",
             "regex",
+            "yaml",
             "bash",
             "python",
             "go",

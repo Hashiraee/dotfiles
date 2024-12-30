@@ -8,11 +8,15 @@ Plugin.dependencies = {
 
 function Plugin.config()
     require("telescope").setup({
-        defaults = {},
+        defaults = {
+            file_ignore_patterns = {
+                ".git/"
+            }
+        },
 
         pickers = {
             find_files = {
-                theme = "ivy"
+                theme = "ivy",
             },
 
             buffers = {
@@ -37,7 +41,7 @@ function Plugin.config()
             },
 
             live_grep = {
-                theme = "ivy"
+                theme = "ivy",
             },
         },
 

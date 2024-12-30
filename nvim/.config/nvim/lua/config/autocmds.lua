@@ -10,6 +10,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+-- Terminal options
+vim.api.nvim_create_autocmd("TermOpen", {
+    desc = "Terminal options",
+    group = group,
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.cmd("startinsert")
+    end,
+})
+
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = group,
