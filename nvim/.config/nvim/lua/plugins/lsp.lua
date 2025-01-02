@@ -25,6 +25,7 @@ Plugin.dependencies = {
                     "basedpyright",
                     "ts_ls",
                     "gopls",
+                    "terraformls",
                 },
                 automatic_installation = false
             })
@@ -176,6 +177,9 @@ Plugin.config = function()
         ["basedpyright"] = function()
             require("plugins.lsp.basedpyright")
         end,
+        ["terraformls"] = function()
+            require("plugins.lsp.terraformls")
+        end
     })
 end
 
