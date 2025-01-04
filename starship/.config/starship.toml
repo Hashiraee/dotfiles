@@ -92,7 +92,7 @@ format = 'on [Azure:\(($subscription)\)]($style) '
 [gcloud]
 disabled = false
 style = 'bold yellow'
-format = 'on [GCP:$account(@$domain)(\($project\))]($style) '
+format = 'on [GCP:(\($project\))]($style) '
 
 [aws]
 disabled = false
