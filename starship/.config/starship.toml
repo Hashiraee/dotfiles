@@ -26,9 +26,8 @@ $aws\
 $direnv\
 $env_var\
 $sudo\
-$cmd_duration\
-$line_break\
 $jobs\
+$line_break\
 $status\
 $container\
 $shell\
@@ -83,6 +82,12 @@ disabled = true
 [helm]
 disabled = true
 
+[jobs]
+symbol = '+'
+number_threshold = 2
+symbol_threshold = 1
+format ='[jobs:\($symbol$number\)]($style) '
+
 [azure]
 disabled = false
 symbol = '󰠅 '
@@ -93,6 +98,8 @@ format = 'on [Azure:\(($subscription)\)]($style) '
 disabled = false
 style = 'bold yellow'
 format = 'on [GCP:(\($project\))]($style) '
+[gcloud.project_aliases]
+default-446914 = 'default'
 
 [aws]
 disabled = false
