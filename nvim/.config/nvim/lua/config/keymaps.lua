@@ -16,6 +16,9 @@ vim.keymap.set({ "n", "v" }, "<Leader>w", "<C-w>", opts)
 -- Yank to system clipboard
 vim.keymap.set({ "n", "v" }, "<Leader>y", '"+y', { noremap = true, silent = false })
 
+-- Yank to system clipboard
+vim.keymap.set({ "n", "v" }, "<Leader>Y", '"+y$', { noremap = true, silent = false })
+
 -- Delete to system clipboard
 vim.keymap.set({ "n", "v" }, "<Leader>d", '"+d', { noremap = true, silent = false })
 
