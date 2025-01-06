@@ -45,7 +45,7 @@ truncation_length = 8
 
 [git_branch]
 disabled = false
-format = 'on [git:\($branch(:$remote_branch)\)]($style) '
+format = '[git:\($branch(:$remote_branch)\)]($style) '
 
 [docker_context]
 disabled = false
@@ -86,7 +86,8 @@ disabled = true
 symbol = '+'
 number_threshold = 2
 symbol_threshold = 1
-format ='[jobs:\($symbol$number\)]($style) '
+style = 'bold red'
+format ='running [jobs:\($symbol$number\)]($style) '
 
 [azure]
 disabled = false
@@ -104,4 +105,4 @@ default-446914 = 'default'
 [aws]
 disabled = false
 style = 'bold red'
-format = 'on [AWS:($profile )(\($region\) )]($style)'
+format = 'on [AWS:($profile )(\($region\) )]($style) '
