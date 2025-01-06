@@ -25,6 +25,7 @@ function Plugin.config()
             rust = true,
             markdown = true,
             yaml = true,
+            go = true,
             terraform = true,
             ["*"] = false,
         },
