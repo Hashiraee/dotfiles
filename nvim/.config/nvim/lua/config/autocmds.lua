@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Close certain filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
-    pattern = { "qf", "help", "man", "lspinfo", "nofile" },
+    pattern = { "qf", "help", "man", "lspinfo", "nofile", "netrw" },
     command = "nnoremap <buffer> q <CMD>quit<CR>"
 })
 

@@ -33,6 +33,12 @@ $container\
 $shell\
 $character"""
 
+[character]
+disabled = false
+format = '$symbol '
+success_symbol = '[\$](bold green)'
+error_symbol = '[\$](bold red)'
+
 [username]
 disabled = true
 show_always = true
@@ -65,7 +71,8 @@ disabled = true
 disabled = true
 
 [python]
-disabled = true
+disabled = false
+format = 'via [Python:\(${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
 
 [golang]
 disabled = true

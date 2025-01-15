@@ -115,7 +115,7 @@ vim.g.python3_host_prog="/usr/bin/python3"
 -- Netrw options
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 1
-vim.g.netrw_browse_split = 4
+vim.g.netrw_browse_split = 0
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 30
 
