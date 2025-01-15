@@ -12,9 +12,11 @@ function Plugin.config()
     })
 
     -- Keymaps
+    vim.keymap.set("n", "<C-a>", function() harpoon:list():add() end)
     vim.keymap.set("n", "<Leader>ha", function() harpoon:list():add() end)
-    vim.keymap.set("n", "<Leader>ho", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
     vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    vim.keymap.set("n", "<Leader>ho", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
     vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
     vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
