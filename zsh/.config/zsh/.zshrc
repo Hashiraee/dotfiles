@@ -34,27 +34,6 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ====================
-# Prompt Configuration
-# ====================
-# setopt prompt_subst
-#
-# # Define colors for prompt elements
-# local user_color="%{$fg[yellow]%}"
-# local host_color="%{$fg[green]%}"
-# local path_color="%{$fg[cyan]%}"
-# local branch_color="%{$fg[white]%}"
-# local reset_color="%{$fg[white]%}"
-#
-# # Git branch function for prompt
-# function git_branch_name() {
-#     branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-#     [[ -n $branch ]] && echo " git:($branch)"
-# }
-#
-# # Set the prompt
-# PROMPT='${user_color}%n@${host_color}%m ${path_color}%~${reset_color}$(git_branch_name)> '
-
-# ====================
 # Kubernetes Configuration
 # ====================
 source <(kubectl completion zsh)
@@ -93,7 +72,7 @@ alias la="eza -al"
 
 # Navigation and configuration
 alias sourcezsh="source ~/.zshrc"
-alias cnvim='cd ~/.dotfiles/nvim/.config/nvim'
+alias cnvim="cd ~/.dotfiles/nvim/.config/nvim"
 
 # ====================
 # Starship
