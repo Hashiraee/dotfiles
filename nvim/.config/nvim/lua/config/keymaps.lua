@@ -61,6 +61,9 @@ vim.keymap.set("n", "[q", "<CMD>cprev<CR>zz", opts)
 -- Highlight last copied text
 vim.keymap.set("n", "gp", "`[v`]", opts)
 
+-- Escape in terminal mode
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
+
 -- Toggle colorcolumn
 local function toggle_colorcolumn()
     if vim.wo.colorcolumn == "" then

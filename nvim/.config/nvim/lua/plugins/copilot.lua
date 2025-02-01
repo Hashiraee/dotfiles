@@ -27,6 +27,7 @@ function Plugin.config()
             yaml = true,
             go = true,
             terraform = true,
+            dockerfile = true,
             ["*"] = false,
         },
         suggestion = {
