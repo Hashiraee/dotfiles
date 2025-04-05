@@ -50,10 +50,6 @@ vim.keymap.set("n", "J", "mzJ`z", opts)
 vim.keymap.set("x", "J", ":m '>+1<CR>gv=gv", opts)
 vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", opts)
 
--- Switch between buffers
-vim.keymap.set("n", "[b", "<CMD>bprevious<CR>", opts)
-vim.keymap.set("n", "]b", "<CMD>bnext<CR>", opts)
-
 -- Going to next item on quickfixlist
 vim.keymap.set("n", "]q", "<CMD>cnext<CR>zz", opts)
 vim.keymap.set("n", "[q", "<CMD>cprev<CR>zz", opts)

@@ -36,28 +36,30 @@ Plugin.dependencies = {
 Plugin.event = { "BufReadPre", "BufNewFile" }
 
 Plugin.config = function()
-    -- Sings and Diagnostics settings
-    local function setup_signs()
-        local signs = {
-            { name = "DiagnosticSignError", text = "", texthl = "DiagnosticSignError" },
-            { name = "DiagnosticSignWarn", text = "", texthl = "DiagnosticSignWarn" },
-            { name = "DiagnosticSignHint", text = "", texthl = "DiagnosticSignHint" },
-            { name = "DiagnosticSignInfo", text = "", texthl = "DiagnosticSignInfo" },
-        }
-        for _, sign in ipairs(signs) do
-            vim.fn.sign_define(sign.name, {
-                texthl = sign.texthl,
-                text = sign.text,
-                numhl = "",
-            })
-        end
-    end
-
-    -- Setup diagnostic signs
-    setup_signs()
-
     -- Diagnostics settings
     vim.diagnostic.config({
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "",
+                [vim.diagnostic.severity.WARN] = "",
+                [vim.diagnostic.severity.HINT] = "",
+                [vim.diagnostic.severity.INFO] = "",
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+            },
+            linehl = {
+                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+            },
+        },
+
+        -- Virtual Text
         virtual_text = false,
 
         -- Diagnostic window style
@@ -73,20 +75,11 @@ Plugin.config = function()
         underline = false,
         update_in_insert = false,
         severity_sort = true,
+
+        jump = {
+            float = true,
+        }
     })
-
-    -- Hover settings
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover,
-        { border = "rounded" }
-    )
-
-    -- Signature help
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        { border = "rounded" }
-    )
-
 
     -- Keymaps configuration
     local function setup_keymaps(args)
@@ -96,7 +89,6 @@ Plugin.config = function()
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts)
         vim.keymap.set({ "n", "i" }, "<C-s>", vim.lsp.buf.signature_help, opts)
 
         -- Workspace management
@@ -105,9 +97,6 @@ Plugin.config = function()
 
         -- Code navigation and modification
         vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "grr", vim.lsp.buf.references, opts)
 
         -- Formatting
         vim.keymap.set("n", "<Leader>==", function()
@@ -115,15 +104,13 @@ Plugin.config = function()
         end, opts)
 
         -- Diagnostics
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
         vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, opts)
     end
 
     -- Document highlight setup
     local function setup_document_highlight(args, client)
-        if client.supports_method("textDocument/documentHighlight") then
+        if client:supports_method("textDocument/documentHighlight") then
             local group = vim.api.nvim_create_augroup("LspDocumentHighlight" .. args.buf, { clear = true })
 
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
