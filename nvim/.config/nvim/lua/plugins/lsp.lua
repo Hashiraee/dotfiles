@@ -174,8 +174,11 @@ Plugin.config = function()
         ["lua_ls"] = function()
             require("plugins.lsp.lua_ls")
         end,
-        ["basedpyright"] = function()
-            require("plugins.lsp.basedpyright")
+        -- ["basedpyright"] = function()
+        --     require("plugins.lsp.basedpyright")
+        -- end,
+        ["pyright"] = function()
+            require("plugins.lsp.pyright")
         end,
         ["terraformls"] = function()
             require("plugins.lsp.terraformls")
