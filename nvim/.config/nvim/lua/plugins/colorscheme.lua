@@ -5,6 +5,7 @@ local Themes = {
         priority = 1000,
         config = function()
             local rose_pine = require("rose-pine")
+            ---@diagnostic disable-next-line: missing-fields
             rose_pine.setup({
                 variant = "main",
                 extend_background_behind_borders = true,

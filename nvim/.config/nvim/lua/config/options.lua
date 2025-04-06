@@ -2,6 +2,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Add border
+vim.o.winborder = "rounded"
+
 -- Better terminal colors
 vim.opt.termguicolors = true
 
