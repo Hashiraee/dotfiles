@@ -52,10 +52,10 @@ Plugin.config = function()
                 [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
             },
             linehl = {
-                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+                -- [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                -- [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                -- [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                -- [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
             },
         },
 
