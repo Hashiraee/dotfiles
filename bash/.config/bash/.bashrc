@@ -166,7 +166,12 @@ complete -F __start_kubectl k
 # source <(flux completion bash)
 
 # Path modifications
-# export PATH="$HOME/.local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin"
+export PATH="/Users/hasanisraeli/.local/bin:\
+/opt/homebrew/bin:\
+/Users/hasanisraeli/.local/share/bob/nvim-bin:\
+$PYENV_ROOT/bin:\
+$HOME/go/bin:\
+$PATH"
 
 # Editor
 export EDITOR=nvim
