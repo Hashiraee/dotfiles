@@ -1,176 +1,177 @@
-local Plugin = { "neovim/nvim-lspconfig" }
-
-Plugin.dependencies = {
-    {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-            library = {
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            },
-        },
-    },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "williamboman/mason-lspconfig.nvim", lazy = true },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup({
-                ui = { border = "none" }
-            })
-
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "lua_ls",
-                    "basedpyright",
-                    "ts_ls",
-                    "gopls",
-                    "terraformls",
-                },
-                automatic_installation = false
-            })
-        end
-    },
+local diagnostic_icons = {
+    ERROR = "",
+    WARN = "",
+    HINT = "",
+    INFO = "",
 }
 
-Plugin.event = { "BufReadPre", "BufNewFile" }
+local methods = vim.lsp.protocol.Methods
 
-Plugin.config = function()
-    -- Diagnostics settings
-    vim.diagnostic.config({
-        signs = {
-            text = {
-                [vim.diagnostic.severity.ERROR] = "",
-                [vim.diagnostic.severity.WARN] = "",
-                [vim.diagnostic.severity.HINT] = "",
-                [vim.diagnostic.severity.INFO] = "",
-            },
-            numhl = {
-                [vim.diagnostic.severity.ERROR] = "DiagnosticSignWarn",
-                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-            },
-            linehl = {
-                -- [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-                -- [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-                -- [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-                -- [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-            },
-        },
+local Plugin = {}
 
-        -- Virtual Text
-        virtual_text = false,
+local function on_attach(client, bufnr)
+    local opts = { buffer = bufnr, noremap = true, silent = true }
 
-        -- Diagnostic window style
-        float = {
-            focusable = true,
-            style = "minimal",
-            border = "rounded",
-            source = true,
-            header = "",
-            prefix = "",
-        },
+    -- Navigation keymaps from old config
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set({ "n", "i" }, "<C-s>", vim.lsp.buf.signature_help, opts)
 
-        underline = false,
-        update_in_insert = false,
-        severity_sort = true,
+    -- Workspace management
+    vim.keymap.set("n", "<Leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set("n", "<Leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
 
-        jump = {
-            float = true,
-        }
-    })
+    -- Code navigation and modification
+    vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts)
 
-    -- Keymaps configuration
-    local function setup_keymaps(args)
-        local opts = { buffer = args.buf, noremap = true, silent = true }
+    -- Formatting
+    vim.keymap.set("n", "<Leader>==", function()
+        vim.lsp.buf.format { async = true }
+    end, opts)
 
-        -- Navigation
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set({ "n", "i" }, "<C-s>", vim.lsp.buf.signature_help, opts)
+    -- Diagnostics navigation from new config
+    vim.keymap.set('n', '[d', function()
+        vim.diagnostic.jump { count = -1 }
+    end, opts)
+    vim.keymap.set('n', ']d', function()
+        vim.diagnostic.jump { count = 1 }
+    end, opts)
+    vim.keymap.set('n', '[e', function()
+        vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR }
+    end, opts)
+    vim.keymap.set('n', ']e', function()
+        vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
+    end, opts)
 
-        -- Workspace management
-        vim.keymap.set("n", "<Leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set("n", "<Leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+    -- Diagnostics lists
+    vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
+    vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, opts)
 
-        -- Code navigation and modification
-        vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts)
-
-        -- Formatting
-        vim.keymap.set("n", "<Leader>==", function()
-            vim.lsp.buf.format { async = true }
-        end, opts)
-
-        -- Diagnostics
-        vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)
-        vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, opts)
+    if client:supports_method(methods.textDocument_documentHighlight) then
+        local under_cursor_highlights_group =
+            vim.api.nvim_create_augroup('Hashiraee/cursor_highlights', { clear = false })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
+            group = under_cursor_highlights_group,
+            desc = 'Highlight references under the cursor',
+            buffer = bufnr,
+            callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter', 'BufLeave' }, {
+            group = under_cursor_highlights_group,
+            desc = 'Clear highlight references',
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+        })
     end
-
-    -- Document highlight setup
-    local function setup_document_highlight(args, client)
-        if client:supports_method("textDocument/documentHighlight") then
-            local group = vim.api.nvim_create_augroup("LspDocumentHighlight" .. args.buf, { clear = true })
-
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                buffer = args.buf,
-                callback = vim.lsp.buf.document_highlight,
-                group = group,
-            })
-
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                buffer = args.buf,
-                callback = vim.lsp.buf.clear_references,
-                group = group,
-            })
-
-            vim.api.nvim_create_autocmd("BufDelete", {
-                buffer = args.buf,
-                callback = function() vim.api.nvim_clear_autocmds({ group = group }) end,
-            })
-        end
-    end
-
-    -- LSP attach configuration
-    vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if not client then return end
-
-            setup_keymaps(args)
-            setup_document_highlight(args, client)
-        end,
-    })
-
-    -- Configure LSP
-    local lspconfig = require("lspconfig")
-    local capabilities = vim.tbl_deep_extend(
-        "force",
-        lspconfig.util.default_config.capabilities,
-        require("cmp_nvim_lsp").default_capabilities()
-    )
-
-    -- Setup LSP servers
-    require("mason-lspconfig").setup_handlers({
-        function(server)
-            lspconfig[server].setup({
-                capabilities = capabilities,
-            })
-        end,
-        ["lua_ls"] = function()
-            require("plugins.lsp.lua_ls")
-        end,
-        -- ["basedpyright"] = function()
-        --     require("plugins.lsp.basedpyright")
-        -- end,
-        ["pyright"] = function()
-            require("plugins.lsp.pyright")
-        end,
-        ["terraformls"] = function()
-            require("plugins.lsp.terraformls")
-        end
-    })
 end
+
+-- Define the diagnostic signs using the old config's icons
+for severity, icon in pairs(diagnostic_icons) do
+    local hl = 'DiagnosticSign' .. severity:sub(1, 1) .. severity:sub(2):lower()
+    vim.fn.sign_define(hl, { text = icon, texthl = hl })
+end
+
+-- Diagnostic configuration from old config
+vim.diagnostic.config {
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = diagnostic_icons.ERROR,
+            [vim.diagnostic.severity.WARN] = diagnostic_icons.WARN,
+            [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
+            [vim.diagnostic.severity.INFO] = diagnostic_icons.INFO,
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = "DiagnosticSignWarn",
+            [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+        },
+        linehl = {},
+    },
+
+    -- Virtual Text - disabled as per old config
+    virtual_text = false,
+
+    -- Diagnostic window style from old config
+    float = {
+        focusable = true,
+        style = "minimal",
+        border = "rounded",
+        source = true,
+        header = "",
+        prefix = "",
+    },
+
+    underline = false,
+    update_in_insert = false,
+    severity_sort = true,
+
+    jump = {
+        float = true,
+    }
+}
+
+local hover = vim.lsp.buf.hover
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.buf.hover = function()
+    return hover {
+        max_height = math.floor(vim.o.lines * 0.5),
+        max_width = math.floor(vim.o.columns * 0.4),
+        focusable = true,
+        border = "rounded",
+    }
+end
+
+local signature_help = vim.lsp.buf.signature_help
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.buf.signature_help = function()
+    return signature_help {
+        max_height = math.floor(vim.o.lines * 0.5),
+        max_width = math.floor(vim.o.columns * 0.4),
+        focusable = true,
+        border = "rounded",
+    }
+end
+
+-- Update mappings when registering dynamic capabilities.
+local register_capability = vim.lsp.handlers[methods.client_registerCapability]
+vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+
+    if not client then
+        return
+    end
+
+    on_attach(client, vim.api.nvim_get_current_buf())
+
+    return register_capability(err, res, ctx)
+end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'Configure LSP keymaps',
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if not client then
+            return
+        end
+
+        on_attach(client, args.buf)
+    end,
+})
+
+-- Set up LSP servers.
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+    once = true,
+    callback = function()
+        local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
+            :map(function(file)
+                return vim.fn.fnamemodify(file, ':t:r')
+            end)
+            :totable()
+        vim.lsp.enable(server_configs)
+    end,
+})
 
 return Plugin

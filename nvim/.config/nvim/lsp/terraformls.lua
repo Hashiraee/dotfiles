@@ -1,8 +1,10 @@
-local lspconfig = require("lspconfig")
+-- Install with: brew install terraform-ls
 
-lspconfig.terraformls.setup({
-    filetypes = { "terraform", "tf", "terraform-vars" },
+---@type vim.lsp.Config
+return {
     cmd = { "terraform-ls", "serve" },
+    filetypes = { "terraform", "tf", "tfvars", "terraform-vars" },
+    root_markers = { '.git/', '.terraform' },
     settings = {
         terraform = {
             -- Enable terraform.workspace support
@@ -14,14 +16,6 @@ lspconfig.terraformls.setup({
                 enable = true,
                 formatOnSave = true,
             },
-        }
-    }
-})
-
--- Automatically format .tf and .tfvars files on save
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*.tf", "*.tfvars" },
-    callback = function()
-        vim.lsp.buf.format()
-    end,
-})
+        },
+    },
+}

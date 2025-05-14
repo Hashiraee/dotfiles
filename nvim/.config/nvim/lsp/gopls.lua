@@ -1,6 +1,10 @@
-local lspconfig = require("lspconfig")
+-- Install with go
 
-lspconfig.gopls.setup({
+---@type vim.lsp.Config
+return {
+    cmd = { 'gopls' },
+    filetypes = { 'go', 'gomod' },
+    root_markers = {'go.mod', '.git' },
     settings = {
         gopls = {
             analyses = {
@@ -9,4 +13,4 @@ lspconfig.gopls.setup({
             },
         },
     },
-})
+}

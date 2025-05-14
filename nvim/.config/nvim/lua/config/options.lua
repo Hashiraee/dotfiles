@@ -135,5 +135,8 @@ vim.opt.winminwidth = 5
 -- No tilde symbols
 vim.opt.fillchars = { eob = " " }
 
+-- Disable cursor blinking in terminal mode
+vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-TermCursor'
+
 -- Extend path
 vim.opt.path:append("**")
