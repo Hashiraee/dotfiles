@@ -24,6 +24,7 @@ function Plugin.config()
             "rust",
             "javascript",
             "typescript",
+            "bicep",
         },
 
         auto_install = false,
