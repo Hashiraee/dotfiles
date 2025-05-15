@@ -1,5 +1,10 @@
 return {
-    cmd = { "dotnet", "--roll-forward-on-no-candidate-fx", "2", "/Users/HasanI/.local/bin/bicep-langserver/Bicep.LangServer.dll" },
+    cmd = {
+        "dotnet",
+        "--roll-forward-on-no-candidate-fx",
+        "2",
+        vim.fs.normalize("~/.local/bin/bicep-langserver/Bicep.LangServer.dll")
+    },
     filetypes = { 'bicep' },
     root_markers = { 'main.bicep', '.git' },
     settings = {
