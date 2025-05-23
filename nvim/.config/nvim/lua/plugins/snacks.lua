@@ -68,6 +68,9 @@ function Plugin.config()
     vim.keymap.set("n", "<Leader>fc", function()
         snacks.picker.files(vim.tbl_extend("force", { cwd = vim.fn.stdpath("config") }, scroll_opts))
     end)
+    vim.keymap.set("n", "<Leader>fd", function()
+        snacks.picker.files(vim.tbl_extend("force", { cwd = vim.fs.normalize("~/Downloads") }, scroll_opts))
+    end)
     vim.keymap.set("n", "<leader>fg", function() snacks.picker.git_files() end)
 
     -- Fuzzy Grep Finder
@@ -88,6 +91,7 @@ function Plugin.config()
     vim.keymap.set("n", "<leader>gl", function() snacks.picker.git_log() end)
     vim.keymap.set("n", "<leader>gs", function() snacks.picker.git_status() end)
     vim.keymap.set("n", "<leader>gd", function() snacks.picker.git_diff() end)
+    vim.keymap.set("n", "<leader>go", function() snacks.gitbrowse() end)
 
     -- LSP Picker
     vim.keymap.set("n", "<leader>ss", function() snacks.picker.lsp_symbols() end)

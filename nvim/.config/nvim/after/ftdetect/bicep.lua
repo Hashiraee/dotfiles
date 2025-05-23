@@ -1,9 +1,10 @@
 vim.filetype.add({
     extension = {
-        bicep = "bicep",
+        bicep = 'bicep',
+        bicepparam = 'bicep',
     },
     pattern = {
-        -- Detect bicep files
-        [".*%.bicep$"] = "bicep",
-    }
+        ['.*%.bicep$'] = 'bicep',
+        ['.*%.bicepparam$'] = 'bicep',
+    },
 })
