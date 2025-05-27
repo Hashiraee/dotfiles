@@ -24,6 +24,8 @@ function Plugin.config()
             "rust",
             "javascript",
             "typescript",
+            "terraform",
+            "hcl",
             "bicep",
         },
 
