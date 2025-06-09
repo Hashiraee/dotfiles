@@ -54,8 +54,8 @@ vim.keymap.set("x", "K", ":m '<-2<CR>gv=gv", opts)
 vim.keymap.set("n", "]q", "<CMD>cnext<CR>zz", opts)
 vim.keymap.set("n", "[q", "<CMD>cprev<CR>zz", opts)
 
--- Highlight last copied text
-vim.keymap.set("n", "gp", "`[v`]", opts)
+-- Visually select last pasted
+vim.keymap.set("n", "gV", "`[v`]", opts)
 
 -- Escape in terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
