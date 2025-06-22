@@ -5,6 +5,19 @@
 # Check window size after each command
 shopt -s checkwinsize
 
+# Enable extended pattern matching
+shopt -s extglob
+
+# Show all matches immediately on first Tab press
+bind 'set show-all-if-ambiguous on'
+
+# Optional: Show all matches without partial completion
+bind 'set show-all-if-unmodified on'
+
+# Don't cycle through options (disable menu-complete)
+bind 'TAB:complete'
+
+
 # ====================
 # History Configuration
 # ====================
@@ -43,9 +56,13 @@ alias egrep='egrep --color=auto'
 alias ll='eza -l'
 alias la='eza -al'
 alias vim='nvim'
-alias cnvim='cd ~/.config/nvim'
 alias k='kubectl'
 alias sourcebashrc='source ~/.bashrc'
+alias cnvim='cd ~/.config/nvim'
+alias cortecgpt='cd ~/Workspace/dev.azure.com/ORTEC-Scientific/ORTEC-GPT/ortecgpt'
+
+# Change Directory to root of Git project
+alias gcd='cd $(git rev-parse --show-toplevel)'
 
 # ====================
 # Functions
@@ -65,7 +82,7 @@ function tmux_attach() {
     fi
 }
 
-bind '"\C-p":"\C-utmux_attach\n"'
+bind '"\C-p":"\C-utmux_attach\n"' 2>/dev/null
 
 
 function dircopy() {
@@ -149,7 +166,7 @@ function workspace() {
 }
 
 # Bind Ctrl+O to the workspace function
-bind -x '"\C-o":"workspace"'
+bind -x '"\C-o":"workspace"' 2>/dev/null
 
 
 # ====================
@@ -157,24 +174,24 @@ bind -x '"\C-o":"workspace"'
 # ====================
 
 # FZF
+eval "$(fzf --bash)"
 
 # Kubectl
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 
 # FluxCD
-# source <(flux completion bash)
+source <(flux completion bash)
 
 # Path modifications
-export PATH="/Users/hasanisraeli/.local/bin:\
-/opt/homebrew/bin:\
-/Users/hasanisraeli/.local/share/bob/nvim-bin:\
-$PYENV_ROOT/bin:\
-$HOME/go/bin:\
-$PATH"
+export PATH="$HOME/.local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.rd/bin"
 
 # Editor
 export EDITOR=nvim
+
+# Docker
+export DOCKER_BUILDKIT=1
+
 
 # ====================
 # Prompt Theme
