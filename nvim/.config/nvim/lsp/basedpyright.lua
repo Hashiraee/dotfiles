@@ -1,6 +1,9 @@
-local lspconfig = require("lspconfig")
+-- Install with: brew install basedpyright
 
-lspconfig.basedpyright.setup({
+---@type vim.lsp.Config
+return {
+    cmd = { 'basedpyright-langserver', '--stdio' },
+    filetypes = { 'python' },
     settings = {
         basedpyright = {
             analysis = {
@@ -10,8 +13,8 @@ lspconfig.basedpyright.setup({
                 typeCheckingMode = "off",
                 autoImportCompletions = true,
                 reportMissingImports = true,
-                reportMissingTypeStubs = true,
+                reportMissingTypeStubs = false,
             }
         }
     }
-})
+}
