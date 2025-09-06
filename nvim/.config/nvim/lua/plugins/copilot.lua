@@ -5,8 +5,9 @@ Plugin.event = "InsertEnter"
 function Plugin.config()
     local copilot = require("copilot")
     copilot.setup({
+        copilot_model = "gpt-4o-copilot",
         panel = {
-            enabled = true,
+            enabled = false,
             auto_refresh = true,
             layout = {
                 position = "bottom",
@@ -54,7 +55,6 @@ function Plugin.config()
     end
 
     -- Copilot keymaps
-    vim.keymap.set("n", "<Leader>co", "<cmd>lua require('copilot.panel').open()<cr>")
     vim.keymap.set("n", "<Leader>ct", toggle_copilot_auto_trigger)
 end
 

@@ -7,11 +7,9 @@ return {
     root_markers = { '.git/', '.terraform' },
     settings = {
         terraform = {
-            -- Enable terraform.workspace support
             experimentalFeatures = {
                 validateOnSave = true,
             },
-            -- Format on save
             format = {
                 enable = true,
                 formatOnSave = true,
