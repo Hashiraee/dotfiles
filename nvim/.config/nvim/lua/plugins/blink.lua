@@ -6,7 +6,7 @@ Plugin.version = "1.*"
 
 Plugin.opts = {
     keymap = {
-        preset = "default",
+        preset = "enter",
         ['<C-d>'] = { 'scroll_documentation_down' , 'fallback' },
         ['<C-u>'] = { 'scroll_documentation_up' , 'fallback' },
     },
@@ -16,7 +16,12 @@ Plugin.opts = {
             auto_show = true
         },
         menu = {
-            scrollbar = false
+            scrollbar = false,
+        },
+        list = {
+            selection = {
+                preselect = false
+            },
         },
     },
 

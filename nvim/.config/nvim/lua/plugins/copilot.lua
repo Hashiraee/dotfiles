@@ -55,7 +55,7 @@ function Plugin.config()
     end
 
     -- Copilot keymaps
-    vim.keymap.set("n", "<Leader>ct", toggle_copilot_auto_trigger)
+    vim.keymap.set("n", "<C-a>", toggle_copilot_auto_trigger)
 end
 
 return Plugin
