@@ -4,10 +4,6 @@ Plugin.event = "InsertEnter"
 
 Plugin.version = "1.*"
 
-Plugin.dependencies = {
-    "folke/lazydev.nvim"
-}
-
 Plugin.opts = {
     keymap = {
         preset = "default"
@@ -23,10 +19,7 @@ Plugin.opts = {
     },
 
     sources = {
-        default = { "lsp", "path", "snippets", "lazydev" },
-        providers = {
-            lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        },
+        default = { "lsp", "path", "snippets" },
     },
 
     signature = {
