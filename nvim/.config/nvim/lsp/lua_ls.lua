@@ -5,8 +5,7 @@ return {
     settings = {
         Lua = {
             completion = { callSnippet = 'Replace' },
-            -- Using stylua for formatting.
-            -- format = { enable = false },
+            format = { enable = true },
             hint = {
                 enable = true,
                 arrayIndex = 'Disable',

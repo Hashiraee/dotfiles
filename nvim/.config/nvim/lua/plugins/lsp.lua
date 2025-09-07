@@ -1,3 +1,5 @@
+local Plugin = {}
+
 local diagnostic_icons = {
     ERROR = "",
     WARN = "",
@@ -6,8 +8,6 @@ local diagnostic_icons = {
 }
 
 local methods = vim.lsp.protocol.Methods
-
-local Plugin = {}
 
 local function on_attach(client, bufnr)
     local opts = { buffer = bufnr, noremap = true, silent = true }
