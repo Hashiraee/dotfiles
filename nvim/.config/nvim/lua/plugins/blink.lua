@@ -6,7 +6,9 @@ Plugin.version = "1.*"
 
 Plugin.opts = {
     keymap = {
-        preset = "default"
+        preset = "default",
+        ['<C-d>'] = { 'scroll_documentation_down' , 'fallback' },
+        ['<C-u>'] = { 'scroll_documentation_up' , 'fallback' },
     },
 
     completion = {
@@ -23,6 +25,10 @@ Plugin.opts = {
     },
 
     signature = {
+        enabled = true
+    },
+
+    cmdline = {
         enabled = false
     }
 }
