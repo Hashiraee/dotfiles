@@ -27,8 +27,9 @@ function Plugin.config()
             markdown = true,
             yaml = true,
             go = true,
-            terraform = true,
             dockerfile = true,
+            terraform = true,
+            bicep = true,
             ["*"] = false,
         },
         suggestion = {

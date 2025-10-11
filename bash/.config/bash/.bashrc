@@ -2,6 +2,9 @@
 # Basic Configuration
 # ====================
 
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Check window size after each command
 shopt -s checkwinsize
 
@@ -55,13 +58,15 @@ alias egrep='egrep --color=auto'
 # Common aliases
 alias ll='eza -l'
 alias la='eza -al'
+alias vi='nvim'
 alias vim='nvim'
 alias k='kubectl'
 alias sourcebashrc='source ~/.bashrc'
 alias cnvim='cd ~/.config/nvim'
-alias cortecgpt='cd ~/Workspace/dev.azure.com/ORTEC-Scientific/ORTEC-GPT/ortecgpt'
 
 # Change Directory to root of Git project
+alias gl='git --no-pager log --oneline --decorate --graph -n 32'
+alias glr='git --no-pager log --oneline --decorate --reverse'
 alias gcd='cd $(git rev-parse --show-toplevel)'
 
 # ====================
@@ -179,15 +184,19 @@ eval "$(fzf --bash)"
 # Kubectl
 source <(kubectl completion bash)
 complete -F __start_kubectl k
+export KUBECTL_EXTERNAL_DIFF="delta"
 
-# FluxCD
-source <(flux completion bash)
+# # FluxCD
+# source <(flux completion bash)
 
 # Path modifications
-export PATH="$HOME/.local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.rd/bin"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.rd/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # Editor
 export EDITOR=nvim
+export VISUAL=nvim
 
 # Docker
 export DOCKER_BUILDKIT=1
