@@ -2,23 +2,23 @@
 Snacks.nvim Configuration with Multiple Grep Search Support
 
 New Multiple Grep Features:
-  <leader>sm  - Multi-pattern grep (OR search)
+  <leader>sg  - Multi-pattern grep (OR search)
                 Prompts for comma or pipe-separated patterns
                 Example: "error, warning, failed" or "error|warning|failed"
                 Searches for files containing ANY of the patterns
 
-  <leader>sM  - Multi-grep with word under cursor
+  <leader>sG  - Multi-grep with word under cursor
                 Starts with the word under cursor and allows adding more patterns
                 Useful for quickly extending a search
 
-  <leader>sm  - Multi-grep with visual selection (visual mode)
+  <leader>sg  - Multi-grep with visual selection (visual mode)
                 Starts with the visually selected text and allows adding more patterns
                 Great for multi-line or complex pattern base
 
 Usage Examples:
-  1. Search for multiple log levels: <leader>sm then type "ERROR, WARN, FATAL"
-  2. Search for function variations: <leader>sm then type "handleClick|onClick|clickHandler"
-  3. Word under cursor + variants: Position cursor on "user", press <leader>sM, add ", admin, guest"
+  1. Search for multiple log levels: <leader>sg then type "ERROR, WARN, FATAL"
+  2. Search for function variations: <leader>sg then type "handleClick|onClick|clickHandler"
+  3. Word under cursor + variants: Position cursor on "user", press <leader>sG, add ", admin, guest"
 --]]
 
 local Plugin = { "folke/snacks.nvim" }
@@ -107,7 +107,6 @@ function Plugin.config()
     -- Fuzzy Grep Finder
     vim.keymap.set("n", "<leader>sc", function() snacks.picker.lines() end)
     vim.keymap.set("n", "<leader>sb", function() snacks.picker.grep_buffers() end)
-    vim.keymap.set("n", "<leader>sg", function() snacks.picker.grep() end)
     vim.keymap.set("n", "<leader>sw", function() snacks.picker.grep_word() end)
     vim.keymap.set("n", "<leader>su", function() snacks.picker.undo() end)
     vim.keymap.set("n", "<leader>sq", function() snacks.picker.qflist() end)
@@ -119,7 +118,7 @@ function Plugin.config()
 
     -- Multiple Grep Searches
     -- Search for multiple patterns (OR operation - matches ANY pattern)
-    vim.keymap.set("n", "<leader>sm", function()
+    vim.keymap.set("n", "<leader>sg", function()
         vim.ui.input({ prompt = "Grep patterns (comma or pipe separated): " }, function(input)
             if input and input ~= "" then
                 local patterns
@@ -145,7 +144,7 @@ function Plugin.config()
     end)
 
     -- Multi-grep starting with word under cursor
-    vim.keymap.set("n", "<leader>sM", function()
+    vim.keymap.set("n", "<leader>sG", function()
         local word = vim.fn.expand("<cword>")
         vim.ui.input({
             prompt = "Add patterns (comma separated, base: " .. word .. "): ",
@@ -175,7 +174,7 @@ function Plugin.config()
     end)
 
     -- Multi-grep with visual selection
-    vim.keymap.set("v", "<leader>sm", function()
+    vim.keymap.set("v", "<leader>sg", function()
         -- Get visual selection
         vim.cmd('noau normal! "vy"')
         local selection = vim.fn.getreg("v")
