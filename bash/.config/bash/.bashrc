@@ -1,95 +1,126 @@
-# ====================
-# Basic Configuration
-# ====================
+# =============================================================================
+# ~/.bashrc - Interactive shell configuration
+# =============================================================================
 
-# Homebrew
+# If not running interactively, don't do anything
+[[ -z $PS1 ]] && return
+# [[ $- != *i* ]] && return
+
+# =============================================================================
+# Homebrew (must be first - other tools depend on it)
+# =============================================================================
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Check window size after each command
-shopt -s checkwinsize
+# =============================================================================
+# PATH Configuration
+# =============================================================================
 
-# Enable extended pattern matching
-shopt -s extglob
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
-# Show all matches immediately on first Tab press
-bind 'set show-all-if-ambiguous on'
+# =============================================================================
+# Environment Variables
+# =============================================================================
 
-# Optional: Show all matches without partial completion
-bind 'set show-all-if-unmodified on'
+# Editor
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
 
-# Don't cycle through options (disable menu-complete)
-bind 'TAB:complete'
+# Docker
+export DOCKER_BUILDKIT=1
 
+# Kubectl
+export KUBECTL_EXTERNAL_DIFF="delta"
 
-# ====================
+# NVM
+export NVM_DIR="$HOME/.nvm"
+
+# Support colors in less
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_se=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_ue=$(tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 2)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+
+# =============================================================================
+# Shell Options
+# =============================================================================
+
+shopt -s checkwinsize   # Update LINES and COLUMNS after each command
+shopt -s extglob        # Extended pattern matching
+shopt -s globstar       # Recursive globbing with **
+shopt -s histappend     # Append to history, don't overwrite
+shopt -s cmdhist        # Store multi-line commands in one entry
+
+# =============================================================================
 # History Configuration
-# ====================
+# =============================================================================
 
-# Don't store duplicate lines or lines starting with space
-HISTCONTROL=ignoreboth:erasedups
-
-# Don't record some common commands
+HISTCONTROL=erasedups:ignorespace
 HISTIGNORE="ls:la:ll:clear:tmux_attach"
-
-# Large history size
-HISTSIZE=20000
-HISTFILESIZE=20000
+HISTSIZE=50000
+HISTFILESIZE=50000
 HISTFILE=~/.bash_history
 
-# History behavior settings
-shopt -s histappend
+# Sync history across sessions: append
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
-# Store multi-line commands in one history entry
-shopt -s cmdhist      
+# =============================================================================
+# Readline Configuration
+# =============================================================================
 
-# Immediately append commands to history and reload history after each command
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+bind 'set show-all-if-ambiguous on'
+bind 'set show-all-if-unmodified on'
+bind 'TAB:complete'
 
-# ====================
+# =============================================================================
 # Aliases
-# ====================
+# =============================================================================
 
-# Color support aliases
+# Colors
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Common aliases
+# Listing (eza)
 alias ll='eza -l'
 alias la='eza -al'
+
+# Editors
 alias vi='nvim'
 alias vim='nvim'
-alias k='kubectl'
-alias sourcebashrc='source ~/.bashrc'
-alias cnvim='cd ~/.config/nvim'
 
-# Change Directory to root of Git project
+# Git
 alias gl='git --no-pager log --oneline --decorate --graph -n 32'
 alias glr='git --no-pager log --oneline --decorate --reverse'
 alias gcd='cd $(git rev-parse --show-toplevel)'
 
-# ====================
+# Kubernetes
+alias k='kubectl'
+alias kz='kustomize build'
+
+# Quick access
+alias sourcebashrc='source ~/.bashrc'
+alias cnvim='cd ~/.config/nvim'
+
+# =============================================================================
 # Functions
-# ====================
+# =============================================================================
 
-function tmux_attach() {
-    if [[ -n "$TMUX" ]]; then
-        session=$(tmux list-sessions -F "#{session_name}" | fzf --exit-0 --reverse --header 'Select Session')
-        if [[ -n "$session" ]]; then
-            tmux switch-client -t "$session"
-        fi
-    else
-        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0 --reverse --header 'Select Session')
-        if [[ -n "$session" ]]; then
-            tmux attach -t "$session"
-        fi
-    fi
-}
-
-bind '"\C-p":"\C-utmux_attach\n"' 2>/dev/null
-
-
+# ------------------------------------
+# Copy directory contents as XML
+# ------------------------------------
 function dircopy() {
     local dir="${1:-.}"  # Use provided directory or current directory (.)
     local index=1
@@ -118,7 +149,26 @@ function dircopy() {
     echo "</documents>"
 }
 
+# ------------------------------------
+# Tmux session selector (Ctrl+P)
+# ------------------------------------
+function tmux_attach() {
+    if [[ -n "$TMUX" ]]; then
+        session=$(tmux list-sessions -F "#{session_name}" | fzf --exit-0 --reverse --header 'Select Session')
+        if [[ -n "$session" ]]; then
+            tmux switch-client -t "$session"
+        fi
+    else
+        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0 --reverse --header 'Select Session')
+        if [[ -n "$session" ]]; then
+            tmux attach -t "$session"
+        fi
+    fi
+}
 
+# ------------------------------------
+# Workspace session manager (Ctrl+O)
+# ------------------------------------
 function workspace() {
     function get_repos() {
         find ~/Workspace/dev.azure.com -mindepth 3 -maxdepth 3 -type d | sed 's|'"$HOME"'/Workspace/||'
@@ -170,40 +220,48 @@ function workspace() {
     fi
 }
 
-# Bind Ctrl+O to the workspace function
-bind -x '"\C-o":"workspace"' 2>/dev/null
+# =============================================================================
+# Tool Initializations
+# =============================================================================
 
-
-# ====================
-# External Tools & Path
-# ====================
+# NVM
+if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]]; then
+    source "/opt/homebrew/opt/nvm/nvm.sh"
+fi
 
 # FZF
 eval "$(fzf --bash)"
 
-# Kubectl
+# =============================================================================
+# Completions
+# =============================================================================
+
+# Homebrew managed completions
+if [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]]; then
+    source "/opt/homebrew/etc/profile.d/bash_completion.sh"
+fi
+
+# NVM
+if [[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ]]; then
+    source "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+# Kubectl (with alias support)
 source <(kubectl completion bash)
 complete -F __start_kubectl k
-export KUBECTL_EXTERNAL_DIFF="delta"
 
-# # FluxCD
-# source <(flux completion bash)
+# FluxCD
+source <(flux completion bash)
 
-# Path modifications
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.rd/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
+# =============================================================================
+# Key Bindings
+# =============================================================================
 
-# Editor
-export EDITOR=nvim
-export VISUAL=nvim
+bind '"\C-p":"\C-utmux_attach\n"' 2>/dev/null
+bind -x '"\C-o":"workspace"' 2>/dev/null
 
-# Docker
-export DOCKER_BUILDKIT=1
-
-
-# ====================
-# Prompt Theme
-# ====================
+# =============================================================================
+# Prompt
+# =============================================================================
 
 eval "$(starship init bash)"
