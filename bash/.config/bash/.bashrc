@@ -4,7 +4,6 @@
 
 # If not running interactively, don't do anything
 [[ -z $PS1 ]] && return
-# [[ $- != *i* ]] && return
 
 # =============================================================================
 # Homebrew (must be first - other tools depend on it)
@@ -22,6 +21,11 @@ export PATH="$HOME/go/bin:$PATH"
 # =============================================================================
 # Environment Variables
 # =============================================================================
+
+# Locale
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 
 # Editor
 export EDITOR='nvim'
@@ -96,6 +100,7 @@ alias egrep='egrep --color=auto'
 # Listing (eza)
 alias ll='eza -l'
 alias la='eza -al'
+alias tree='eza -T'
 
 # Editors
 alias vi='nvim'
@@ -108,10 +113,8 @@ alias gcd='cd $(git rev-parse --show-toplevel)'
 
 # Kubernetes
 alias k='kubectl'
-alias kz='kustomize build'
 
 # Quick access
-alias sourcebashrc='source ~/.bashrc'
 alias cnvim='cd ~/.config/nvim'
 
 # =============================================================================
@@ -121,7 +124,7 @@ alias cnvim='cd ~/.config/nvim'
 # ------------------------------------
 # Copy directory contents as XML
 # ------------------------------------
-function dircopy() {
+dircopy() {
     local dir="${1:-.}"  # Use provided directory or current directory (.)
     local index=1
     
@@ -152,7 +155,7 @@ function dircopy() {
 # ------------------------------------
 # Tmux session selector (Ctrl+P)
 # ------------------------------------
-function tmux_attach() {
+tmux_attach() {
     if [[ -n "$TMUX" ]]; then
         session=$(tmux list-sessions -F "#{session_name}" | fzf --exit-0 --reverse --header 'Select Session')
         if [[ -n "$session" ]]; then
@@ -169,13 +172,13 @@ function tmux_attach() {
 # ------------------------------------
 # Workspace session manager (Ctrl+O)
 # ------------------------------------
-function workspace() {
-    function get_repos() {
+workspace() {
+    get_repos() {
         find ~/Workspace/dev.azure.com -mindepth 3 -maxdepth 3 -type d | sed 's|'"$HOME"'/Workspace/||'
         find ~/Workspace/github.com -mindepth 2 -maxdepth 2 -type d | sed 's|'"$HOME"'/Workspace/||'
     }
 
-    function create_or_switch_session() {
+    create_or_switch_session() {
         local repo_path="$1"
         
         # Custom session naming based on the path
