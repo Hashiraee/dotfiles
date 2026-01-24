@@ -79,6 +79,10 @@ function Plugin.config()
     vim.keymap.set("n", "<Leader>fd", function()
         snacks.picker.files(vim.tbl_extend("force", { cwd = vim.fs.normalize("~/Downloads") }, scroll_opts))
     end)
+    -- Fuzzy Finder: Documents
+    vim.keymap.set("n", "<Leader>fu", function()
+        snacks.picker.files(vim.tbl_extend("force", { cwd = vim.fs.normalize("~/Documents") }, scroll_opts))
+    end)
     vim.keymap.set("n", "<leader>fg", function() snacks.picker.git_files() end)
 
     -- Fuzzy Grep Finder
