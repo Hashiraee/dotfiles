@@ -5,7 +5,7 @@ Plugin.event = "InsertEnter"
 function Plugin.config()
     local copilot = require("copilot")
     copilot.setup({
-        copilot_model = "gpt-4o-copilot",
+        copilot_model = "gpt-41-copilot",
         panel = {
             enabled = false,
             auto_refresh = true,

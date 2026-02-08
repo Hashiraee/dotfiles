@@ -200,12 +200,12 @@ workspace() {
                 tmux attach-session -t "$session_name"
             fi
         else
-            # Session doesn't exist - create new one with 4 windows
+            # Session doesn't exist - create new one with 3 windows
             tmux new-session -d -s "$session_name" -c "$HOME/workspace/$repo_path"
-            for i in {2..4}; do
+            for i in {2..3}; do
                 tmux new-window -t "$session_name" -c "$HOME/workspace/$repo_path"
             done
-            tmux select-window -t "$session_name:1"
+            tmux select-window -t "$session_name:2"
             
             if [[ -n "$TMUX" ]]; then
                 tmux switch-client -t "$session_name"
