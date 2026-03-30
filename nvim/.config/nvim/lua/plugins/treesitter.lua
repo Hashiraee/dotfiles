@@ -1,76 +1,45 @@
-local Plugin = { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }
-
-Plugin.dependencies = {
-    { "nvim-treesitter/nvim-treesitter-textobjects" }
+-- Highlight, edit, and navigate code.
+local Plugin = {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
+    lazy = false,
+    dependencies = {
+        {
+            "nvim-treesitter/nvim-treesitter-context",
+            opts = {
+                max_lines = 3,
+                multiline_threshold = 1,
+                min_window_height = 20,
+            },
+        },
+    },
 }
 
-function Plugin.config()
-    local treesitter = require("nvim-treesitter.configs")
-    ---@diagnostic disable-next-line: missing-fields
-    treesitter.setup({
-        ensure_installed = {
-            "c",
-            "lua",
-            "vim",
-            "vimdoc",
-            "query",
-            "markdown",
-            "markdown_inline",
-            "regex",
-            "yaml",
-            "bash",
-            "python",
-            "go",
-            "rust",
-            "javascript",
-            "typescript",
-            "terraform",
-            "hcl",
-            "bicep",
-        },
+function Plugin.config(_, opts)
+    require("nvim-treesitter").setup(opts)
 
-        auto_install = false,
-
-        highlight = {
-            enable = true,
-        },
-
-        indent = {
-            enable = true,
-        },
-
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
-                }
-            },
-            move = {
-                enable = true,
-                set_jumps = true,
-                goto_next_start = {
-                    ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer",
-                },
-                goto_next_end = {
-                    ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer",
-                },
-                goto_previous_start = {
-                    ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer",
-                },
-                goto_previous_end = {
-                    ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer",
-                },
-            },
-        },
+    -- Make sure that the following are installed:
+    require("nvim-treesitter").install({
+        "bash",
+        "bicep",
+        "c_sharp",
+        "c",
+        "go",
+        "hcl",
+        "javascript",
+        "lua",
+        "markdown_inline",
+        "markdown",
+        "python",
+        "query",
+        "regex",
+        "rust",
+        "terraform",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
     })
 end
 

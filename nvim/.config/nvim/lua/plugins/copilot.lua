@@ -30,6 +30,7 @@ function Plugin.config()
             dockerfile = true,
             terraform = true,
             bicep = true,
+            cs = true,
             ["*"] = false,
         },
         suggestion = {
