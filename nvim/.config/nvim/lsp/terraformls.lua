@@ -3,8 +3,7 @@
 ---@type vim.lsp.Config
 return {
     cmd = { "terraform-ls", "serve" },
-    filetypes = { "terraform", "tf", "tfvars", "terraform-vars" },
-    root_markers = { '.git/', '.terraform' },
+    root_markers = { '.terraform', '.git/' },
     settings = {
         terraform = {
             experimentalFeatures = {
