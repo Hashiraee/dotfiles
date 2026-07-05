@@ -9,3 +9,6 @@ vim.api.nvim_create_user_command("WQ", ":wq", {})
 
 -- Map :Wq to :wq
 vim.api.nvim_create_user_command("Wq", ":wq", {})
+
+-- Map :Bd to :bd
+vim.api.nvim_create_user_command("Bd", ":bd", {})
