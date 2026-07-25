@@ -10,7 +10,6 @@
 # =============================================================================
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # =============================================================================
 # PATH Configuration
 # =============================================================================
@@ -101,18 +100,22 @@ alias egrep='egrep --color=auto'
 alias ll='eza -l'
 alias la='eza -al'
 alias tree='eza -T'
+alias gtree='eza --git-ignore -T'
+alias cat='bat'
 
 # Editors
 alias vi='nvim'
 alias vim='nvim'
 
 # Git
+alias gs='git status'
 alias gl='git --no-pager log --oneline --decorate --graph -n 32'
 alias glr='git --no-pager log --oneline --decorate --reverse'
 alias gcd='cd $(git rev-parse --show-toplevel)'
 
 # Kubernetes
 alias k='kubectl'
+alias kb='kustomize build .'
 
 # Quick access
 alias cnvim='cd ~/.config/nvim'
@@ -221,6 +224,59 @@ workspace() {
     if [[ -n "$selected_repo" ]]; then
         create_or_switch_session "$selected_repo"
     fi
+}
+
+# ------------------------------------
+# Cloud credential loaders
+# ------------------------------------
+bedrock() {
+    local region="${1:-eu}"
+
+    local credentials
+    credentials=$(pass "aws/region-${region}" 2>/dev/null) || {
+        echo "No credentials found for profile: $region" >&2
+        return 1
+    }
+
+    export CLAUDE_CODE_USE_BEDROCK=1
+    export AWS_DEFAULT_REGION=$(jq -r '.region' <<< "$credentials")
+    export AWS_ACCESS_KEY_ID=$(jq -r '.access_key' <<< "$credentials")
+    export AWS_SECRET_ACCESS_KEY=$(jq -r '.secret_key' <<< "$credentials")
+    export ANTHROPIC_DEFAULT_HAIKU_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
+    export ANTHROPIC_SMALL_FAST_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
+    export ANTHROPIC_MODEL="global.anthropic.claude-fable-5[1m]"
+}
+
+azure() {
+    local instance="${1:-foundry}"
+
+    local credentials
+    credentials=$(pass "azure/${instance}" 2>/dev/null) || {
+        echo "No credentials found for instance: $instance" >&2
+        return 1
+    }
+
+    export AZURE_OPENAI_BASE_URL=$(jq -r '.AZURE_OPENAI_BASE_URL' <<< "$credentials")
+    export AZURE_OPENAI_ENDPOINT=$(jq -r '.AZURE_OPENAI_ENDPOINT' <<< "$credentials")
+    export AZURE_OPENAI_API_KEY=$(jq -r '.AZURE_OPENAI_API_KEY' <<< "$credentials")
+}
+
+anthropic() {
+    local instance="${1:-claude}"
+
+    local credentials
+    credentials=$(pass "azure/${instance}" 2>/dev/null) || {
+        echo "No credentials found for instance: $instance" >&2
+        return 1
+    }
+
+    export CLAUDE_CODE_USE_FOUNDRY=1
+    export ANTHROPIC_FOUNDRY_BASE_URL=$(jq -r '.ANTHROPIC_FOUNDRY_BASE_URL' <<< "$credentials")
+    export ANTHROPIC_FOUNDRY_API_KEY=$(jq -r '.ANTHROPIC_FOUNDRY_API_KEY' <<< "$credentials")
+    export ANTHROPIC_SMALL_FAST_MODEL='claude-haiku-4-5'
+    export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'
+    export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-5'
+    export ANTHROPIC_MODEL="claude-fable-5[1m]"
 }
 
 # =============================================================================
