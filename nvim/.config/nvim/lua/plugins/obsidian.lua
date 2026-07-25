@@ -2,13 +2,16 @@ local Plugin = { "obsidian-nvim/obsidian.nvim" }
 
 Plugin.dependencies = {
     { "nvim-lua/plenary.nvim" },
-    { "MeanderingProgrammer/render-markdown.nvim" },
+    -- { "MeanderingProgrammer/render-markdown.nvim" },
 }
 
 Plugin.lazy = false
 
 Plugin.opts = {
     legacy_commands = false,
+    ui = {
+        enable = false,
+    },
     workspaces = {
         {
             name = "notes",

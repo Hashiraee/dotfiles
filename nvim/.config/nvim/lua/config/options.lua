@@ -7,7 +7,7 @@ vim.o.winborder = "rounded"
 
 -- Better terminal colors
 vim.o.termguicolors = true
-vim.o.conceallevel = 2
+vim.o.conceallevel = 0
 
 -- Tab expands to spaces
 vim.o.expandtab = true

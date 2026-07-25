@@ -4,6 +4,9 @@
 return {
     cmd = { "terraform-ls", "serve" },
     root_markers = { '.terraform', '.git/' },
+    init_options = {
+        ignoreSingleFileWarning = true,
+    },
     settings = {
         terraform = {
             experimentalFeatures = {
