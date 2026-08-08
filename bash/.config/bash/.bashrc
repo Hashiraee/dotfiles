@@ -115,7 +115,7 @@ alias gcd='cd $(git rev-parse --show-toplevel)'
 
 # Kubernetes
 alias k='kubectl'
-alias kb='kustomize build .'
+alias kb='kustomize build'
 
 # Quick access
 alias cnvim='cd ~/.config/nvim'
@@ -123,6 +123,17 @@ alias cnvim='cd ~/.config/nvim'
 # =============================================================================
 # Functions
 # =============================================================================
+
+# ------------------------------------
+# Decode jwt tokens
+# ------------------------------------
+jwt() {
+  jq -R 'split(".")[0:2][]
+         | gsub("-";"+") | gsub("_";"/")
+         | @base64d | fromjson
+         | if .iat? then .iat_date = (.iat | todate) else . end
+         | if .exp? then .exp_date = (.exp | todate) else . end' <<< "${1:-$(cat)}"
+}
 
 # ------------------------------------
 # Copy directory contents as XML
@@ -229,42 +240,10 @@ workspace() {
 # ------------------------------------
 # Cloud credential loaders
 # ------------------------------------
-bedrock() {
-    local region="${1:-eu}"
-
-    local credentials
-    credentials=$(pass "aws/region-${region}" 2>/dev/null) || {
-        echo "No credentials found for profile: $region" >&2
-        return 1
-    }
-
-    export CLAUDE_CODE_USE_BEDROCK=1
-    export AWS_DEFAULT_REGION=$(jq -r '.region' <<< "$credentials")
-    export AWS_ACCESS_KEY_ID=$(jq -r '.access_key' <<< "$credentials")
-    export AWS_SECRET_ACCESS_KEY=$(jq -r '.secret_key' <<< "$credentials")
-    export ANTHROPIC_DEFAULT_HAIKU_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
-    export ANTHROPIC_SMALL_FAST_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
-    export ANTHROPIC_MODEL="global.anthropic.claude-fable-5[1m]"
-}
-
-azure() {
-    local instance="${1:-foundry}"
-
-    local credentials
-    credentials=$(pass "azure/${instance}" 2>/dev/null) || {
-        echo "No credentials found for instance: $instance" >&2
-        return 1
-    }
-
-    export AZURE_OPENAI_BASE_URL=$(jq -r '.AZURE_OPENAI_BASE_URL' <<< "$credentials")
-    export AZURE_OPENAI_ENDPOINT=$(jq -r '.AZURE_OPENAI_ENDPOINT' <<< "$credentials")
-    export AZURE_OPENAI_API_KEY=$(jq -r '.AZURE_OPENAI_API_KEY' <<< "$credentials")
-}
-
 anthropic() {
     local instance="${1:-claude}"
-
     local credentials
+
     credentials=$(pass "azure/${instance}" 2>/dev/null) || {
         echo "No credentials found for instance: $instance" >&2
         return 1
@@ -275,8 +254,43 @@ anthropic() {
     export ANTHROPIC_FOUNDRY_API_KEY=$(jq -r '.ANTHROPIC_FOUNDRY_API_KEY' <<< "$credentials")
     export ANTHROPIC_SMALL_FAST_MODEL='claude-haiku-4-5'
     export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'
-    export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-5'
+    export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-5[1m]'
+    export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-5[1m]'
     export ANTHROPIC_MODEL="claude-fable-5[1m]"
+}
+
+azure() {
+    local instance="${1:-foundry}"
+    local credentials
+
+    credentials=$(pass "azure/${instance}" 2>/dev/null) || {
+        echo "No credentials found for instance: $instance" >&2
+        return 1
+    }
+
+    export AZURE_OPENAI_BASE_URL=$(jq -r '.AZURE_OPENAI_BASE_URL' <<< "$credentials")
+    export AZURE_OPENAI_ENDPOINT=$(jq -r '.AZURE_OPENAI_ENDPOINT' <<< "$credentials")
+    export AZURE_OPENAI_API_KEY=$(jq -r '.AZURE_OPENAI_API_KEY' <<< "$credentials")
+}
+
+bedrock() {
+    local region="${1:-eu}"
+    local credentials
+
+    credentials=$(pass "aws/region-${region}" 2>/dev/null) || {
+        echo "No credentials found for profile: $region" >&2
+        return 1
+    }
+
+    export CLAUDE_CODE_USE_BEDROCK=1
+    export AWS_DEFAULT_REGION=$(jq -r '.region' <<< "$credentials")
+    export AWS_ACCESS_KEY_ID=$(jq -r '.access_key' <<< "$credentials")
+    export AWS_SECRET_ACCESS_KEY=$(jq -r '.secret_key' <<< "$credentials")
+    export ANTHROPIC_SMALL_FAST_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
+    export ANTHROPIC_DEFAULT_HAIKU_MODEL="${region}.anthropic.claude-haiku-4-5-20251001-v1:0"
+    export ANTHROPIC_DEFAULT_SONNET_MODEL="${region}.anthropic.claude-sonnet-5[1m]"
+    export ANTHROPIC_DEFAULT_OPUS_MODEL="${region}.anthropic.claude-opus-5[1m]"
+    export ANTHROPIC_MODEL="global.anthropic.claude-fable-5[1m]"
 }
 
 # =============================================================================
@@ -290,6 +304,23 @@ fi
 
 # FZF
 eval "$(fzf --bash)"
+
+# Large tmux popup (90% wide, 70% tall)
+export FZF_TMUX_OPTS="-p90%,70%"
+
+# Classic bottom-up layout, border, inherit terminal's ANSI colors
+export FZF_DEFAULT_OPTS="--layout=default --border --no-scrollbar"
+
+# fd as the finder
+export FZF_DEFAULT_COMMAND="fd --strip-cwd-prefix"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --strip-cwd-prefix"
+
+# Ctrl+T: always-visible file preview on the right
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}' --preview-window=right,50%"
+
+# Alt+C: plain directory list, no preview
+export FZF_ALT_C_OPTS="--no-preview"
 
 # =============================================================================
 # Completions
